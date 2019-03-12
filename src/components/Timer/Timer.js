@@ -10,6 +10,33 @@ export default class Timer extends Component {
 
   }
 
+  calculateAndRenderTimer = () => {
+    const currentTime = this.state.currentTime;
+
+    if (currentTime === 0) {
+      return "00:00";
+    }
+    else if (currentTime < 10 ) {
+      return "00:0" + currentTime;
+    }
+    else if (currentTime < 60 ) {
+      return "00:" + currentTime;
+    }
+    else if (currentTime < 600) {
+      const minutes = Math.floor(currentTime / 60);
+      const seconds = currentTime - (minutes * 60);
+
+      if (seconds < 60 && seconds > 10) {
+        return "0" + minutes + ":" + seconds;
+      }
+      else if (seconds < 10) {
+        return "0" + minutes + ":0" + seconds;
+      }
+
+      
+    }
+  }
+
   handleStartClick = () => {
     const timer = setInterval(() => {
       this.setState({
@@ -39,7 +66,7 @@ export default class Timer extends Component {
   render() {
     return (
       <div className="timer">
-        <div className="timer-counter">{this.state.currentTime}</div>
+        <div className="timer-counter">{this.calculateAndRenderTimer()}</div>
         <div className="timer-buttons">
             <div className="timer-button start" onClick={this.handleStartClick}>start</div>
             <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
