@@ -17,6 +17,8 @@ class App extends Component {
     return (
       <div className="App">
         <Timer />
+        <Timer />
+        <Timer />
       </div>
     );
   }
