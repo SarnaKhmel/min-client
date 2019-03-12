@@ -16,5 +16,11 @@
 
 .timer-counter {
     background-color: aliceblue;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.timer-button {
+    background-color: rgb(250, 189, 208);
     padding: 10px;
 }

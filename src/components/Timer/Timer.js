@@ -7,8 +7,8 @@ export default class Timer extends Component {
       <div className="timer">
         <div className="timer-counter">00:00</div>
         <div className="timer-buttons">
-            <div className="timer-start">start</div>
-            <div className="timer-stop">stop</div>
+            <div className="timer-button start">start</div>
+            <div className="timer-button stop">stop</div>
         </div>    
       </div>
     )
