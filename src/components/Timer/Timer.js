@@ -49,7 +49,7 @@ export default class Timer extends Component {
         currentTime: this.state.currentTime + 1
       })
     },
-    10);
+    1000);
 
     this.setState({
       intervalNum: timer
@@ -61,10 +61,10 @@ export default class Timer extends Component {
   }
 
   handleResetClick = () => {
+
     this.setState({
       currentTime: 0,
-      timerEnd: null,
-      intervalNum: null
+      timerEnd: null
     })
   }
 
