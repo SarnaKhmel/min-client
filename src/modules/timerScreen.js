@@ -1,17 +1,4 @@
-import React, { Component } from 'react';
-import './Timer.css';
-
-export default class Timer extends Component {
-
-  state = {
-    currentTime: 0,
-    timerEnd: null,
-    intervalNum: null
-
-  }
-
-  calculateAndRenderTimer = () => {
-    const currentTime = this.state.currentTime;
+export const calculateAndRenderTimer = (currentTime) => {
     
     const minutes = Math.floor(currentTime / 60);
     const seconds = currentTime - (minutes * 60);
@@ -77,44 +64,4 @@ export default class Timer extends Component {
       clearInterval(this.state.intervalNum);
       return "24:00:00"
     }
-  }
-
-  handleStartClick = () => {
-    const timer = setInterval(() => {
-      this.setState({
-        currentTime: this.state.currentTime + 1
-      })
-    },
-    1000);
-
-    this.setState({
-      intervalNum: timer
-    })
-  }
-
-  handleStopClick = () => {
-    clearInterval(this.state.intervalNum);
-  }
-
-  handleResetClick = () => {
-
-    this.setState({
-      currentTime: 0,
-      timerEnd: null
-    })
-  }
-
-
-  render() {
-    return (
-      <div className="timer">
-        <div className="timer-counter">{this.calculateAndRenderTimer()}</div>
-        <div className="timer-buttons">
-            <div className="timer-button start" onClick={this.handleStartClick}>start</div>
-            <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
-            <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
-        </div>    
-      </div>
-    )
-  }
-}
+  };
