@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.setTest("hello");
+  }
+
+
   render() {
+    console.log(this.props.test)
     return (
       <div className="App">
         <header className="App-header">
@@ -25,4 +34,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = function(state) {
+  return {
+    test: state.test
+  }
+}
+
+export default connect(mapStateToProps, actions)(App);

@@ -1,12 +1,9 @@
-const defaultState = {
-    test: ""
-};
 
-export default function test(defaultState, action) {
+export default function test(state = "", action) {
     switch (action.type) {
         case 'SET_TEST':
             return action.payload;
         default:
-            return defaultState;
+            return state;
     }
 }
