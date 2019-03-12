@@ -1,5 +1,13 @@
 .App {
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 1000px;
+}
+
+.timers-container {
+  display: flex;
   justify-content: space-around;
   min-width: 1000px;
 }
