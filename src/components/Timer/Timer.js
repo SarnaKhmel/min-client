@@ -16,29 +16,29 @@ export default class Timer extends Component {
     const seconds = currentTime - (minutes * 60);
 
     if (currentTime === 0) {
-      return "00:00";
+      return "00:00:00";
     }
     else if (currentTime < 10 ) {
-      return "00:0" + currentTime;
+      return "00:00:0" + currentTime;
     }
     else if (currentTime < 60 ) {
-      return "00:" + currentTime;
+      return "00:00:" + currentTime;
     }
     else if (currentTime < 600) {
 
       if (seconds < 60 && seconds >= 10) {
-        return "0" + minutes + ":" + seconds;
+        return "00:0" + minutes + ":" + seconds;
       }
       else if (seconds < 10) {
-        return "0" + minutes + ":0" + seconds;
+        return "00:0" + minutes + ":0" + seconds;
       }  
     }
     else if (currentTime < 3600) {
       if (seconds < 60 && seconds >= 10) {
-        return minutes + ":" + seconds;
+        return "00:" + minutes + ":" + seconds;
       }
       else if (seconds < 10) {
-        return minutes + ":0" + seconds;
+        return "00:" + minutes + ":0" + seconds;
       }  
     }
   }
