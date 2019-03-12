@@ -12,6 +12,8 @@ export default class Timer extends Component {
 
   calculateAndRenderTimer = () => {
     const currentTime = this.state.currentTime;
+    const minutes = Math.floor(currentTime / 60);
+    const seconds = currentTime - (minutes * 60);
 
     if (currentTime === 0) {
       return "00:00";
@@ -23,17 +25,21 @@ export default class Timer extends Component {
       return "00:" + currentTime;
     }
     else if (currentTime < 600) {
-      const minutes = Math.floor(currentTime / 60);
-      const seconds = currentTime - (minutes * 60);
 
-      if (seconds < 60 && seconds > 10) {
+      if (seconds < 60 && seconds >= 10) {
         return "0" + minutes + ":" + seconds;
       }
       else if (seconds < 10) {
         return "0" + minutes + ":0" + seconds;
+      }  
+    }
+    else if (currentTime < 3600) {
+      if (seconds < 60 && seconds >= 10) {
+        return minutes + ":" + seconds;
       }
-
-      
+      else if (seconds < 10) {
+        return minutes + ":0" + seconds;
+      }  
     }
   }
 
@@ -43,7 +49,7 @@ export default class Timer extends Component {
         currentTime: this.state.currentTime + 1
       })
     },
-    1000);
+    10);
 
     this.setState({
       intervalNum: timer
