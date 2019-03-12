@@ -12,6 +12,7 @@ export default class Timer extends Component {
 
   calculateAndRenderTimer = () => {
     const currentTime = this.state.currentTime;
+    
     const minutes = Math.floor(currentTime / 60);
     const seconds = currentTime - (minutes * 60);
 
@@ -41,6 +42,41 @@ export default class Timer extends Component {
         return "00:" + minutes + ":0" + seconds;
       }  
     }
+    else if ( currentTime < 86400) {
+      const hours = Math.floor(currentTime / 3600);
+      const hourMinutes = Math.floor((currentTime - (hours * 3600)) / 60);
+      const hourSeconds = currentTime - (hours * 3600) - (hourMinutes * 60);
+
+      if ( hours < 10 && hourMinutes < 10 && hourSeconds < 10) {
+        return "0" + hours + ":0" + hourMinutes + ":0" + hourSeconds;
+      }
+      else if (hours < 10 && hourMinutes < 10) {
+        return "0" + hours + ":0" + hourMinutes + ":" + hourSeconds;
+      }
+      else if (hours < 10) {
+        return "0" + hours + ":" + hourMinutes + ":" + hourSeconds;
+      }
+      else if (hourMinutes < 10 && hourSeconds < 10) {
+        return hours + ":0" + hourMinutes + ":0" + hourSeconds;
+      }
+      else if (hours < 10 && hourSeconds < 10) {
+        return "0" + hours + ":" + hourMinutes + ":0" + hourSeconds;
+      }
+      else if (hourMinutes < 10) {
+        return hours + ":0" + hourMinutes + ":" + hourSeconds;
+      }
+      else if (hourSeconds < 10) {
+        return hours + ":" + hourMinutes + ":0" + hourSeconds;
+      }
+      else {
+        return hours + ":" + hourMinutes + ":" + hourSeconds;
+      }
+
+    }
+    else { 
+      clearInterval(this.state.intervalNum);
+      return "24:00:00"
+    }
   }
 
   handleStartClick = () => {
@@ -49,7 +85,7 @@ export default class Timer extends Component {
         currentTime: this.state.currentTime + 1
       })
     },
-    1000);
+    .000000000000000000000000000001);
 
     this.setState({
       intervalNum: timer
