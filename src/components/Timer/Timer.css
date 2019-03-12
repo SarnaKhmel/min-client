@@ -11,7 +11,7 @@
 .timer-buttons {
     display: flex;
     justify-content: space-around;
-    width: 150px;
+    width: 180px;
 }
 
 .timer-counter {
@@ -23,4 +23,5 @@
 .timer-button {
     background-color: rgb(250, 189, 208);
     padding: 10px;
+    cursor: pointer;
 }

@@ -27,6 +27,14 @@ export default class Timer extends Component {
     clearInterval(this.state.intervalNum);
   }
 
+  handleResetClick = () => {
+    this.setState({
+      currentTime: 0,
+      timerEnd: null,
+      intervalNum: null
+    })
+  }
+
 
   render() {
     return (
@@ -35,6 +43,7 @@ export default class Timer extends Component {
         <div className="timer-buttons">
             <div className="timer-button start" onClick={this.handleStartClick}>start</div>
             <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
+            <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
         </div>    
       </div>
     )
