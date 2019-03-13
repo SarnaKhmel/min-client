@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Timer.css';
-import PickerWheel from '../PickerWheel/PickerWheel';
 
 export default class Timer extends Component {
 
@@ -8,10 +7,21 @@ export default class Timer extends Component {
     currentTime: 0,
     timerEnd: null,
     intervalNum: null,
+    timerRunning: false,
     timerHours: "00",
     timerMinutes: "00",
     timerSeconds: "00"
 
+  }
+
+  handleTimerEnd = () => {
+    if (this.state.timerRunning === true) {
+      console.log("end checker ran");
+      const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
+      if (this.state.currentTime >= timerLengthInteger) {
+        alert("Time's up!");
+      }
+    } 
   }
 
   calculateTimeIntegerFromInputLength = () => {
@@ -102,21 +112,38 @@ export default class Timer extends Component {
     }
   }
 
-  handleStartClick = () => {
-    const timer = setInterval(() => {
+  timerCallback = () => {
+    
+    const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
+    if (this.state.currentTime >= timerLengthInteger) {
+      alert("Time's up!");
+      this.handleStopClick();
+    }  else {
       this.setState({
         currentTime: this.state.currentTime + 1
       })
-    },
+    }
+    
+    
+  }
+
+  handleStartClick = () => {
+    const timer = setInterval(this.timerCallback,
     1000);
 
     this.setState({
-      intervalNum: timer
+      intervalNum: timer,
+      timerRunning: true
     })
+
+    
   }
 
   handleStopClick = () => {
     clearInterval(this.state.intervalNum);
+    this.setState({
+      timerRunning: false
+    })
   }
 
   handleResetClick = () => {
