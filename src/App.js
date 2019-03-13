@@ -7,15 +7,6 @@ import Timer from './components/Timer/Timer';
 
 class App extends Component {
 
-  componentDidMount() {
-    this.props.setTest("hello");
-  }
-
-  format = () => {
-    return 'h:mm a';
-  }
-
-
   render() {
     console.log(this.props.test)
     return (
