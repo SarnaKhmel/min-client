@@ -11,6 +11,10 @@ class App extends Component {
     this.props.setTest("hello");
   }
 
+  format = () => {
+    return 'h:mm a';
+  }
+
 
   render() {
     console.log(this.props.test)
@@ -21,8 +25,7 @@ class App extends Component {
           <Timer />
           <Timer />
           <Timer />
-        </div>
-        
+        </div>   
       </div>
     );
   }

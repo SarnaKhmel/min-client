@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Timer.css';
+import PickerWheel from '../PickerWheel/PickerWheel';
 
 export default class Timer extends Component {
 
@@ -109,6 +110,11 @@ export default class Timer extends Component {
     return (
       <div className="timer">
         <div className="timer-counter">{this.calculateAndRenderTimer()}</div>
+        <div className="length-input-wrapper">
+          <input className="length-input" type="text" name="hours" />
+          <input className="length-input" type="text" name="minutes" />
+          <input className="length-input" type="text" name="seconds" />
+        </div>
         <div className="timer-buttons">
             <div className="timer-button start" onClick={this.handleStartClick}>start</div>
             <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
