@@ -120,9 +120,18 @@ export default class Timer extends Component {
       <div className="timer">
         <div className="timer-counter">{this.calculateAndRenderTimer()}</div>
         <div className="length-input-wrapper">
-          <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange} name="timerHours" />
-          <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange} name="timerMinutes" />
-          <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange} name="timerSeconds" />
+          <label className="length-input-label">
+            hours:
+            <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange} name="timerHours" />
+          </label>
+          <label className="length-input-label">
+            minutes:
+            <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange} name="timerMinutes" />
+          </label>
+          <label className="length-input-label">
+            seconds:
+            <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange} name="timerSeconds" />
+          </label>
         </div>
         <div className="timer-buttons">
             <div className="timer-button start" onClick={this.handleStartClick}>start</div>
