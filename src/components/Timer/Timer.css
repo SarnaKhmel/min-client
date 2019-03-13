@@ -4,16 +4,18 @@
     align-items: center;
     justify-content: space-around;
     background-color: rgb(202, 220, 209);
-    width: 300px;
+    width: 330px;
     height: 250px;
     border-radius: 5px;
     padding: 10px;
+    margin: 10px;
+    box-shadow: 0px 5px 10px grey;
 }
 
 .timer-buttons {
     display: flex;
     justify-content: space-around;
-    width: 180px;
+    width: 240px;
     
 }
 
@@ -22,7 +24,7 @@
     justify-content: center;
     align-items: center;
     background-color: aliceblue;
-    font-size: 50px;
+    font-size: 35px;
     padding: 10px;
     width: 220px;
     height: 70px;
@@ -35,6 +37,7 @@
     justify-content: space-around;
     align-items: center;
     height: 130px;
+    width: 100%;
 }
 
 .timer-button {
@@ -53,7 +56,7 @@
 .length-input-wrapper {
     display: flex;
     justify-content: space-around;
-    width: 210px;
+    width: 300px;
     
 }
 
