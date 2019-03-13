@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Michroma');
 @import url('https://fonts.googleapis.com/css?family=Exo+2');
 @import url('https://fonts.googleapis.com/css?family=Geo');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+
 
 body {
-  font-family: 'Geo', sans-serif;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 600;
   font-size: 18px;
+  color: rgb(46, 61, 75);
 }
 
 .App {
@@ -16,7 +21,8 @@ body {
 }
 
 h1 {
-  font-size: 70px;
+  color: rgb(46, 61, 75);
+  font-size: 60px;
   margin: 0;
 }
 

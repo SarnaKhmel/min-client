@@ -151,11 +151,11 @@ export default class Timer extends Component {
     })
   }
 
-  handleInputChange = ({target}) => {
+  handleInputChange = function({target}) {
     this.setState({
       [target.name]: target.value
     })
-  }
+  }.bind(this);
 
 
   render() {

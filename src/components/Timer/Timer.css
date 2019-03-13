@@ -20,10 +20,12 @@
 }
 
 .timer-counter {
+    font-family: 'Geo', sans-serif;
+    color: rgb(245, 247, 255);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
+    background-color: rgb(46, 61, 75);
     font-size: 60px;
     padding: 10px;
     width: 220px;
@@ -41,7 +43,7 @@
 }
 
 .timer-button {
-    background-color: rgb(252, 200, 160);
+    background-color: rgb(225, 188, 202);
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
