@@ -11,7 +11,7 @@ class App extends Component {
     console.log(this.props.test)
     return (
       <div className="App">
-        <div><h1>mins</h1></div>
+        <div><h1>min</h1></div>
         <div className="timers-container">
           <Timer />
           <Timer />

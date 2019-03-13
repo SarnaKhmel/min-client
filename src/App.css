@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Michroma');
+@import url('https://fonts.googleapis.com/css?family=Exo+2');
+@import url('https://fonts.googleapis.com/css?family=Geo');
 
 body {
-  font-family: 'Michroma', sans-serif;
+  font-family: 'Geo', sans-serif;
+  font-size: 18px;
 }
 
 .App {
@@ -10,6 +13,11 @@ body {
   justify-content: space-around;
   align-items: center;
   min-width: 1000px;
+}
+
+h1 {
+  font-size: 70px;
+  margin: 0;
 }
 
 .timers-container {

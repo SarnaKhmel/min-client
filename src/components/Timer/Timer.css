@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     background-color: aliceblue;
-    font-size: 35px;
+    font-size: 60px;
     padding: 10px;
     width: 220px;
     height: 70px;
@@ -61,7 +61,8 @@
 }
 
 .length-input {
-    font-size: 20px;
+    font-size: 40px;
+    font-family: 'Geo', sans-serif;
     text-align: center;
     border-radius: 5px;
     width: 69px;
