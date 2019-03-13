@@ -14,16 +14,6 @@ export default class Timer extends Component {
 
   }
 
-  handleTimerEnd = () => {
-    if (this.state.timerRunning === true) {
-      console.log("end checker ran");
-      const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
-      if (this.state.currentTime >= timerLengthInteger) {
-        alert("Time's up!");
-      }
-    } 
-  }
-
   calculateTimeIntegerFromInputLength = () => {
     
     let hoursToSeconds = parseInt(this.state.timerHours) * 3600;
@@ -112,11 +102,18 @@ export default class Timer extends Component {
     }
   }
 
+  
+
+  componentDidMount() {
+    
+  }
+
   timerCallback = () => {
     
     const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
     if (this.state.currentTime >= timerLengthInteger) {
-      alert("Time's up!");
+      const alarm = new Audio(require('./audio/chime.wav'));
+      alarm.play();
       this.handleStopClick();
     }  else {
       this.setState({
