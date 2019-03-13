@@ -14,6 +14,25 @@ export default class Timer extends Component {
 
   }
 
+  calculateTimeIntegerFromInputLength = () => {
+    
+    let hoursToSeconds = parseInt(this.state.timerHours) * 3600;
+    let minutesToSeconds = parseInt(this.state.timerMinutes) * 60;
+    let seconds = parseInt(this.state.timerSeconds);
+
+    if (this.state.timerHours === "") {
+      hoursToSeconds = 0;
+    }
+    if (this.state.timerMinutes === "") {
+      minutesToSeconds = 0;
+    }
+    if (this.state.timerSeconds === "") {
+      seconds = 0;
+    }
+
+    return hoursToSeconds + minutesToSeconds + seconds;
+  }
+
   calculateAndRenderTimer = () => {
     const currentTime = this.state.currentTime;
     
@@ -77,9 +96,9 @@ export default class Timer extends Component {
       }
 
     }
-    else { 
+    else if (currentTime >= 86400) { 
       clearInterval(this.state.intervalNum);
-      return "24:00:00"
+      return "24:00:00";
     }
   }
 
