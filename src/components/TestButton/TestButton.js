@@ -6,7 +6,11 @@ import * as actions from '../../actions';
 class TestButton extends Component {
 
     handleClick = () => {
-        this.props.setTest("with test!")
+        if (this.props.test) {
+            this.props.setTest("")
+        } else {
+            this.props.setTest("with test!")
+        }    
     }
 
   render() {

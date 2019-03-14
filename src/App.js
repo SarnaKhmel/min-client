@@ -14,7 +14,6 @@ class App extends Component {
   TimerWithTest = WithTest(Timer);
 
   render() {
-    console.log(this.props.test)
     return (
       <div className="App">
         <div><h1>min</h1></div>
