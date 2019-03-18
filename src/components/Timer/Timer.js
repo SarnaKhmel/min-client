@@ -102,8 +102,7 @@ export default class Timer extends Component {
   }
 
   // This method runs each time the timer interval is completed to either decrease state.currentTime by one and allow the timer to count down, or triggering the alarm if state.timerRunning is true and the timer has reached 0
-  timerCallback = () => {  
-    const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
+  timerCallback = () => {
     if (this.state.currentTime === 0 && this.state.timerRunning === true) {
       const alarm = new Audio(require('./audio/chime.wav'));
       alarm.play();

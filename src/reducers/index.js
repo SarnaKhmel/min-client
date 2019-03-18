@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import test from './test';
+import timers from './timers';
 
 export default combineReducers({
-    test
+    timers
 })

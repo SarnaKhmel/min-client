@@ -1,1 +1,1 @@
-export * from './setTest';
+export * from './addTimer';
