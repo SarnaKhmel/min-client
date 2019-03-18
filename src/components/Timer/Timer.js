@@ -5,7 +5,6 @@ export default class Timer extends Component {
 
   state = {
     currentTime: 0,
-    timerEnd: null,
     intervalNum: null,
     timerRunning: false,
     timerHours: "00",
@@ -16,7 +15,6 @@ export default class Timer extends Component {
 
   // Calculates the number of seconds equivalent to what the user inputs for the timer's length
   calculateTimeIntegerFromInputLength = () => {
-    
     let hoursToSeconds = parseInt(this.state.timerHours) * 3600;
     let minutesToSeconds = parseInt(this.state.timerMinutes) * 60;
     let seconds = parseInt(this.state.timerSeconds);
@@ -30,11 +28,10 @@ export default class Timer extends Component {
     if (this.state.timerSeconds === "") {
       seconds = 0;
     }
-
     return hoursToSeconds + minutesToSeconds + seconds;
   }
 
-  // Takes the currentTime value from state and translates it into the proper format for the timer screen
+  // Takes state.currentTime and translates it into the proper format for the timer screen
   calculateAndRenderTimer = () => {
     const currentTime = this.state.currentTime;
     
@@ -104,9 +101,8 @@ export default class Timer extends Component {
     }
   }
 
-
-  timerCallback = () => {
-    
+  // This method runs each time the timer interval is completed to either decrease state.currentTime by one and allow the timer to count down, or triggering the alarm if state.timerRunning is true and the timer has reached 0
+  timerCallback = () => {  
     const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
     if (this.state.currentTime === 0 && this.state.timerRunning === true) {
       const alarm = new Audio(require('./audio/chime.wav'));
@@ -116,23 +112,20 @@ export default class Timer extends Component {
       this.setState({
         currentTime: this.state.currentTime - 1
       })
-    }
-    
-    
+    }       
   }
 
+  // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
     const timer = setInterval(this.timerCallback,
     1000);
-
     this.setState({
       intervalNum: timer,
       timerRunning: true
-    })
-
-    
+    })  
   }
 
+  // Handles click event for stop button by clearing the timer interval and setting state.timerRunning to false
   handleStopClick = () => {
     clearInterval(this.state.intervalNum);
     this.setState({
@@ -140,6 +133,7 @@ export default class Timer extends Component {
     })
   }
 
+  // Handles click event for reset button by clearing the timer interval, setting the timer display and all inputs to zero and setting the state.timerRunning value to false to prevent the alarm from triggering
   handleResetClick = () => {
 
     clearInterval(this.state.intervalNum);
@@ -149,19 +143,18 @@ export default class Timer extends Component {
       timerHours: "00",
       timerMinutes: "00",
       timerSeconds: "00",
-      timerRunning: false,
-      timerEnd: null
+      timerRunning: false
     })
   }
 
-  // Callback for handleInputChange that sets the currentTime portion of state to match the inputted timer length
+  // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
   setCurrentTimeFromInput = () => {
     this.setState({
       currentTime: this.calculateTimeIntegerFromInputLength()
     })
   }
 
-  // Sets the state for timer hours minutes and seconds based on the user's input
+  // Sets the state for timer hours, minutes and seconds based on the user's input
   handleInputChange = function({target}) {
     this.setState({
       [target.name]: target.value
