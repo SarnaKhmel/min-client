@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   renderTimersFromReduxStore = () => {
-    return this.props.timers.map(timer => <Timer key={uuid()} />);
+    return this.props.timers.map(timer => <Timer  data={timer} key={uuid()} />);
   }
 
   render() {
@@ -32,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <div><h1>min</h1></div>
-        <div onClick={this.handleAddTimer}>add a timer</div>
+        <div className="add-timer-button" onClick={this.handleAddTimer}>add a timer</div>
         <div className="timers-container">
           {this.renderTimersFromReduxStore()}
         </div>   

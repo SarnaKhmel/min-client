@@ -32,7 +32,8 @@ h1 {
   min-width: 1000px;
 }
 
-.test-button {
+
+.add-timer-button {
   border-radius: 5px;
   background-color: cornflowerblue;
   padding: 5px;
