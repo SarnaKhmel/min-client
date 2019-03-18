@@ -14,6 +14,7 @@ export default class Timer extends Component {
 
   }
 
+  // Calculates the number of seconds equivalent to what the user inputs for the timer's length
   calculateTimeIntegerFromInputLength = () => {
     
     let hoursToSeconds = parseInt(this.state.timerHours) * 3600;
@@ -33,6 +34,7 @@ export default class Timer extends Component {
     return hoursToSeconds + minutesToSeconds + seconds;
   }
 
+  // Takes the currentTime value from state and translates it into the proper format for the timer screen
   calculateAndRenderTimer = () => {
     const currentTime = this.state.currentTime;
     
@@ -102,22 +104,17 @@ export default class Timer extends Component {
     }
   }
 
-  
-
-  componentDidMount() {
-    
-  }
 
   timerCallback = () => {
     
     const timerLengthInteger = this.calculateTimeIntegerFromInputLength();
-    if (this.state.currentTime >= timerLengthInteger) {
+    if (this.state.currentTime === 0 && this.state.timerRunning === true) {
       const alarm = new Audio(require('./audio/chime.wav'));
       alarm.play();
       this.handleStopClick();
     }  else {
       this.setState({
-        currentTime: this.state.currentTime + 1
+        currentTime: this.state.currentTime - 1
       })
     }
     
@@ -145,16 +142,30 @@ export default class Timer extends Component {
 
   handleResetClick = () => {
 
+    clearInterval(this.state.intervalNum);
+
     this.setState({
       currentTime: 0,
+      timerHours: "00",
+      timerMinutes: "00",
+      timerSeconds: "00",
+      timerRunning: false,
       timerEnd: null
     })
   }
 
+  // Callback for handleInputChange that sets the currentTime portion of state to match the inputted timer length
+  setCurrentTimeFromInput = () => {
+    this.setState({
+      currentTime: this.calculateTimeIntegerFromInputLength()
+    })
+  }
+
+  // Sets the state for timer hours minutes and seconds based on the user's input
   handleInputChange = function({target}) {
     this.setState({
       [target.name]: target.value
-    })
+    }, this.setCurrentTimeFromInput)
   }.bind(this);
 
 
