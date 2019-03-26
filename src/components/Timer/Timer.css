@@ -76,6 +76,7 @@
 /* Pomodoro Styling */
 .timer.pom {
     height: 280px;
+    width: 380px;
     background-color: rgb(201, 60, 60);
 
 }
@@ -104,7 +105,7 @@
 
 
 .timer.pom h3 {
-    font-size: 26px;
+    font-size: 22px;
     padding: 0;
     margin: 0;
     color: rgb(125, 34, 49);
@@ -114,7 +115,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 150px;
+    width: 130px;
 }
 
 .pom-inputs {

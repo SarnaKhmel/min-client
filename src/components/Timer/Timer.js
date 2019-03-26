@@ -8,9 +8,12 @@ export default class Timer extends Component {
 
   state = {
     pomLength: 0,
-    breakLength: 0,
     currentTime: 0,
+    breakLength: 0,
     breakTime: 0,
+    longBreakLength: 0,
+    longBreakTime: 0,
+    longBreakMinutes: "00",
     intervalNum: null,
     timerRunning: false,
     timerHours: "00",
@@ -157,21 +160,32 @@ export default class Timer extends Component {
 
   // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
   setStateFromMinuteInput = (statePortion) => {
-
-    if (statePortion === "currentTime") {
-      const time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.timerMinutes);
-      this.setState({
-        pomLength: time,
-        currentTime: time
+    let time; 
+    switch (statePortion) {
+      case "currentTime":
+        time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.timerMinutes);
+        this.setState({
+          pomLength: time,
+          currentTime: time
         });
+        break;
+      case "breakTime":
+        time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.breakMinutes);
+        this.setState({
+          breakLength: time,
+          breakTime: time
+        });
+        break;
+      case "longBreakTime":
+        time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.longBreakMinutes);
+        this.setState({
+          longBreakLength: time,
+          longBreakTime: time
+        });
+        break;
+      default:
+        return;
     }
-    else if (statePortion === "breakTime") {
-      const time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.breakMinutes);
-      this.setState({
-        breakLength: time,
-        breakTime: time
-        });
-    } 
   }
 
   // Sets the state for timer hours, minutes and seconds based on the user's input
@@ -192,6 +206,7 @@ export default class Timer extends Component {
 
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
+    console.log(this.state.longBreakTime);
     if (this.state.isPomodoro) {
       return (
         <div className={this.renderPomClassBasedOnIsBreak()}>
@@ -207,11 +222,20 @@ export default class Timer extends Component {
               </div>
             </div>
             <div className="break-inputs">
-              <h3>break</h3>
+              <h3>short break</h3>
               <div className="length-input-wrapper">
                 <label className="length-input-label">
                   minutes:
                   <input maxLength="2" className="length-input" type="text" value={this.state.breakMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("breakTime"))} name="breakMinutes" />
+                </label>
+              </div>
+            </div> 
+            <div className="break-inputs">
+              <h3>long break</h3>
+              <div className="length-input-wrapper">
+                <label className="length-input-label">
+                  minutes:
+                  <input maxLength="2" className="length-input" type="text" value={this.state.longBreakMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("longBreakTime"))} name="longBreakMinutes" />
                 </label>
               </div>
             </div> 
