@@ -62,20 +62,50 @@ export default class Timer extends Component {
 
   // This method runs each time the timer interval is completed to either decrease state.currentTime by one and allow the timer to count down, or triggering the alarm if state.timerRunning is true and the timer has reached 0
   timerCallback = () => {
-    if (this.state.currentTime === 0 && this.state.timerRunning === true) {
-      const alarm = new Audio(require('./audio/chime.wav'));
-      alarm.play();
-      this.handleStopClick();
-    }  else {
-      this.setState({
-        currentTime: this.state.currentTime - 1
-      })
-    }       
+    if(this.state.isPomodoro) {
+      if (this.state.isBreak) {
+        if (this.state.breakTime === 0 && this.state.timerRunning === true) {
+          const alarm = new Audio(require('./audio/chime.wav'));
+          alarm.play();
+          this.setState({
+            isBreak: false
+          });
+        }  else {
+          this.setState({
+            breakTime: this.state.breakTime - 1
+          })
+        }
+      }
+      else {
+        if (this.state.currentTime === 0 && this.state.timerRunning === true) {
+          const alarm = new Audio(require('./audio/chime.wav'));
+          alarm.play();
+          this.setState({
+            isBreak: true
+          });
+        }  else {
+          this.setState({
+            currentTime: this.state.currentTime - 1
+          })
+        }
+      }
+    } else {
+      if (this.state.currentTime === 0 && this.state.timerRunning === true) {
+        const alarm = new Audio(require('./audio/chime.wav'));
+        alarm.play();
+        this.handleStopClick();
+      }  else {
+        this.setState({
+          currentTime: this.state.currentTime - 1
+        })
+      }
+    }
+          
   }
 
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
-    const timer = setInterval(this.timerCallback, 1000);
+    const timer = setInterval(this.timerCallback, 100);
     this.setState({
       intervalNum: timer,
       timerRunning: true
@@ -131,6 +161,7 @@ export default class Timer extends Component {
 
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
+    console.log(this.state.breakTime);
     if (this.state.isPomodoro) {
       return (
         <div className="timer pom">
