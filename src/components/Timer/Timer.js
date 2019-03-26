@@ -23,6 +23,7 @@ export default class Timer extends Component {
     this.isPomodoro();
   }
 
+  // Determines if the current timer instance is a pomodoro, and sets state.isPomodoro accordingly. This triggers the conditional rendering of either a timer component or a modified pomodoro timer component
   isPomodoro = () => {
     if (this.props.isPomodoro) {
       this.setState({
@@ -53,6 +54,7 @@ export default class Timer extends Component {
     return hoursToSeconds + minutesToSeconds + seconds;
   }
 
+  // Calculates the number of seconds equivalent to an inputted amount of minutes
   calculateTimeIntegerFromMinuteInputOnly = (inputMinutes) => {
     if (!inputMinutes || inputMinutes === "") return 0;
     return parseInt(inputMinutes) * 60;
@@ -73,8 +75,7 @@ export default class Timer extends Component {
 
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
-    const timer = setInterval(this.timerCallback,
-    1000);
+    const timer = setInterval(this.timerCallback, 1000);
     this.setState({
       intervalNum: timer,
       timerRunning: true
@@ -102,8 +103,6 @@ export default class Timer extends Component {
       timerRunning: false
     })
   }
-
-
 
   // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
   setCurrentTimeFromInput = () => {
