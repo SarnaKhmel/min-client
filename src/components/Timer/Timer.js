@@ -171,9 +171,7 @@ export default class Timer extends Component {
         breakLength: time,
         breakTime: time
         });
-    }
-    
-    
+    } 
   }
 
   // Sets the state for timer hours, minutes and seconds based on the user's input
