@@ -38,6 +38,10 @@ export default class Timer extends Component {
     }
   }
 
+  renderPomClassBasedOnIsBreak = () => {
+    return this.state.isBreak ? "timer pom break" : "timer pom";
+  }
+
   // Calculates the number of seconds equivalent to what the user inputs for the timer's length
   calculateTimeIntegerFromInputLength = () => {
     let hoursToSeconds = parseInt(this.state.timerHours) * 3600;
@@ -189,7 +193,7 @@ export default class Timer extends Component {
   render() {
     if (this.state.isPomodoro) {
       return (
-        <div className="timer pom">
+        <div className={this.renderPomClassBasedOnIsBreak()}>
           <div className="timer-counter">{this.conditionallyRenderCurrentTimeOrBreakTime()}</div>
           <div className="pom-input-container">
             <div className="pom-inputs">
