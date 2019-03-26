@@ -112,6 +112,9 @@ export default class Timer extends Component {
 
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
+    if (this.state.breakTime === 0 && this.state.currentTime === 0) {
+      return;
+    }
     const timer = setInterval(this.timerCallback, 100);
     this.setState({
       intervalNum: timer,
