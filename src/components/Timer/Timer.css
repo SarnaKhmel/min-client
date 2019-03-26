@@ -12,11 +12,30 @@
     box-shadow: 0px 10px 15px rgb(230, 221, 221);
 }
 
+.timer.pom {
+    height: 300px;
+}
+
+.timer.pom h2 {
+    padding: 0;
+    margin: 0;
+    color: rgb(125, 34, 49);
+}
+
+.pom-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.timer.pom .timer-buttons-and-inputs{
+    height: 180px;
+}
+
 .timer-buttons {
     display: flex;
     justify-content: space-around;
-    width: 240px;
-    
+    width: 240px;  
 }
 
 .timer-counter {
