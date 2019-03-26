@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.timers);
     return (
       <div className="App">
         <div><h1>min</h1></div>
