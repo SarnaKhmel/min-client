@@ -103,6 +103,8 @@ export default class Timer extends Component {
     })
   }
 
+
+
   // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
   setCurrentTimeFromInput = () => {
     this.setState({
@@ -111,13 +113,14 @@ export default class Timer extends Component {
   }
 
   // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
-  setStateFromMinuteInput = (statePortion, minutesValue) => {
-    return function() {
-      const time = this.calculateTimeIntegerFromMinuteInputOnly(minutesValue);
-      return this.setState({
-      [statePortion]: time
-      })
-    }
+  setStateFromMinuteInput = (statePortion) => {
+    let minutesValue;
+    if (statePortion === "currentTime") minutesValue = this.state.timerMinutes;
+    else if (statePortion === "breakTime") minutesValue = this.state.breakMinutes;
+    const time = this.calculateTimeIntegerFromMinuteInputOnly(minutesValue);
+    this.setState({
+    [statePortion]: time
+    });
   }
 
   // Sets the state for timer hours, minutes and seconds based on the user's input
@@ -127,6 +130,7 @@ export default class Timer extends Component {
     }, callback)
   }
 
+  // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
     if (this.state.isPomodoro) {
       return (
@@ -138,7 +142,7 @@ export default class Timer extends Component {
               <div className="length-input-wrapper">
                 <label className="length-input-label">
                   minutes:
-                  <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange.bind(this, this.setStateFromMinuteInput("currentTime", this.state.timerMinutes))} name="timerMinutes" />
+                  <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("currentTime"))} name="timerMinutes" />
                 </label>
               </div>
             </div>
@@ -147,7 +151,7 @@ export default class Timer extends Component {
               <div className="length-input-wrapper">
                 <label className="length-input-label">
                   minutes:
-                  <input maxLength="2" className="length-input" type="text" value={this.state.breakMinutes} onChange={this.handleInputChange.bind(this, this.setStateFromMinuteInput("breakTime", this.state.breakMinutes))} name="breakMinutes" />
+                  <input maxLength="2" className="length-input" type="text" value={this.state.breakMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("breakTime"))} name="breakMinutes" />
                 </label>
               </div>
             </div> 
