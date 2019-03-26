@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Timer.css';
+import uuid from 'uuid';
 
 import calculateAndRenderTimer from '../../modules/timerScreen';
 
@@ -11,8 +12,9 @@ export default class Timer extends Component {
     timerRunning: false,
     timerHours: "00",
     timerMinutes: "00",
-    timerSeconds: "00"
-
+    timerSeconds: "00",
+    isPomodoro: false,
+    breakMinutes: "00"
   }
 
   // Calculates the number of seconds equivalent to what the user inputs for the timer's length
@@ -94,31 +96,35 @@ export default class Timer extends Component {
 
 
   render() {
-    return (
-      <div className="timer">
-        <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
-        <div className="timer-buttons-and-inputs">
-          <div className="length-input-wrapper">
-            <label className="length-input-label">
-              hours:
-              <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange} name="timerHours" />
-            </label>
-            <label className="length-input-label">
-              minutes:
-              <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange} name="timerMinutes" />
-            </label>
-            <label className="length-input-label">
-              seconds:
-              <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange} name="timerSeconds" />
-            </label>
-          </div>
-          <div className="timer-buttons">
-              <div className="timer-button start" onClick={this.handleStartClick}>start</div>
-              <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
-              <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
-          </div>
-        </div>      
-      </div>
-    )
+    if (this.state.isPomodoro) {
+      return;
+    } else {
+      return (
+        <div id={uuid()} className="timer">
+          <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
+          <div className="timer-buttons-and-inputs">
+            <div className="length-input-wrapper">
+              <label className="length-input-label">
+                hours:
+                <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange} name="timerHours" />
+              </label>
+              <label className="length-input-label">
+                minutes:
+                <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange} name="timerMinutes" />
+              </label>
+              <label className="length-input-label">
+                seconds:
+                <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange} name="timerSeconds" />
+              </label>
+            </div>
+            <div className="timer-buttons">
+                <div className="timer-button start" onClick={this.handleStartClick}>start</div>
+                <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
+                <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
+            </div>
+          </div>      
+        </div>
+      )
+    } 
   }
 }
