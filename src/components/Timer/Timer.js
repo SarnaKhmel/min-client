@@ -143,10 +143,6 @@ export default class Timer extends Component {
               <h2>break length</h2>
               <div className="length-input-wrapper">
                 <label className="length-input-label">
-                  hours:
-                  <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange} name="timerHours" />
-                </label>
-                <label className="length-input-label">
                   minutes:
                   <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange} name="timerMinutes" />
                 </label>
