@@ -7,6 +7,8 @@ import calculateAndRenderTimer from '../../modules/timerScreen';
 export default class Timer extends Component {
 
   state = {
+    pomLength: 0,
+    breakLength: 0,
     currentTime: 0,
     breakTime: 0,
     intervalNum: null,
@@ -68,7 +70,8 @@ export default class Timer extends Component {
           const alarm = new Audio(require('./audio/chime.wav'));
           alarm.play();
           this.setState({
-            isBreak: false
+            isBreak: false,
+            currentTime: this.state.pomLength
           });
         }  else {
           this.setState({
@@ -81,7 +84,8 @@ export default class Timer extends Component {
           const alarm = new Audio(require('./audio/chime.wav'));
           alarm.play();
           this.setState({
-            isBreak: true
+            isBreak: true,
+            breakTime: this.state.breakLength
           });
         }  else {
           this.setState({
@@ -99,8 +103,7 @@ export default class Timer extends Component {
           currentTime: this.state.currentTime - 1
         })
       }
-    }
-          
+    }       
   }
 
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
@@ -127,9 +130,13 @@ export default class Timer extends Component {
 
     this.setState({
       currentTime: 0,
+      breakTime: 0,
+      pomLength: 0,
+      breakLength: 0, 
       timerHours: "00",
       timerMinutes: "00",
       timerSeconds: "00",
+      breakMinutes: "00",
       timerRunning: false
     })
   }
@@ -143,13 +150,23 @@ export default class Timer extends Component {
 
   // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
   setStateFromMinuteInput = (statePortion) => {
-    let minutesValue;
-    if (statePortion === "currentTime") minutesValue = this.state.timerMinutes;
-    else if (statePortion === "breakTime") minutesValue = this.state.breakMinutes;
-    const time = this.calculateTimeIntegerFromMinuteInputOnly(minutesValue);
-    this.setState({
-    [statePortion]: time
-    });
+
+    if (statePortion === "currentTime") {
+      const time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.timerMinutes);
+      this.setState({
+        pomLength: time,
+        currentTime: time
+        });
+    }
+    else if (statePortion === "breakTime") {
+      const time = this.calculateTimeIntegerFromMinuteInputOnly(this.state.breakMinutes);
+      this.setState({
+        breakLength: time,
+        breakTime: time
+        });
+    }
+    
+    
   }
 
   // Sets the state for timer hours, minutes and seconds based on the user's input
@@ -159,13 +176,21 @@ export default class Timer extends Component {
     }, callback)
   }
 
+  // Conditionally renders the amount of seconds remaining on either the pom timer or break timer dependent on state.isBreak for the pomodoro timer
+  conditionallyRenderCurrentTimeOrBreakTime = () => {
+    if (this.state.isBreak) {
+      return calculateAndRenderTimer(this.state.breakTime, this.state.intervalNum);
+    } else {
+      return calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum);
+    }
+  }
+
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
-    console.log(this.state.breakTime);
     if (this.state.isPomodoro) {
       return (
         <div className="timer pom">
-          <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
+          <div className="timer-counter">{this.conditionallyRenderCurrentTimeOrBreakTime()}</div>
           <div className="pom-input-container">
             <div className="pom-inputs">
               <h3>pom</h3>
