@@ -13,11 +13,11 @@
 }
 
 .timer.pom {
-    height: 300px;
-    width: 500px;
+    height: 280px;
 }
 
-.timer.pom h2 {
+.timer.pom h3 {
+    font-size: 26px;
     padding: 0;
     margin: 0;
     color: rgb(125, 34, 49);
@@ -25,27 +25,31 @@
 
 .pom-input-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-around;
-    width: 450px;
+    width: 150px;
 }
 
-.timer.pom .timer-buttons-and-inputs{
-    height: 180px;
-    width: 80%;
+.pom-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
 }
 
 .break-inputs {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    height: 200px;
+    width: 100%;
 }
+
+
 
 .timer.pom .break-inputs h2 {
     text-align: center;
-    margin-bottom: 10px;
-
 }
 
 .timer-buttons {
