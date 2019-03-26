@@ -21,7 +21,9 @@ export default class Timer extends Component {
     timerSeconds: "00",
     isPomodoro: false,
     breakMinutes: "00",
-    isBreak: false
+    isBreak: false,
+    isLongBreak: false,
+    pomCount: 0
   }
 
   componentDidMount() {
@@ -73,18 +75,37 @@ export default class Timer extends Component {
   timerCallback = () => {
     if(this.state.isPomodoro) {
       if (this.state.isBreak) {
-        if (this.state.breakTime === 0 && this.state.timerRunning === true) {
-          const alarm = new Audio(require('./audio/chime.wav'));
-          alarm.play();
+        if (this.state.pomCount % 4 === 0) {
           this.setState({
-            isBreak: false,
-            currentTime: this.state.pomLength
+            isLongBreak: true
           });
-        }  else {
-          this.setState({
-            breakTime: this.state.breakTime - 1
-          })
-        }
+          if (this.state.longBreakTime === 0 && this.state.timerRunning === true) {
+            const alarm = new Audio(require('./audio/chime.wav'));
+            alarm.play();
+            this.setState({
+              isBreak: false,
+              isLongBreak: false,
+              currentTime: this.state.pomLength
+            });
+          }  else {
+            this.setState({
+              longBreakTime: this.state.longBreakTime - 1
+            })
+          }
+        } else {
+          if (this.state.breakTime === 0 && this.state.timerRunning === true) {
+            const alarm = new Audio(require('./audio/chime.wav'));
+            alarm.play();
+            this.setState({
+              isBreak: false,
+              currentTime: this.state.pomLength
+            });
+          }  else {
+            this.setState({
+              breakTime: this.state.breakTime - 1
+            })
+          }
+        }   
       }
       else {
         if (this.state.currentTime === 0 && this.state.timerRunning === true) {
@@ -92,7 +113,9 @@ export default class Timer extends Component {
           alarm.play();
           this.setState({
             isBreak: true,
-            breakTime: this.state.breakLength
+            breakTime: this.state.breakLength,
+            longBreakTime: this.state.longBreakLength,
+            pomCount: this.state.pomCount + 1
           });
         }  else {
           this.setState({
