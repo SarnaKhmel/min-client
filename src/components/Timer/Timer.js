@@ -230,15 +230,15 @@ export default class Timer extends Component {
             <div className="length-input-wrapper">
               <label className="length-input-label">
                 hours:
-                <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange} name="timerHours" />
+                <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} name="timerHours" />
               </label>
               <label className="length-input-label">
                 minutes:
-                <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange} name="timerMinutes" />
+                <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} name="timerMinutes" />
               </label>
               <label className="length-input-label">
                 seconds:
-                <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange} name="timerSeconds" />
+                <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} name="timerSeconds" />
               </label>
             </div>
             <div className="timer-buttons">

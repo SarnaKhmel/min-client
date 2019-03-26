@@ -12,51 +12,6 @@
     box-shadow: 0px 10px 15px rgb(230, 221, 221);
 }
 
-.timer.pom {
-    height: 280px;
-    background-color: rgb(201, 60, 60);
-}
-
-.timer.pom.break {
-    background-color: rgb(138, 220, 255);
-}
-
-.timer.pom h3 {
-    font-size: 26px;
-    padding: 0;
-    margin: 0;
-    color: rgb(125, 34, 49);
-}
-
-.pom-input-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 150px;
-}
-
-.pom-inputs {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-}
-
-.break-inputs {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-}
-
-
-
-.timer.pom .break-inputs h2 {
-    text-align: center;
-}
-
 .timer-buttons {
     display: flex;
     justify-content: space-around;
@@ -116,4 +71,70 @@
     border: none;
     margin: 3px;
     padding: 3px;
+}
+
+/* Pomodoro Styling */
+.timer.pom {
+    height: 280px;
+    background-color: rgb(201, 60, 60);
+
+}
+
+.timer.pom .timer-counter {
+    background-color: rgb(85, 6, 6);
+}
+
+.timer.pom .timer-button {
+    background-color: rgb(109, 49, 65);
+    color: white;
+}
+
+.timer.pom.break {
+    background-color: rgba(60, 138, 198, 0.783);
+}
+
+.timer.pom.break .timer-counter {
+    background-color: rgb(5, 5, 67);
+}
+
+.timer.pom.break .timer-button {
+    background-color: rgb(55, 67, 150);
+    color: white;
+}
+
+
+.timer.pom h3 {
+    font-size: 26px;
+    padding: 0;
+    margin: 0;
+    color: rgb(125, 34, 49);
+}
+
+.pom-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 150px;
+}
+
+.pom-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.break-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+.timer.pom .break-inputs h2 {
+    text-align: center;
 }
