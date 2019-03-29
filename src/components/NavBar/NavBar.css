@@ -2,4 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 75px;
+    width: 100%;
+    background-color: rgb(71, 95, 136);
+    margin-bottom: 50px;
+}
+
+#navbar h1 {
+    color: white;
 }

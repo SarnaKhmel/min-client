@@ -32,7 +32,6 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <div><h1>min</h1></div>
         <div className="add-timer-button" onClick={this.handleAddTimer}>add a timer</div>
         <div className="timers-container">
           <Timer isPomodoro="true" />
