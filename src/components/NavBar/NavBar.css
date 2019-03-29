@@ -4,10 +4,10 @@
     justify-content: space-between;
     height: 75px;
     width: 100%;
-    background-color: rgb(71, 95, 136);
+    background-color: rgb(157, 218, 205);
     margin-bottom: 50px;
 }
 
 #navbar h1 {
-    color: white;
+    color: rgba(56, 30, 108, 0.755);
 }
