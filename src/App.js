@@ -5,6 +5,7 @@ import * as actions from './actions';
 import uuid from 'uuid';
 
 import Timer from './components/Timer/Timer';
+import NavBar from './components/NavBar/NavBar';
 
 
 
@@ -30,6 +31,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <NavBar />
         <div><h1>min</h1></div>
         <div className="add-timer-button" onClick={this.handleAddTimer}>add a timer</div>
         <div className="timers-container">
