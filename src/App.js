@@ -6,6 +6,7 @@ import uuid from 'uuid';
 
 import Timer from './components/Timer/Timer';
 import NavBar from './components/NavBar/NavBar';
+import Footer from './components/Footer/Footer';
 
 
 
@@ -30,14 +31,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <NavBar />
-        <div className="add-timer-button" onClick={this.handleAddTimer}>add a timer</div>
-        <div className="timers-container">
-          <Timer isPomodoro="true" />
-          {this.renderTimersFromReduxStore()}
-        </div>   
-      </div>
+      <>
+        <div className="App">
+          <NavBar />
+          <div className="add-timer-button" onClick={this.handleAddTimer}>add a timer</div>
+          <div className="timers-container">
+            <Timer isPomodoro="true" />
+            {this.renderTimersFromReduxStore()}
+          </div>   
+        </div>
+        <Footer />
+      </>
     );
   }
 }
