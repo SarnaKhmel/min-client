@@ -141,7 +141,7 @@ export default class Timer extends Component {
     if (this.state.breakTime === 0 && this.state.currentTime === 0) {
       return;
     }
-    const timer = setInterval(this.timerCallback, 100);
+    const timer = setInterval(this.timerCallback, 1000);
     this.setState({
       intervalNum: timer,
       timerRunning: true
