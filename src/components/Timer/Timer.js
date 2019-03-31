@@ -141,7 +141,7 @@ export default class Timer extends Component {
     if (this.state.breakTime === 0 && this.state.currentTime === 0) {
       return;
     }
-    const timer = setInterval(this.timerCallback, 1000);
+    const timer = setInterval(this.timerCallback, 100);
     this.setState({
       intervalNum: timer,
       timerRunning: true
@@ -220,7 +220,11 @@ export default class Timer extends Component {
 
   // Conditionally renders the amount of seconds remaining on either the pom timer or break timer dependent on state.isBreak for the pomodoro timer
   conditionallyRenderCurrentTimeOrBreakTime = () => {
-    if (this.state.isBreak) {
+    if (this.state.isBreak && this.state.isLongBreak) {
+      console.log('the state is set to isLongBreak: true');
+      return calculateAndRenderTimer(this.state.longBreakTime, this.state.intervalNum);
+    }
+    else if (this.state.isBreak) {
       return calculateAndRenderTimer(this.state.breakTime, this.state.intervalNum);
     } else {
       return calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum);
@@ -229,7 +233,6 @@ export default class Timer extends Component {
 
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
-    console.log(this.state.longBreakTime);
     if (this.state.isPomodoro) {
       return (
         <div className={this.renderPomClassBasedOnIsBreak()}>
