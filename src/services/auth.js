@@ -14,7 +14,7 @@ export const signIn = async ({email, password}) => {
 
 export const signUp = async ({name, email, password, password2}) => {
     return await apiRequest({
-        path: "/auth",
+        path: "/auth/sign_up",
         method: "POST",
         data: {name, email, password, password2}
     });
