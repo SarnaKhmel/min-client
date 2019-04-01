@@ -13,10 +13,12 @@ import routes from './components/routes';
 let store = createStore(rootReducer);
 
 ReactDOM.render(
-        <BrowserRouter>
-            <Auth>
-                {routes}
-            </Auth>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Auth>
+                    {routes}
+                </Auth>
+            </BrowserRouter>
+        </Provider> 
         , 
 document.getElementById('root'));
