@@ -45,7 +45,7 @@ axios.interceptors.response.use(
 );
 
 // Helper method for performing API requests
-export const apiRequest = async({path, method = "GET", data, headers}) => {
+export const apiRequest = async({ path, method = "GET", data, headers = {} }) => {
     try {
         const response = await axios({
             url: API_URL + path,
