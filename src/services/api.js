@@ -29,7 +29,7 @@ axios.interceptors.request.use(config => {
 // Takes the auth headers from each axios response and persists them to local storage
 axios.interceptors.response.use(
     response => {
-        const accessToken = response.headers["access-token"],
+        const accessToken = response.headers["access-token"];
         const clientToken = response.headers["client"];
         const userToken = response.headers["uid"];
 

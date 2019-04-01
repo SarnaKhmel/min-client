@@ -8,6 +8,11 @@ const Auth = ({children}) => {
     const [initialLoading, setInitialLoading] = useState(true);
     const [user, setUser] = useState(null);
 
+    const renderChildren = () => {
+        console.log(children);
+        // return children.map(Child => <Child user={context.user}/>);
+    }
+
     const setCurrentUser = newUser => {
         setUser(newUser);
 
