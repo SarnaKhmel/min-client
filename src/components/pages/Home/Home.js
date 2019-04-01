@@ -3,9 +3,16 @@ import './Home.css';
 
 const Home = (props) => {
     return (
-        <div id="home-greeting">
-            <h4>Welcome to min!</h4>
+        <div id="home-page">
+            <div id="home-greeting">
+                <h4>welcome to min!</h4>
+            </div>
+            <div className="button-wrapper">
+                <div className="home-button">login</div>
+                <div className="home-button">create an account</div>
+            </div>
         </div>
+        
         
     )
 };
