@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {apiRequest} from "../../services/api";
+import apiRequest from "../../services/api";
 
 export const AuthContext = React.createContext();
 export const LOCAL_STORAGE_KEY = `${process.env.REACT_APP_STORAGE_KEY}`;
