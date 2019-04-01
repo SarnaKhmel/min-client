@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
-import NavBar from './NavBar/NavBar';
+import NavBar from './shared/NavBar/NavBar';
 import Multitimer from './pages/Multitimer/Multitimer';
 import Pomodoro from './pages/Pomodoro/Pomodoro';
 import {Redirect, Route, Switch} from 'react-router-dom';

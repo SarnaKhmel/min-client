@@ -8,11 +8,6 @@ const Auth = ({children}) => {
     const [initialLoading, setInitialLoading] = useState(true);
     const [user, setUser] = useState(null);
 
-    const renderChildren = () => {
-        console.log(children);
-        // return children.map(Child => <Child user={context.user}/>);
-    }
-
     const setCurrentUser = newUser => {
         setUser(newUser);
 
@@ -23,7 +18,7 @@ const Auth = ({children}) => {
 
     const authenticate = async () => {
         try {
-            const response = await apiRequest({path: "/auth/validate_token"});
+            const response = await apiRequest({path: "auth/validate_token"});
 
             if (response.status === 200) {
                 setCurrentUser(response.data.data);
