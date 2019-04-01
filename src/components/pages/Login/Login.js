@@ -8,7 +8,8 @@ const Login = () => {
     const [password, setPassword] = useState();
     const {setCurrentUser} = useContext(AuthContext);
 
-    const login = async () => {
+    const login = async (e) => {
+        e.preventDefault();
         const response = await signIn({email, password});
         return setCurrentUser(response.data.data);
     }
@@ -24,7 +25,7 @@ const Login = () => {
                        placeholder={"Your password..."}
                        onChange={({target}) => setPassword(target.value)} />
                 <button onClick={login}>Login</button>
-                <p>don't have an account? <Link to={'/register'}>Register</Link></p>
+                <p>don't have an account? <Link to={'/register'}>register</Link></p>
             </form>
         </div>
     );
