@@ -8,14 +8,16 @@ import {useForm} from '../../../hooks/useForm';
 const Register = () => {
     const { formData, updateField } = useForm();
 
-    const {setCurrentUser} = useContext(AuthContext);
+    const {user, setCurrentUser} = useContext(AuthContext);
 
-    const register = async(e) => {
+    const register = async (e) => {
         e.preventDefault();
         const response = await signUp(formData);
-        setCurrentUser(response.data.data);
+        console.log(response);
+        // setCurrentUser(response.data.data);
     }
 
+    console.log(user);
     return (
         <div id="register-page">
             <h1>Register</h1>

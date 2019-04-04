@@ -6,12 +6,13 @@ import {Link} from 'react-router-dom';
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const {setCurrentUser} = useContext(AuthContext);
+    const {user, setCurrentUser} = useContext(AuthContext);
 
     const login = async (e) => {
         e.preventDefault();
         const response = await signIn({email, password});
-        return setCurrentUser(response.data.data);
+        // await setCurrentUser(response);
+        console.log(response);
     }
 
     return (

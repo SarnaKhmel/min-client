@@ -18,7 +18,7 @@ const Auth = ({children}) => {
 
     const authenticate = async () => {
         try {
-            const response = await apiRequest({path: "auth/validate_token"});
+            const response = await apiRequest({path: "/auth"});
 
             if (response.status === 200) {
                 setCurrentUser(response.data.data);

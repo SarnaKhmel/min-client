@@ -1,22 +1,22 @@
 import apiRequest from './api';
 
 export const validateToken = async () => {
-    return await apiRequest({path: "/auth/validate_token"});
+    return await apiRequest({path: "/auth"});
 };
 
 export const signIn = async ({email, password}) => {
     return await apiRequest({
-        path: "/auth/sign_in",
+        path: "/auth",
         method: "POST",
         data: {email, password}
     });
 };
 
-export const signUp = async ({name, email, password, password2}) => {
+export const signUp = async ({name, email, password}) => {
     return await apiRequest({
-        path: "/auth/sign_up",
+        path: "/users",
         method: "POST",
-        data: {name, email, password, password2}
+        data: {name, email, password}
     });
 };
 

@@ -11,14 +11,11 @@ const DEFAULT_HEADERS = {
 
 // Attaches auth headers to each axios request
 axios.interceptors.request.use(config => {
-    const {accessToken, clientToken, userToken} = 
+    const {accessToken} = 
     JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {};
     
     Object.assign(config.headers.common, {
-        "token-type": "Bearer",
-        "access-token": accessToken,
-        "client": clientToken,
-        "uid": userToken
+        "x-auth-token": accessToken
     });
 
     return config;
@@ -29,14 +26,12 @@ axios.interceptors.request.use(config => {
 // Takes the auth headers from each axios response and persists them to local storage
 axios.interceptors.response.use(
     response => {
-        const accessToken = response.headers["access-token"];
-        const clientToken = response.headers["client"];
-        const userToken = response.headers["uid"];
+        const accessToken = response.headers["x-auth-token"];
 
         if (accessToken) {
             localStorage.setItem(
                 LOCAL_STORAGE_KEY,
-                JSON.stringify({accessToken, clientToken, userToken})
+                JSON.stringify({accessToken})
             )
         }
         return response;
