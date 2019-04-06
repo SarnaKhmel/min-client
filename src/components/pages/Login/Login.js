@@ -10,11 +10,25 @@ const Login = () => {
 
     const login = async (e) => {
         e.preventDefault();
-        const response = await signIn({email, password});
+        // const response = await signIn({email, password});
         // await setCurrentUser(response);
-        console.log(response);
-    }
+        const data = {
+            email: email,
+            password: password
+        };
 
+        const response = await fetch('https://min-node-api.herokuapp.com/api/v1/auth', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json());
+
+        console.log(response);
+        // await setCurrentUser(response);
+    }
+    
     return (
         <div className="login-page">
             <h1>Login</h1>

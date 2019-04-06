@@ -21,7 +21,7 @@ const Auth = ({children}) => {
             const response = await apiRequest({path: "/auth"});
 
             if (response.status === 200) {
-                setCurrentUser(response.data.data);
+                setCurrentUser(response);
             }
         } catch (e) {
             console.error(e);
