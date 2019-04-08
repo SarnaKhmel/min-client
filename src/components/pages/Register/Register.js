@@ -12,12 +12,12 @@ const Register = () => {
 
     const register = async (e) => {
         e.preventDefault();
-        const response = await signUp(formData);
-        console.log(response);
-        // setCurrentUser(response.data.data);
-    }
 
-    console.log(user);
+        const response = await signUp(formData);
+        
+        // setCurrentUser(response.data.data);
+    };
+
     return (
         <div id="register-page">
             <h1>Register</h1>

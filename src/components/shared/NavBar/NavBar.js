@@ -1,8 +1,6 @@
 import React, {useContext} from 'react';
 import {AuthContext} from '../../shared/Auth';
 import './NavBar.css';
-import {LOCAL_STORAGE_KEY} from '../Auth';
-
 
 const NavBar = (props) => {
     const {setCurrentAuthToken} = useContext(AuthContext);
