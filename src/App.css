@@ -23,18 +23,3 @@ h1 {
   font-size: 60px;
   margin: 0;
 }
-
-.timers-container {
-  display: flex;
-  justify-content: space-around;
-  min-width: 1000px;
-}
-
-
-.add-timer-button {
-  border-radius: 5px;
-  background-color: cornflowerblue;
-  padding: 5px;
-  color: white;
-  cursor: pointer;
-}

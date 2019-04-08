@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Timer.css';
 import uuid from 'uuid';
 
-import calculateAndRenderTimer from '../../modules/timerScreen';
+import calculateAndRenderTimer from '../../../modules/timerScreen';
 
 export default class Timer extends Component {
 
