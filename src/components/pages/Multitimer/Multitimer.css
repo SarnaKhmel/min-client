@@ -1,7 +1,13 @@
-.timers-container {
+#multi-wrapper {
     display: flex;
-    justify-content: space-around;
-    min-width: 1000px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timers-container {
+    display: inline-grid;
+    grid-template-columns: 50% 50%;
+    width: 900px;
   }
   
   
