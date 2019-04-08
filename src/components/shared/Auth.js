@@ -9,13 +9,13 @@ const Auth = ({children}) => {
     const [user, setUser] = useState(null);
     const [authToken, setAuthToken] = useState(null);
 
-    const setCurrentUser = async(newUser) => {
-        setUser(newUser);
+    const setCurrentAuthToken = async (newAuthToken) => {
+        setAuthToken(newAuthToken);
 
-        if (!newUser) {
+        if (!newAuthToken) {
             localStorage.removeItem(LOCAL_STORAGE_KEY);
         }
-    };
+    }
 
     const authenticate = async () => {
         const jwtToken = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -24,8 +24,8 @@ const Auth = ({children}) => {
             const response = await apiRequest({path: "/users/me"});
             
             if (response.data._id) {
-                await setCurrentUser(response.data);
-                await setAuthToken(jwtToken);
+                await setUser(response.data);
+                await setCurrentAuthToken(jwtToken);
             }
         } catch (e) {
             console.error(e);
@@ -42,7 +42,7 @@ const Auth = ({children}) => {
         return <h4>Loading...</h4>;
     }
 
-    const context = {user, setCurrentUser, authToken, setAuthToken};
+    const context = {user, setUser, authToken, setCurrentAuthToken};
     return (
         <AuthContext.Provider value={context}>
             {children(context.authToken)}

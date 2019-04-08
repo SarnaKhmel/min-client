@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const {user, setAuthToken} = useContext(AuthContext);
+    const {setCurrentAuthToken} = useContext(AuthContext);
 
     const login = async (e) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ const Login = () => {
         };
 
         const response = await signIn(data);
-        await setAuthToken(response.data.token);
+        await setCurrentAuthToken(response.data.token);
     }
     
     return (
