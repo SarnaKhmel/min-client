@@ -8,6 +8,10 @@
     margin-bottom: 50px;
 }
 
+#nav-left {
+    width: 50px;
+}
+
 #navbar h1 {
     color: rgba(56, 30, 108, 0.755);
 }
