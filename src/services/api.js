@@ -24,20 +24,17 @@ axios.interceptors.request.use(config => {
 );
 
 // Takes the auth headers from each axios response and persists them to local storage
-// axios.interceptors.response.use(
-//     response => {
-//         const accessToken = response.headers["x-auth-token"];
+axios.interceptors.response.use(
+    response => {
+        const accessToken = response.data.token;
 
-//         if (accessToken) {
-//             localStorage.setItem(
-//                 LOCAL_STORAGE_KEY,
-//                 JSON.stringify({accessToken})
-//             )
-//         }
-//         return response;
-//     },
-//     error => Promise.reject(error)
-// );
+        if (accessToken) {
+            localStorage.setItem(LOCAL_STORAGE_KEY, accessToken);
+        }
+        return response;
+    },
+    error => Promise.reject(error)
+);
 
 // Helper method for performing API requests
 const apiRequest = async({ path, method = "GET", data, headers = {} }) => {
