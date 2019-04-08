@@ -1,0 +1,19 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0 10px 0;
+}
+
+#login-form label {
+    margin: 5px 0 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
