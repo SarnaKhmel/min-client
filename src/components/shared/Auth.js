@@ -7,8 +7,9 @@ export const LOCAL_STORAGE_KEY = `${process.env.REACT_APP_STORAGE_KEY}`;
 const Auth = ({children}) => {
     const [initialLoading, setInitialLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [authToken, setAuthToken] = useState(null);
 
-    const setCurrentUser = newUser => {
+    const setCurrentUser = async(newUser) => {
         setUser(newUser);
 
         if (!newUser) {
@@ -16,12 +17,20 @@ const Auth = ({children}) => {
         }
     };
 
-    const authenticate = async () => {
-        try {
-            const response = await apiRequest({path: "/auth"});
+    const setCurrentAuthToken = async(authToken) => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, authToken);
+        await setAuthToken(authToken);
+    };
 
-            if (response.status === 200) {
-                setCurrentUser(response);
+    const authenticate = async () => {
+        const jwtToken = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+        try {
+            const response = await apiRequest({path: "/users/me"});
+            
+            if (response.data._id) {
+                await setCurrentUser(response.data);
+                await setCurrentAuthToken(jwtToken);
             }
         } catch (e) {
             console.error(e);
@@ -38,11 +47,10 @@ const Auth = ({children}) => {
         return <h4>Loading...</h4>;
     }
 
-    const context = {user, setCurrentUser};
-
+    const context = {user, setCurrentUser, authToken, setCurrentAuthToken};
     return (
         <AuthContext.Provider value={context}>
-            {children(context.user)}
+            {children(context.authToken)}
         </AuthContext.Provider>
     )
 };

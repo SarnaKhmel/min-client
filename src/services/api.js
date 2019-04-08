@@ -11,8 +11,8 @@ const DEFAULT_HEADERS = {
 
 // Attaches auth headers to each axios request
 axios.interceptors.request.use(config => {
-    const {accessToken} = 
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {};
+    const accessToken = 
+    localStorage.getItem(LOCAL_STORAGE_KEY);
     
     Object.assign(config.headers.common, {
         "x-auth-token": accessToken
@@ -24,20 +24,20 @@ axios.interceptors.request.use(config => {
 );
 
 // Takes the auth headers from each axios response and persists them to local storage
-axios.interceptors.response.use(
-    response => {
-        const accessToken = response.headers["x-auth-token"];
+// axios.interceptors.response.use(
+//     response => {
+//         const accessToken = response.headers["x-auth-token"];
 
-        if (accessToken) {
-            localStorage.setItem(
-                LOCAL_STORAGE_KEY,
-                JSON.stringify({accessToken})
-            )
-        }
-        return response;
-    },
-    error => Promise.reject(error)
-);
+//         if (accessToken) {
+//             localStorage.setItem(
+//                 LOCAL_STORAGE_KEY,
+//                 JSON.stringify({accessToken})
+//             )
+//         }
+//         return response;
+//     },
+//     error => Promise.reject(error)
+// );
 
 // Helper method for performing API requests
 const apiRequest = async({ path, method = "GET", data, headers = {} }) => {
@@ -46,7 +46,7 @@ const apiRequest = async({ path, method = "GET", data, headers = {} }) => {
             url: API_URL + path,
             method,
             data: data || {},
-            headers: Object.assign({}, DEFAULT_HEADERS, headers)
+            headers: DEFAULT_HEADERS
         });
         return response;
     }

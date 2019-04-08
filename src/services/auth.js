@@ -22,7 +22,7 @@ export const signUp = async ({name, email, password}) => {
 
 export const signOut = async () => {
     await apiRequest({
-        path: "/auth/sign_out",
+        path: "/auth/logout",
         method: "DELETE"
     });
     return null;

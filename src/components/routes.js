@@ -7,10 +7,10 @@ import Multitimer from './pages/Multitimer/Multitimer';
 import Pomodoro from './pages/Pomodoro/Pomodoro';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-const routes = currentUser => {
+const routes = authToken => {
     
     // Routes viewable without login
-    if (!currentUser) {
+    if (!authToken) {
         return (
             <Switch>
                 <Route path="/home" component={Home}/>
