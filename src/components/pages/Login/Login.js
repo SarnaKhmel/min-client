@@ -37,6 +37,7 @@ const Login = () => {
                     password
                     <input type="text"
                         placeholder={"Your password..."}
+                        id="login-pass"
                         onChange={({target}) => setPassword(target.value)} />
                 </label>
                 <button onClick={login}>Login</button>

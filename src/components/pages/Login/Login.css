@@ -17,3 +17,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+#login-pass {
+    margin-bottom: 10px;
+}

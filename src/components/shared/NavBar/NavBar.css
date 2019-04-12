@@ -2,6 +2,7 @@
     width: 100vw;
     display: flex;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 .nav-box {
@@ -19,13 +20,23 @@
 }
 
 #nav-box-right-buttons {
-    width: 120px;
+    width: 140px;
     display: flex;
     justify-content: space-between;
 }
 
+#nav-box-right-buttons .logged-in {
+    width: 140px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 #navbar:first-child {
     margin-right: auto;
+}
+
+#nav-logo {
+    cursor: pointer;
 }
 
 #navbar:last-child {

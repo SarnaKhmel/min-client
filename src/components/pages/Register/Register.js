@@ -20,7 +20,7 @@ const Register = () => {
 
     return (
         <div id="register-page">
-            <h2>register</h2>
+            <h2>create a new min account</h2>
             <form id="register-form">
                 <label name="name">
                     name
@@ -48,10 +48,11 @@ const Register = () => {
                 <input type="text"
                        placeholder={"Verify password..."}
                        name="password2"
+                       id="pass-2"
                        onChange={updateField}
                 />
                 </label>
-                <button onClick={register}>Register</button>
+                <button onClick={register}>register</button>
                 <p>Have an account? <Link to={"/login"}>login</Link></p>
             </form>
         </div>

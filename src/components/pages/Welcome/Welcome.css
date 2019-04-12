@@ -2,10 +2,6 @@
     
 }
 
-#welcome-title {
-    color: black;
-}
-
 .flex-column {
     display: flex;
     flex-direction: column;

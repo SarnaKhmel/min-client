@@ -43,6 +43,15 @@ h2 {
   margin: 0;
 }
 
+button {
+  font-family: 'Rubik', sans-serif;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
+  background-color: rgba(61, 181, 255, 0.749);
+}
+
 a {
   text-decoration: none;
   color: grey;

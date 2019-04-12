@@ -11,24 +11,34 @@ const NavBar = (props) => {
     };
 
     const renderLoginLogout = () => {
-        if (user) return <div className="button" onClick={handleLogout}>logout</div>
-        else return <Link to={'/login'}>login</Link>
+        if (user) { 
+            return (
+            <div className="button" onClick={handleLogout}>logout</div>
+            )
+        }
+        else {
+            return (
+            <div id="nav-box-right-buttons">
+                <Link to={'/login'}>login</Link>
+                <Link to={'/register'}>register</Link>
+            </div>
+            )
+        }
     }
 
     return (
         <div id="navbar">
             <div className="nav-box"></div>
-            <div className="nav-box"><h1>min</h1></div>
+            <div className="nav-box" id="nav-logo"><Link to={'/home'}><h1>min</h1></Link></div>
             <div className="nav-box">
                 <div id="nav-box-right">
                     <div id="nav-box-right-buttons">
-                    {renderLoginLogout()}
-                    <Link to={'/register'}>register</Link>
+                        {renderLoginLogout()}
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default NavBar;
