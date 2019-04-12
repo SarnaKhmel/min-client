@@ -12,3 +12,18 @@
     margin: 0;
     padding: 0;
 }
+
+#welcome-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 320px;
+}
+
+#welcome-options button {
+    font-size: 22px;
+}
+
+#welcome-options a {
+    color: white;
+}

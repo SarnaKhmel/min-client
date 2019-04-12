@@ -1,9 +1,11 @@
 import React from 'react';
+import Timer from '../../shared/Timer/Timer';
+import './Pomodoro.css';
 
 const Pomodoro = () => {
     return (
-        <div id="pomodoro-wrapper">
-            <p>put a pomodoro here</p>
+        <div id="pomodoro">
+            <Timer isPomodoro={true} />
         </div>
     )
 };

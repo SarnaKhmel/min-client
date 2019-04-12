@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Welcome.css';
 
 const Welcome = () => {
@@ -10,8 +11,10 @@ const Welcome = () => {
             </div>   
             <div id="welcome-options">
                 <div className="welcome-option">
+                    <button><Link to={'/multitimer'}>multi-timer</Link></button>
                 </div>
                 <div className="welcome-option">
+                    <button id="pom-button"><Link to={'/pomodoro'}>pomodoro</Link></button>
                 </div>
             </div>  
         </div>

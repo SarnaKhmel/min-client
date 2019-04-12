@@ -27,6 +27,8 @@ const Multitimer = (props) => {
         <div id="multi-wrapper">
             <div className="add-timer-button" onClick={handleAddTimer}>add a timer</div>
             <div className="timers-container">
+            <Timer isPomodoro={false} />
+            <Timer isPomodoro={false} />
             {renderTimersFromReduxStore()}
             </div> 
         </div>

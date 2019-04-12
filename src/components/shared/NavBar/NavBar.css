@@ -12,6 +12,19 @@
     align-items: center;
 }
 
+#nav-box-left {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.nav-box-left-buttons {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
 #nav-box-right {
     width: 100%;
     display: flex;
@@ -19,13 +32,13 @@
     padding-right: 20px;
 }
 
-#nav-box-right-buttons {
+.nav-box-right-buttons {
     width: 140px;
     display: flex;
     justify-content: space-between;
 }
 
-#nav-box-right-buttons .logged-in {
+.nav-box-right-buttons .logged-in {
     width: 140px;
     display: flex;
     justify-content: flex-end;
