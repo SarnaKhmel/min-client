@@ -8,7 +8,7 @@ import {useForm} from '../../../hooks/useForm';
 const Register = () => {
     const { formData, updateField } = useForm();
 
-    const {user, setCurrentUser} = useContext(AuthContext);
+    const {setCurrentUser} = useContext(AuthContext);
 
     const register = async (e) => {
         e.preventDefault();

@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Welcome from './pages/Welcome/Welcome';
 import NavBar from './shared/NavBar/NavBar';
 import Multitimer from './pages/Multitimer/Multitimer';
 import Pomodoro from './pages/Pomodoro/Pomodoro';
@@ -25,9 +26,10 @@ const routes = authToken => {
         <>
             <NavBar/>
             <Switch>
+                <Route path ="/welcome" component={Welcome}/>
                 <Route path ="/multitimer" component={Multitimer}/>
                 <Route path ="/pomodoro" component={Pomodoro}/>
-                <Redirect from="*" to="/multitimer" />
+                <Redirect from="*" to="/welcome" />
             </Switch>
         </>
     );
