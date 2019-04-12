@@ -17,9 +17,16 @@ const NavBar = (props) => {
 
     return (
         <div id="navbar">
-            <div id="nav-left"></div>
-            <div id="nav-middle"><h1>min</h1></div>
-            <div id="nav-right">{renderLoginLogout()}</div>
+            <div className="nav-box"></div>
+            <div className="nav-box"><h1>min</h1></div>
+            <div className="nav-box">
+                <div id="nav-box-right">
+                    <div id="nav-box-right-buttons">
+                    {renderLoginLogout()}
+                    <Link to={'/register'}>register</Link>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

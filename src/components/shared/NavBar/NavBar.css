@@ -1,19 +1,35 @@
 #navbar {
+    width: 100vw;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-#nav-left {
-    width: 90px;
+.nav-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#nav-middle {
-    cursor: pointer;
+#nav-box-right {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
 }
 
-#nav-right {
-    margin: 20px;
+#nav-box-right-buttons {
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#navbar:first-child {
+    margin-right: auto;
+}
+
+#navbar:last-child {
+    margin-left: auto;
 }
 
 .button {
