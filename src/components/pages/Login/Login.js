@@ -7,7 +7,7 @@ import './Login.css';
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const {setCurrentAuthToken} = useContext(AuthContext);
+    const {setCurrentUser} = useContext(AuthContext);
 
     const login = async (e) => {
         e.preventDefault();
@@ -18,7 +18,7 @@ const Login = () => {
         };
 
         const response = await signIn(data);
-        await setCurrentAuthToken(response.data.token);
+        setCurrentUser(response.data);
     }
     
     return (

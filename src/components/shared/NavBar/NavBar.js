@@ -3,10 +3,10 @@ import {AuthContext} from '../../shared/Auth';
 import './NavBar.css';
 
 const NavBar = (props) => {
-    const {setCurrentAuthToken} = useContext(AuthContext);
+    const {setCurrentUser} = useContext(AuthContext);
 
     const handleLogout = async () => {
-        await setCurrentAuthToken(null);
+        await setCurrentUser(null);
     };
 
     return (

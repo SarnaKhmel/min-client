@@ -15,7 +15,7 @@ const Register = () => {
 
         const response = await signUp(formData);
         
-        // setCurrentUser(response.data.data);
+        setCurrentUser(response.data);
     };
 
     return (

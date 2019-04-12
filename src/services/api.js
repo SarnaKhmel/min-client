@@ -26,8 +26,7 @@ axios.interceptors.request.use(config => {
 // Takes the auth headers from each axios response and persists them to local storage
 axios.interceptors.response.use(
     response => {
-        const accessToken = response.data.token;
-
+        const accessToken = response.headers["x-auth-token"];
         if (accessToken) {
             localStorage.setItem(LOCAL_STORAGE_KEY, accessToken);
         }
