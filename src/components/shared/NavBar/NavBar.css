@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
 }
 
 #nav-left {
@@ -15,10 +14,6 @@
 
 #nav-right {
     margin: 20px;
-}
-
-#navbar h1 {
-    color: rgba(61, 181, 255, 0.749);
 }
 
 .button {

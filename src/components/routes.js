@@ -13,12 +13,15 @@ const routes = authToken => {
     // Routes viewable without login
     if (!authToken) {
         return (
-            <Switch>
-                <Route path="/home" component={Home}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/register" component={Register}/>
-                <Redirect from="*" to="/home" />
-            </Switch>
+            <>
+                <NavBar/>
+                <Switch>
+                    <Route path="/home" component={Home}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
+                    <Redirect from="*" to="/home" />
+                </Switch>
+            </>
         );
     }
 

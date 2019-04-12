@@ -23,7 +23,7 @@ const Login = () => {
     
     return (
         <div className="login-page">
-            <h1>Login</h1>
+            <h2>login</h2>
             <form id="login-form">
                 <label name="login-email">
                     email

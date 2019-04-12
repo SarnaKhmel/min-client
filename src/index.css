@@ -22,7 +22,7 @@ body {
   font-family: 'Rubik', sans-serif;
   font-weight: 600;
   font-size: 18px;
-  color: white;
+  color: rgb(89, 93, 94);
 }
 
 .App {
@@ -36,4 +36,27 @@ body {
 h1 {
   font-size: 50px;
   margin: 0;
+  color: rgba(61, 181, 255, 0.749);
+}
+
+h2 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: grey;
+}
+
+a:hover {
+  color: black;
+}
+
+.button {
+  color: grey;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: black;
 }
