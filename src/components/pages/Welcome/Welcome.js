@@ -7,7 +7,13 @@ const Welcome = () => {
             <div id="welcome-title" className="flex-column">
                 <h2>welcome to min</h2>
                 <h5>min is a timer app with two modes</h5>
-            </div>     
+            </div>   
+            <div id="welcome-options">
+            <div className="welcome-option">
+            </div>
+            <div className="welcome-option">
+            </div>
+            </div>  
         </div>
     );
 };

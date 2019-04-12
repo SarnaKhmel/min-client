@@ -13,7 +13,7 @@ const NavBar = (props) => {
         <div id="navbar">
             <div id="nav-left"></div>
             <div id="nav-middle"><h1>min</h1></div>
-            <div id="nav-right"><button onClick={handleLogout}>logout</button></div>
+            <div id="nav-right"><div className="button" onClick={handleLogout}>logout</div></div>
         </div>
     )
 }

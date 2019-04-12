@@ -1,17 +1,31 @@
 #navbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    height: 75px;
-    width: 100%;
-    background-color: rgb(157, 218, 205);
+    align-items: center;
     margin-bottom: 50px;
 }
 
 #nav-left {
-    width: 50px;
+    width: 90px;
+}
+
+#nav-middle {
+    cursor: pointer;
+}
+
+#nav-right {
+    margin: 20px;
 }
 
 #navbar h1 {
-    color: rgba(56, 30, 108, 0.755);
+    color: rgba(61, 181, 255, 0.749);
+}
+
+.button {
+    color: grey;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: black;
 }

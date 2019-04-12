@@ -22,7 +22,7 @@ body {
   font-family: 'Rubik', sans-serif;
   font-weight: 600;
   font-size: 18px;
-  color: rgb(46, 61, 75);
+  color: white;
 }
 
 .App {
@@ -34,7 +34,6 @@ body {
 }
 
 h1 {
-  color: rgb(46, 61, 75);
   font-size: 50px;
   margin: 0;
 }
