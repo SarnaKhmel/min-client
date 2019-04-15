@@ -7,6 +7,7 @@ import calculateAndRenderTimer from '../../../modules/timerScreen';
 export default class Timer extends Component {
 
   state = {
+    id: null,
     pomLength: 0,
     currentTime: 0,
     breakLength: 0,
@@ -32,13 +33,16 @@ export default class Timer extends Component {
 
   // Determines if the current timer instance is a pomodoro, and sets state.isPomodoro accordingly. This triggers the conditional rendering of either a timer component or a modified pomodoro timer component
   isPomodoro = () => {
+    const id = uuid();
     if (this.props.isPomodoro) {
       this.setState({
-        isPomodoro: true
+        isPomodoro: true,
+        id: id
       })
     } else {
       this.setState({
-        isPomodoro: false
+        isPomodoro: false,
+        id: id
       })
     }
   }
@@ -136,11 +140,33 @@ export default class Timer extends Component {
     }       
   }
 
+  validateTimerInput = () => {
+
+    const timer = document.getElementById(this.state.id);
+    
+    if (this.state.isPomodoro) {
+      if (this.state.pomLength === 0 && this.state.breakLength === 0 && this.state.longBreakLength) {
+        timer.lastChild.style.display = "block";
+        return false;
+      } else {
+        timer.lastChild.style.display = "none";
+        return true;
+      }
+    } else {
+      if (this.state.pomLength === 0 && this.state.breakLength === 0){
+        timer.lastChild.style.display = "block";
+        return false;
+      } else {
+        timer.lastChild.style.display = "none";
+        return true;
+      }
+    }
+  }
+
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
-    if (this.state.breakTime === 0 && this.state.currentTime === 0) {
-      return;
-    }
+    const valid = this.validateTimerInput();
+    if (!valid) return;
     const timer = setInterval(this.timerCallback, 1000);
     this.setState({
       intervalNum: timer,
@@ -176,8 +202,10 @@ export default class Timer extends Component {
 
   // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
   setCurrentTimeFromInput = () => {
+    const timerLength = this.calculateTimeIntegerFromInputLength();
     this.setState({
-      currentTime: this.calculateTimeIntegerFromInputLength()
+      currentTime: timerLength,
+      pomLength: timerLength
     })
   }
 
@@ -209,14 +237,14 @@ export default class Timer extends Component {
       default:
         return;
     }
-  }
+  };
 
   // Sets the state for timer hours, minutes and seconds based on the user's input
   handleInputChange = (callback, e) => {
     this.setState({
       [e.target.name]: e.target.value
     }, callback)
-  }
+  };
 
   // Conditionally renders the amount of seconds remaining on either the pom timer or break timer dependent on state.isBreak for the pomodoro timer
   conditionallyRenderCurrentTimeOrBreakTime = () => {
@@ -229,13 +257,13 @@ export default class Timer extends Component {
     } else {
       return calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum);
     }
-  }
+  };
 
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
     if (this.state.isPomodoro) {
       return (
-        <div className={this.renderPomClassBasedOnIsBreak()}>
+        <div id={this.state.id} className={this.renderPomClassBasedOnIsBreak()}>
           <div className="timer-counter">{this.conditionallyRenderCurrentTimeOrBreakTime()}</div>
           <div className="pom-input-container">
             <div className="pom-inputs">
@@ -270,12 +298,13 @@ export default class Timer extends Component {
                   <div className="timer-button start" onClick={this.handleStartClick}>start</div>
                   <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
                   <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
-              </div>   
+          </div>  
+          <div className="invalid-timer-input">please enter a timer length greater than zero seconds</div>   
         </div>
       )
     } else {
       return (
-        <div id={uuid()} className="timer">
+        <div id={this.state.id} className="timer">
           <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
           <div className="timer-buttons-and-inputs">
             <div className="length-input-wrapper">
@@ -297,9 +326,10 @@ export default class Timer extends Component {
                 <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
                 <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
             </div>
-          </div>      
+          </div>  
+          <div className="invalid-timer-input">please enter a timer length greater than zero seconds</div>    
         </div>
-      )
+      );
     } 
-  }
-}
+  };
+};
