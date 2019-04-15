@@ -7,8 +7,28 @@
 #login-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     margin: 10px 0 10px 0;
+    min-width: 800px;
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 100px 160px 230px;
+    grid-template-rows: 50px;
+    align-items: center;
+    margin-left: 140px;
+    margin-bottom: 10px;
+    
+}
+
+.form-group .form-control {
+    justify-self: start;
+}
+
+label {
+    justify-self: end;
 }
 
 #login-form label {

@@ -52,9 +52,8 @@ const Login = () => {
                         required={true}
                         onChange={({target}) => setPassword(target.value)} 
                         />
-                    <small className="form-text text-muted">must be at least 5 characters long and contain uppercase and lowercase letters, and numbers</small>
                     <div className="invalid-feedback"></div>
-                </div>    
+                </div>
                 <button className={"submit-button"} type="submit">login</button>
             </Form>
             <p>don't have an account? <Link to={'/register'}>register</Link></p>
