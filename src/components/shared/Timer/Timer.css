@@ -78,6 +78,7 @@
 
 /* Pomodoro Styling */
 .timer.pom {
+    position: relative;
     height: 280px;
     width: 380px;
     background-color: rgb(201, 60, 60);

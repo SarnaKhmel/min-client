@@ -141,11 +141,10 @@ export default class Timer extends Component {
   }
 
   validateTimerInput = () => {
-
     const timer = document.getElementById(this.state.id);
-    
+    console.log(timer);
     if (this.state.isPomodoro) {
-      if (this.state.pomLength === 0 && this.state.breakLength === 0 && this.state.longBreakLength) {
+      if (this.state.pomLength === 0 || this.state.breakLength === 0 || this.state.longBreakLength === 0) {
         timer.lastChild.style.display = "block";
         return false;
       } else {
@@ -267,7 +266,7 @@ export default class Timer extends Component {
           <div className="timer-counter">{this.conditionallyRenderCurrentTimeOrBreakTime()}</div>
           <div className="pom-input-container">
             <div className="pom-inputs">
-              <h3>pom</h3>
+              <h3>timer</h3>
               <div className="length-input-wrapper">
                 <label className="length-input-label">
                   minutes:
@@ -299,7 +298,7 @@ export default class Timer extends Component {
                   <div className="timer-button stop" onClick={this.handleStopClick}>stop</div>
                   <div className="timer-button reset" onClick={this.handleResetClick}>reset</div>
           </div>  
-          <div className="invalid-timer-input">please enter a timer length greater than zero seconds</div>   
+          <div className="invalid-timer-input">please enter a length greater than zero for timer and breaks</div>   
         </div>
       )
     } else {
