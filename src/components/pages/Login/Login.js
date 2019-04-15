@@ -27,7 +27,7 @@ const Login = () => {
             <form id="login-form">
                 <label name="login-email">
                     email
-                    <input type="text"
+                    <input required type="text"
                        placeholder={"Your email..."}
                        onChange={({target}) => setEmail(target.value)} 
                     />
@@ -35,12 +35,12 @@ const Login = () => {
                 
                 <label name="login-pass">
                     password
-                    <input type="text"
+                    <input required type="text"
                         placeholder={"Your password..."}
                         id="login-pass"
                         onChange={({target}) => setPassword(target.value)} />
                 </label>
-                <button onClick={login}>Login</button>
+                <input className="submit-button" type="submit" onSubmit={login} value="login" />
                 <p>don't have an account? <Link to={'/register'}>register</Link></p>
             </form>
         </div>

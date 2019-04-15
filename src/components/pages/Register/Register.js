@@ -24,7 +24,7 @@ const Register = () => {
             <form id="register-form">
                 <label name="name">
                     name
-                    <input type="text"
+                    <input required type="text"
                         placeholder={"Your full name..."}
                         name="name"
                         onChange={updateField}
@@ -32,7 +32,7 @@ const Register = () => {
                 </label>
                 <label name="email">
                     email
-                    <input type="text"
+                    <input required type="text"
                         placeholder={"Your email..."}
                         name="email"
                         onChange={updateField}
@@ -40,19 +40,19 @@ const Register = () => {
                 </label>
                 <label name="password">
                     password
-                    <input type="text"
+                    <input required type="text"
                         placeholder={"Your password..."}
                         name="password"
                         onChange={updateField}
                     />
-                <input type="text"
+                <input required type="text"
                        placeholder={"Verify password..."}
                        name="password2"
                        id="pass-2"
                        onChange={updateField}
                 />
                 </label>
-                <button onClick={register}>register</button>
+                <input className="submit-button" type="submit" onSubmit={register} value="register"/>
                 <p>Have an account? <Link to={"/login"}>login</Link></p>
             </form>
         </div>
