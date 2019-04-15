@@ -14,7 +14,7 @@ class Form extends Component {
             for (let i = 0; i < formLength; i++) {
                 const elem = this.formEl[i];
                 const errorLabel = elem.parentNode.querySelector('.invalid-feedback');
-                errorLabel.style.backgroundColor = "#ff544f";
+                console.log(elem);
                 if (errorLabel && elem.nodeName.toLowerCase() !== 'button') {
                     if (!elem.validity.valid) {
                         errorLabel.textContent = elem.validationMessage;

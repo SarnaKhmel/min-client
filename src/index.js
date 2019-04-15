@@ -7,28 +7,19 @@ import {Provider} from 'react-redux';
 import rootReducer from './redux/reducers';
 import Auth from './components/shared/Auth';
 import routes from './components/routes';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
+import * as serviceWorker from "./serviceWorker";
 
 let store = createStore(rootReducer);
 
-const theme = createMuiTheme({
-    palette: {
-      primary: { main: '#bbb999' }, // Purple and green play nicely together.
-      secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
-    },
-    typography: { useNextVariants: true },
-});
-
 ReactDOM.render(
         <Provider store={store}>
-            <MuiThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <Auth>
-                        {routes}
-                    </Auth>
-                </BrowserRouter>
-            </MuiThemeProvider>    
+            <BrowserRouter>
+                <Auth>
+                    {routes}
+                </Auth>
+            </BrowserRouter> 
         </Provider> 
         , 
 document.getElementById('root'));
+
+serviceWorker.unregister();

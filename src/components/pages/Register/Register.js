@@ -11,7 +11,7 @@ const Register = () => {
 
     const {setCurrentUser} = useContext(AuthContext);
 
-    const register = async (e) => {
+    const register = async () => {
         const response = await signUp(formData);
         
         setCurrentUser(response.data);
@@ -34,7 +34,7 @@ const Register = () => {
                         onChange={updateField}
                         required={true}
                     />
-                    <div className={"invalid-feedback"}></div>
+                    <div className="invalid-feedback"></div>
                 </div>
                 
                 <div className={"form-group"}>
@@ -49,7 +49,7 @@ const Register = () => {
                         onChange={updateField}
                         required={true}
                     />
-                    <div className={"invalid-feedback"}></div>
+                    <div className="invalid-feedback"></div>
                 </div>
                 
                 <div className={"form-group"}>
@@ -66,7 +66,7 @@ const Register = () => {
                         name={"password"}
                         onChange={updateField}
                     />
-                    <div className={"invalid-feedback"}></div>
+                    <div className="invalid-feedback"></div>
                 </div>
                 <div className={"form-group"}>
                     <label htmlFor={"password2"}>
@@ -81,9 +81,9 @@ const Register = () => {
                         id={"pass-2"}
                         onChange={updateField}
                     />
-                    <div className={"invalid-feedback"}></div>
+                    <div className="invalid-feedback"></div>
                 </div> 
-                <button type={"submit"}>register</button>
+                <button type="submit">register</button>
             </Form>
             <p>Have an account? <Link to={"/login"}>login</Link></p>
         </div>

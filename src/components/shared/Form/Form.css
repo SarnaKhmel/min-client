@@ -7,38 +7,15 @@
 }
 
 .form-control:invalid~.invalid-feedback {
-    -webkit-clip-path: polygon(0 50%, 5% 80%, 5% 100%, 100% 100%, 100% 0, 5% 0, 5% 20%);
-    clip-path: polygon(0 50%, 5% 80%, 5% 100%, 100% 100%, 100% 0, 5% 0, 5% 20%);
-    padding-left: 30px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    max-width: 400px;
-    font-size: 14px;
-    color: white;
+    height: 15px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: rgb(77, 72, 72);
 
 }
 
 .form-control {
     height: 20px;
-}
-
-.form-group {
-    display: grid;
-    grid-template-columns: 100px 160px 400px;
-    grid-template-rows: 50px;
-    align-items: center;
-    margin-left: 300px;
-    margin-bottom: 10px;
-    
-}
-
-.form-group .form-control {
-    justify-self: start;
-}
-
-label {
-    justify-self: end;
 }
 
 #login-form label {
@@ -50,4 +27,12 @@ label {
 
 #login-pass {
     margin-bottom: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
 }
