@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {signUp} from '../../../services/auth';
 import {AuthContext} from '../../shared/Auth';
 import {useForm} from '../../../hooks/useForm';
+import Form from '../../shared/Form/Form';
 
 const Register = () => {
     const { formData, updateField } = useForm();
@@ -11,8 +12,6 @@ const Register = () => {
     const {setCurrentUser} = useContext(AuthContext);
 
     const register = async (e) => {
-        e.preventDefault();
-
         const response = await signUp(formData);
         
         setCurrentUser(response.data);
@@ -21,40 +20,72 @@ const Register = () => {
     return (
         <div id="register-page">
             <h2>create a new min account</h2>
-            <form id="register-form">
-                <label name="name">
-                    name
-                    <input required type="text"
+            <Form id="register-form" submit={register}>
+                <div className={"form-group"}>
+                    <label htmlFor={"name"}>
+                        name
+                    </label>
+                    <input 
+                        type={"text"}
+                        className={"form-control"}
                         placeholder={"Your full name..."}
-                        name="name"
+                        name={"name"}
+                        minLength={5}
                         onChange={updateField}
+                        required={true}
                     />
-                </label>
-                <label name="email">
-                    email
-                    <input required type="text"
+                    <div className={"invalid-feedback"}></div>
+                </div>
+                
+                <div className={"form-group"}>
+                    <label htmlFor={"email"}>
+                        email
+                        </label>
+                    <input 
+                        type={"email"}
+                        className={"form-control"}
                         placeholder={"Your email..."}
-                        name="email"
+                        name={"email"}
                         onChange={updateField}
+                        required={true}
                     />
-                </label>
-                <label name="password">
-                    password
-                    <input required type="text"
+                    <div className={"invalid-feedback"}></div>
+                </div>
+                
+                <div className={"form-group"}>
+                    <label htmlFor={"password"}>
+                        password
+                    </label>
+                    <input 
+                        required={true}
+                        type={"password"}
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}"
+                        className={"form-control"}
                         placeholder={"Your password..."}
-                        name="password"
+                        minLength={5}
+                        name={"password"}
                         onChange={updateField}
                     />
-                <input required type="text"
-                       placeholder={"Verify password..."}
-                       name="password2"
-                       id="pass-2"
-                       onChange={updateField}
-                />
-                </label>
-                <input className="submit-button" type="submit" onSubmit={register} value="register"/>
-                <p>Have an account? <Link to={"/login"}>login</Link></p>
-            </form>
+                    <div className={"invalid-feedback"}></div>
+                </div>
+                <div className={"form-group"}>
+                    <label htmlFor={"password2"}>
+                    </label>
+                    <input 
+                        required={true}
+                        type={"password"}
+                        className={"form-control"}
+                        placeholder={"Verify password..."}
+                        minLength={5}
+                        name={"password2"}
+                        id={"pass-2"}
+                        onChange={updateField}
+                    />
+                    <div className={"invalid-feedback"}></div>
+                </div> 
+                <button type={"submit"}>register</button>
+            </Form>
+            <p>Have an account? <Link to={"/login"}>login</Link></p>
         </div>
     );
 };

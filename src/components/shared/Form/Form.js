@@ -17,12 +17,7 @@ class Form extends Component {
                 errorLabel.style.backgroundColor = "#ff544f";
                 if (errorLabel && elem.nodeName.toLowerCase() !== 'button') {
                     if (!elem.validity.valid) {
-                        if (elem.type === "name")
-                        errorLabel.textContent = "name must be at least 5 characters";
-                        if (elem.type === "email")
-                        errorLabel.textContent = "please enter a valid email address";
-                        else if (elem.type === "password")
-                        errorLabel.textContent = "please enter a valid password";
+                        errorLabel.textContent = elem.validationMessage;
                     } else {
                         errorLabel.textContent = '';
                     }
