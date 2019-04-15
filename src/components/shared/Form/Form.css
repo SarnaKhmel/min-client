@@ -8,7 +8,6 @@
 
 .form-control:invalid~.invalid-feedback {
     height: 15px;
-    margin-bottom: 5px;
     font-size: 12px;
     color: rgb(77, 72, 72);
 
@@ -36,3 +35,14 @@
     align-items: center;
     margin: 0;
 }
+
+.submit-button {
+    cursor: pointer;
+    font-family: 'Rubik', sans-serif;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 15px;
+    background-color: rgba(61, 181, 255, 0.749);
+    margin-top: 10px;
+  }

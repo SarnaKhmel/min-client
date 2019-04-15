@@ -83,7 +83,7 @@ const Register = () => {
                     />
                     <div className="invalid-feedback"></div>
                 </div> 
-                <button type="submit">register</button>
+                <button className={"submit-button"} type="submit">register</button>
             </Form>
             <p>Have an account? <Link to={"/login"}>login</Link></p>
         </div>

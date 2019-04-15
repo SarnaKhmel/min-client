@@ -52,16 +52,6 @@ button {
   background-color: rgba(61, 181, 255, 0.749);
 }
 
-.submit-button {
-  cursor: pointer;
-  font-family: 'Rubik', sans-serif;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 15px;
-  font-size: 15px;
-  background-color: rgba(61, 181, 255, 0.749);
-}
-
 input {
   border-radius: 5px;
   border: 1px solid rgb(170, 175, 176);
