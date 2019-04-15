@@ -69,6 +69,10 @@ input {
   margin: 5px;
 }
 
+.form-control:valid~.invalid-feedback {
+  display: none;
+}
+
 a {
   text-decoration: none;
   color: grey;

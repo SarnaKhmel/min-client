@@ -3,15 +3,14 @@ import {AuthContext} from '../../shared/Auth';
 import {signIn} from '../../../services/auth';
 import {Link} from 'react-router-dom';
 import './Login.css';
+import Form from '../../shared/Form/Form';
 
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const {setCurrentUser} = useContext(AuthContext);
 
-    const login = async (e) => {
-        e.preventDefault();
-
+    const login = async () => {
         const data = {
             email: email,
             password: password
@@ -19,30 +18,46 @@ const Login = () => {
 
         const response = await signIn(data);
         setCurrentUser(response.data);
-    }
+    };
     
     return (
         <div className="login-page">
             <h2>login</h2>
-            <form id="login-form">
-                <label name="login-email">
-                    email
-                    <input required type="text"
-                       placeholder={"Your email..."}
-                       onChange={({target}) => setEmail(target.value)} 
+            <Form id="login-form" submit={login}>
+                <div className={"form-group"}> 
+                    <label htmlFor={"email"}>
+                        email
+                    </label>
+                    <input 
+                    id={"email"}
+                    type={"email"}
+                    className={"form-control"}
+                    placeholder={"Your email..."}
+                    onChange={({target}) => setEmail(target.value)} 
+                    required={true}
                     />
-                </label>
-                
-                <label name="login-pass">
-                    password
-                    <input required type="text"
+                    <div className="invalid-feedback"></div>
+                </div>
+                <div className={"form-group"}>     
+                    <label htmlFor={"password"}>
+                        password
+                    </label>
+                    <input 
+                        className={"form-control"}
+                        id={"password"}
+                        name={"password"}
+                        type={"password"}
                         placeholder={"Your password..."}
-                        id="login-pass"
-                        onChange={({target}) => setPassword(target.value)} />
-                </label>
-                <input className="submit-button" type="submit" onSubmit={login} value="login" />
-                <p>don't have an account? <Link to={'/register'}>register</Link></p>
-            </form>
+                        minLength={5}
+                        required={true}
+                        onChange={({target}) => setPassword(target.value)} 
+                        />
+                    <small className="form-text text-muted">must be at least 5 characters long and contain uppercase and lowercase letters, and numbers</small>
+                    <div className="invalid-feedback"></div>
+                </div>    
+                <button className={"submit-button"} type="submit">login</button>
+            </Form>
+            <p>don't have an account? <Link to={'/register'}>register</Link></p>
         </div>
     );
 };
