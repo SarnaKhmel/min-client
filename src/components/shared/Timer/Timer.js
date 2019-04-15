@@ -140,6 +140,7 @@ export default class Timer extends Component {
     }       
   }
 
+  // Validates the regular timer length input to ensure that it is greater than zero seconds, or validates all pomodoro inputs to ensure that each one is greater than zero seconds
   validateTimerInput = () => {
     const timer = document.getElementById(this.state.id);
     console.log(timer);
