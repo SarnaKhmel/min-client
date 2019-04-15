@@ -142,8 +142,9 @@ export default class Timer extends Component {
 
   // Validates the regular timer length input to ensure that it is greater than zero seconds, or validates all pomodoro inputs to ensure that each one is greater than zero seconds
   validateTimerInput = () => {
+
     const timer = document.getElementById(this.state.id);
-    console.log(timer);
+
     if (this.state.isPomodoro) {
       if (this.state.pomLength === 0 || this.state.breakLength === 0 || this.state.longBreakLength === 0) {
         timer.lastChild.style.display = "block";
@@ -184,6 +185,9 @@ export default class Timer extends Component {
 
   // Handles click event for reset button by clearing the timer interval, setting the timer display and all inputs to zero and setting the state.timerRunning value to false to prevent the alarm from triggering
   handleResetClick = () => {
+
+    const timer = document.getElementById(this.state.id);
+    timer.lastChild.style.display = "none";
 
     clearInterval(this.state.intervalNum);
 
