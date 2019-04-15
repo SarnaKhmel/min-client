@@ -59,7 +59,6 @@ const Register = () => {
                     <input 
                         required={true}
                         type={"password"}
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}"
                         className={"form-control"}
                         placeholder={"Your password..."}
                         minLength={5}
