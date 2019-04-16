@@ -7,7 +7,7 @@
     justify-content: space-around;
     background-color: rgb(202, 220, 209);
     width: 330px;
-    height: 250px;
+    height: 280px;
     border-radius: 5px;
     padding: 15px 10px;
     margin: 10px;
@@ -55,6 +55,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 14px;
+    color: rgb(31, 30, 34);
 }
 
 .length-input-wrapper {
@@ -76,13 +78,57 @@
     padding: 3px;
 }
 
+#remove-timer-button {
+    cursor: pointer;
+    position: absolute;
+    font-size: 20px;
+    color: rgb(235, 252, 233);
+    left: 320px;
+    top: 10px;
+}
+
+#remove-timer-button:hover {
+    color:  #ff767c;
+}
+
+.timer-name-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-name-label {
+    position: absolute;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+}
+
+.timer-name {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+    color: rgba(2, 33, 48, 0.769);
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
 /* Pomodoro Styling */
 .timer.pom {
     position: relative;
-    height: 280px;
+    height: 300px;
     width: 380px;
     background-color: rgb(201, 60, 60);
+}
 
+.timer.pom .timer-name-label {
+    color: white;
 }
 
 .timer.pom .timer-counter {
@@ -109,7 +155,7 @@
 
 
 .timer.pom h3 {
-    font-size: 22px;
+    font-size: 20px;
     padding: 0;
     margin: 0;
     color: rgb(125, 34, 49);
@@ -156,17 +202,3 @@
     text-align: center;
     box-shadow: 0px 5px 20px rgb(94, 85, 85);
 }
-
-#remove-timer-button {
-    cursor: pointer;
-    position: absolute;
-    font-size: 20px;
-    color: rgb(235, 252, 233);
-    left: 320px;
-    top: 10px;
-}
-
-#remove-timer-button:hover {
-    color:  #ff767c;
-}
-

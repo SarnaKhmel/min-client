@@ -9,6 +9,7 @@ import calculateAndRenderTimer from '../../../modules/timerScreen';
 class Timer extends Component {
 
   state = {
+    name: "",
     id: null,
     pomLength: 0,
     currentTime: 0,
@@ -271,6 +272,23 @@ class Timer extends Component {
   handleRemoveTimer = ({target}) => {
     const timerId = target.parentElement.id;
     this.props.removeTimer(timerId);
+  };
+
+  handleTimerNameLabelDisplay = () => {
+    const label = document.getElementById('label-' + this.state.id);
+    if (!label) return "timer name";
+
+    if (this.state.name.length > 0) {
+      label.style.display = "none";
+    } else {
+      label.style.display = "block"
+      return "timer name";
+    }
+  }
+
+  handleTimerNameFocus = () => {
+    const label = document.getElementById('label-' + this.state.id);
+    label.style.display = "none";
   }
 
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
@@ -278,6 +296,20 @@ class Timer extends Component {
     if (this.state.isPomodoro) {
       return (
         <div id={this.state.id} className={this.renderPomClassBasedOnIsBreak()}>
+          <div className="timer-name-wrapper">
+            <label className="timer-name-label" id={'label-' + this.state.id} htmlFor={"timer-" + this.state.id}>
+              {this.handleTimerNameLabelDisplay()}
+            </label>
+            <input 
+              name="name" 
+              className="timer-name" 
+              type="text" id={"timer-" + this.state.id} 
+              value={this.state.name} 
+              maxLength="15"
+              onChange={this.handleInputChange.bind(this, null)} 
+              onFocus={this.handleTimerNameFocus}
+            />
+          </div>
           <div className="timer-counter">{this.conditionallyRenderCurrentTimeOrBreakTime()}</div>
           <div className="pom-input-container">
             <div className="pom-inputs">
@@ -320,6 +352,20 @@ class Timer extends Component {
       return (
         <div id={this.state.id} className="timer">
           <i id="remove-timer-button" className="fas fa-times" onClick={this.handleRemoveTimer}></i>
+          <div className="timer-name-wrapper">
+            <label className="timer-name-label" id={'label-' + this.state.id} htmlFor={"timer-" + this.state.id}>
+              {this.handleTimerNameLabelDisplay()}
+            </label>
+            <input 
+              name="name" 
+              className="timer-name" 
+              type="text" id={"timer-" + this.state.id} 
+              value={this.state.name} 
+              maxLength="15"
+              onChange={this.handleInputChange.bind(this, null)} 
+              onFocus={this.handleTimerNameFocus}
+            />
+          </div>
           <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
           <div className="timer-buttons-and-inputs">
             <div className="length-input-wrapper">
