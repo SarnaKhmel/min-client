@@ -396,6 +396,7 @@ class Timer extends Component {
           title={this.state.alertTitle} 
           content={this.state.alertContent} 
           handleAlertClose={this.handleAlertClose}
+          isBreak={true}
         />
         <div id={this.state.id} className="timer">
           <i 
