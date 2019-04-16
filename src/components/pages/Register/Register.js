@@ -14,7 +14,9 @@ const Register = () => {
     const register = async () => {
         const response = await signUp(formData);
         if (response.response.data === "A user with this email already exists.") {
-            alert(response.response.data);
+            const invalidFeedback = document.getElementById('email-invalid-feedback');
+            invalidFeedback.textContent = response.response.data;
+            return;
         }
         setCurrentUser(response.data);
     };
@@ -53,7 +55,7 @@ const Register = () => {
                         onChange={updateField}
                         required={true}
                     />
-                    <div className="invalid-feedback"></div>
+                    <div id="email-invalid-feedback" className="invalid-feedback"></div>
                 </div>
                 
                 <div className={"form-group"}>
