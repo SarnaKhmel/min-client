@@ -87,7 +87,7 @@ const Register = () => {
                 </div> 
                 <button className={"submit-button"} type="submit">register</button>
             </Form>
-            <p>Have an account? <Link to={"/login"}>login</Link></p>
+            <p>have an account? <Link to={"/login"}>login</Link></p>
         </div>
     );
 };
