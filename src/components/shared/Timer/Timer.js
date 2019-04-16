@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import './Timer.css';
 import * as actions from '../../../redux/actions';
+import uuid from 'uuid';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
@@ -34,23 +35,22 @@ class Timer extends Component {
 
   // Determines if the current timer instance is a pomodoro, and sets state.isPomodoro accordingly. This triggers the conditional rendering of either a timer component or a modified pomodoro timer component
   isPomodoro = () => {
-    const id = this.props.id;
     if (this.props.isPomodoro) {
       this.setState({
         isPomodoro: true,
-        id: id
+        id: uuid()
       })
     } else {
       this.setState({
         isPomodoro: false,
-        id: id
+        id: this.props.id
       })
     }
-  }
+  };
 
   renderPomClassBasedOnIsBreak = () => {
     return this.state.isBreak ? "timer pom break" : "timer pom";
-  }
+  };
 
   // Calculates the number of seconds equivalent to what the user inputs for the timer's length
   calculateTimeIntegerFromInputLength = () => {
@@ -68,13 +68,13 @@ class Timer extends Component {
       seconds = 0;
     }
     return hoursToSeconds + minutesToSeconds + seconds;
-  }
+  };
 
   // Calculates the number of seconds equivalent to an inputted amount of minutes
   calculateTimeIntegerFromMinuteInputOnly = (inputMinutes) => {
     if (!inputMinutes || inputMinutes === "") return 0;
     return parseInt(inputMinutes) * 60;
-  }
+  };
 
   // This method runs each time the timer interval is completed to either decrease state.currentTime by one and allow the timer to count down, or triggering the alarm if state.timerRunning is true and the timer has reached 0
   timerCallback = () => {
@@ -139,7 +139,7 @@ class Timer extends Component {
         })
       }
     }       
-  }
+  };
 
   // Validates the regular timer length input to ensure that it is greater than zero seconds, or validates all pomodoro inputs to ensure that each one is greater than zero seconds
   validateTimerInput = () => {
@@ -163,7 +163,7 @@ class Timer extends Component {
         return true;
       }
     }
-  }
+  };
 
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
@@ -174,7 +174,7 @@ class Timer extends Component {
       intervalNum: timer,
       timerRunning: true
     })  
-  }
+  };
 
   // Handles click event for stop button by clearing the timer interval and setting state.timerRunning to false
   handleStopClick = () => {
@@ -182,11 +182,10 @@ class Timer extends Component {
     this.setState({
       timerRunning: false
     })
-  }
+  };
 
   // Handles click event for reset button by clearing the timer interval, setting the timer display and all inputs to zero and setting the state.timerRunning value to false to prevent the alarm from triggering
   handleResetClick = () => {
-
     const timer = document.getElementById(this.state.id);
     timer.lastChild.style.display = "none";
 
@@ -204,8 +203,8 @@ class Timer extends Component {
       breakMinutes: "00",
       longBreakMinutes: "00",
       timerRunning: false
-    })
-  }
+    });
+  };
 
   // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
   setCurrentTimeFromInput = () => {
@@ -213,8 +212,8 @@ class Timer extends Component {
     this.setState({
       currentTime: timerLength,
       pomLength: timerLength
-    })
-  }
+    });
+  };
 
   // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
   setStateFromMinuteInput = (statePortion) => {

@@ -9,8 +9,8 @@ const Home = (props) => {
                 <h2>welcome to min</h2>
             </div>
             <div className="button-wrapper">
-                <Link to={'/login'}>Login</Link>
-                <Link to={'/register'}>Register</Link>
+                <Link to={'/login'}>login</Link>
+                <Link to={'/register'}>register</Link>
             </div>
         </div>    
     );
