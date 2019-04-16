@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import './Timer.css';
-import uuid from 'uuid';
+import * as actions from '../../../redux/actions';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
-export default class Timer extends Component {
+class Timer extends Component {
 
   state = {
     id: null,
@@ -33,7 +34,7 @@ export default class Timer extends Component {
 
   // Determines if the current timer instance is a pomodoro, and sets state.isPomodoro accordingly. This triggers the conditional rendering of either a timer component or a modified pomodoro timer component
   isPomodoro = () => {
-    const id = uuid();
+    const id = this.props.id;
     if (this.props.isPomodoro) {
       this.setState({
         isPomodoro: true,
@@ -265,6 +266,12 @@ export default class Timer extends Component {
     }
   };
 
+  // Gets timerId from parent div and removes the timer from the redux store
+  handleRemoveTimer = ({target}) => {
+    const timerId = target.parentElement.id;
+    this.props.removeTimer(timerId);
+  }
+
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
     if (this.state.isPomodoro) {
@@ -311,6 +318,7 @@ export default class Timer extends Component {
     } else {
       return (
         <div id={this.state.id} className="timer">
+          <i id="remove-timer-button" className="fas fa-times" onClick={this.handleRemoveTimer}></i>
           <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
           <div className="timer-buttons-and-inputs">
             <div className="length-input-wrapper">
@@ -339,3 +347,5 @@ export default class Timer extends Component {
     } 
   };
 };
+
+export default connect(null, actions)(Timer);

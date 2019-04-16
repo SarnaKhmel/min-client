@@ -156,3 +156,17 @@
     text-align: center;
     box-shadow: 0px 5px 20px rgb(94, 85, 85);
 }
+
+#remove-timer-button {
+    cursor: pointer;
+    position: absolute;
+    font-size: 20px;
+    color: rgb(235, 252, 233);
+    left: 320px;
+    top: 10px;
+}
+
+#remove-timer-button:hover {
+    color:  #ff767c;
+}
+
