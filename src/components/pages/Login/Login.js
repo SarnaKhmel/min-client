@@ -49,6 +49,7 @@ const Login = () => {
                         type={"password"}
                         placeholder={"Your password..."}
                         minLength={5}
+                        maxLength={255}
                         required={true}
                         onChange={({target}) => setPassword(target.value)} 
                         />
