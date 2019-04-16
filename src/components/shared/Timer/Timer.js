@@ -201,7 +201,7 @@ export default class Timer extends Component {
       timerMinutes: "00",
       timerSeconds: "00",
       breakMinutes: "00",
-      longBreakMinutes: "00"
+      longBreakMinutes: "00",
       timerRunning: false
     })
   }
