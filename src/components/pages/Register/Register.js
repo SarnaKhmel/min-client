@@ -8,12 +8,11 @@ import Form from '../../shared/Form/Form';
 
 const Register = () => {
     const { formData, updateField } = useForm();
-
     const {setCurrentUser} = useContext(AuthContext);
 
+    // Sends a POST request to /api/v1/users and sets the response to be the current user by using the context method setCurrentUser
     const register = async () => {
-        const response = await signUp(formData);
-        
+        const response = await signUp(formData);  
         setCurrentUser(response.data);
     };
 
@@ -31,6 +30,7 @@ const Register = () => {
                         placeholder={"Your full name..."}
                         name={"name"}
                         minLength={5}
+                        maxlength={50}
                         onChange={updateField}
                         required={true}
                     />
@@ -46,6 +46,7 @@ const Register = () => {
                         className={"form-control"}
                         placeholder={"Your email..."}
                         name={"email"}
+                        maxlength={255}
                         onChange={updateField}
                         required={true}
                     />
@@ -62,6 +63,7 @@ const Register = () => {
                         className={"form-control"}
                         placeholder={"Your password..."}
                         minLength={5}
+                        maxlength={255}
                         name={"password"}
                         onChange={updateField}
                     />
@@ -76,6 +78,7 @@ const Register = () => {
                         className={"form-control"}
                         placeholder={"Verify password..."}
                         minLength={5}
+                        maxlength={255}
                         name={"password2"}
                         id={"pass-2"}
                         onChange={updateField}
