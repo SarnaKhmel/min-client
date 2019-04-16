@@ -202,7 +202,9 @@ class Timer extends Component {
       timerSeconds: "00",
       breakMinutes: "00",
       longBreakMinutes: "00",
-      timerRunning: false
+      timerRunning: false,
+      isBreak: false,
+      isLongBreak: false
     });
   };
 
