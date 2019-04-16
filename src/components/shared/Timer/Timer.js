@@ -195,11 +195,13 @@ export default class Timer extends Component {
       currentTime: 0,
       breakTime: 0,
       pomLength: 0,
-      breakLength: 0, 
+      breakLength: 0,
+      longBreakLength: 0, 
       timerHours: "00",
       timerMinutes: "00",
       timerSeconds: "00",
       breakMinutes: "00",
+      longBreakMinutes: "00"
       timerRunning: false
     })
   }
