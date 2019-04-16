@@ -1,0 +1,19 @@
+#alert-wrapper {
+    display: none;
+}
+
+.alert-dialog-box {
+    font-family: 'Rubik', sans-serif;
+    text-align: center;
+    color: black;
+}
+
+.alert-dialog-title-break {
+    color: rgba(60, 138, 198, 0.783);
+    font-family: 'Rubik', sans-serif;
+}
+
+.alert-dialog-title {
+    color: rgb(154, 22, 57);
+    font-family: 'Rubik', sans-serif;
+}

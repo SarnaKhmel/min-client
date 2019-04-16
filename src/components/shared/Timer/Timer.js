@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import './Timer.css';
 import * as actions from '../../../redux/actions';
 import uuid from 'uuid';
+import AlertDialog from '../AlertDialog/AlertDialog';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
@@ -27,7 +28,10 @@ class Timer extends Component {
     breakMinutes: "00",
     isBreak: false,
     isLongBreak: false,
-    pomCount: 0
+    pomCount: 0,
+    alertOpen: false,
+    alertTitle: "",
+    alertContent: ""
   }
 
   componentDidMount() {
@@ -77,21 +81,36 @@ class Timer extends Component {
     return parseInt(inputMinutes) * 60;
   };
 
+  // Converts seconds to minutes for break alert message
+  convertSecondsToMinutes = (input) => {
+    return Math.round(input / 60);
+  }
+
   // This method runs each time the timer interval is completed to either decrease state.currentTime by one and allow the timer to count down, or triggering the alarm if state.timerRunning is true and the timer has reached 0
-  timerCallback = () => {
+  timerCallback = async () => {
     if(this.state.isPomodoro) {
       if (this.state.isBreak) {
         if (this.state.pomCount % 4 === 0) {
-          this.setState({
+          await this.setState({
             isLongBreak: true
           });
+          if (this.state.longBreakLength === this.state.longBreakTime) {
+            this.setState({
+              alertOpen: true,
+              alertTitle: "long break time!",
+              alertContent: `time for a ${this.convertSecondsToMinutes(this.state.longBreakLength)} minute break`
+            });
+          }
           if (this.state.longBreakTime === 0 && this.state.timerRunning === true) {
             const alarm = new Audio(require('./audio/chime.wav'));
             alarm.play();
             this.setState({
               isBreak: false,
               isLongBreak: false,
-              currentTime: this.state.pomLength
+              currentTime: this.state.pomLength,
+              alertOpen: true,
+              alertTitle: "break's over!",
+              alertContent: "time to get back to work"
             });
           }  else {
             this.setState({
@@ -104,7 +123,10 @@ class Timer extends Component {
             alarm.play();
             this.setState({
               isBreak: false,
-              currentTime: this.state.pomLength
+              currentTime: this.state.pomLength,
+              alertOpen: true,
+              alertTitle: "break's over!",
+              alertContent: "time to get back to work"
             });
           }  else {
             this.setState({
@@ -121,7 +143,10 @@ class Timer extends Component {
             isBreak: true,
             breakTime: this.state.breakLength,
             longBreakTime: this.state.longBreakLength,
-            pomCount: this.state.pomCount + 1
+            pomCount: this.state.pomCount + 1,
+            alertOpen: true,
+            alertTitle: "short break time!",
+            alertContent: `time for a ${this.convertSecondsToMinutes(this.state.breakLength)} minute break`
           });
         }  else {
           this.setState({
@@ -133,6 +158,11 @@ class Timer extends Component {
       if (this.state.currentTime === 0 && this.state.timerRunning === true) {
         const alarm = new Audio(require('./audio/chime.wav'));
         alarm.play();
+        this.setState({
+          alertOpen: true,
+          alertTitle: "time's up!",
+          alertContent: `your ${this.state.name} timer has finished`
+        })
         this.handleStopClick();
       }  else {
         this.setState({
@@ -258,7 +288,6 @@ class Timer extends Component {
   // Conditionally renders the amount of seconds remaining on either the pom timer or break timer dependent on state.isBreak for the pomodoro timer
   conditionallyRenderCurrentTimeOrBreakTime = () => {
     if (this.state.isBreak && this.state.isLongBreak) {
-      console.log('the state is set to isLongBreak: true');
       return calculateAndRenderTimer(this.state.longBreakTime, this.state.intervalNum);
     }
     else if (this.state.isBreak) {
@@ -286,10 +315,23 @@ class Timer extends Component {
     if (this.state.name === "") label.style.display = "block";
   }
 
+  // Closes the timer alertDialog window
+  handleAlertClose = () => {
+    this.setState({ alertOpen: false });
+  };
+
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
     if (this.state.isPomodoro) {
       return (
+        <>
+        <AlertDialog 
+          open={this.state.alertOpen} 
+          title={this.state.alertTitle} 
+          content={this.state.alertContent} 
+          handleAlertClose={this.handleAlertClose}
+          isBreak={this.state.isBreak}
+        />
         <div id={this.state.id} className={this.renderPomClassBasedOnIsBreak()}>
           <div className="timer-name-wrapper">
             <label className="timer-name-label" id={'label-' + this.state.id} htmlFor={"timer-" + this.state.id}>
@@ -343,11 +385,24 @@ class Timer extends Component {
           </div>  
           <div className="invalid-timer-input">please enter a length greater than zero for timer and breaks</div>   
         </div>
+      </>
       )
     } else {
       return (
+        <>
+        <AlertDialog 
+          id="alert-window" 
+          open={this.state.alertOpen} 
+          title={this.state.alertTitle} 
+          content={this.state.alertContent} 
+          handleAlertClose={this.handleAlertClose}
+        />
         <div id={this.state.id} className="timer">
-          <i id="remove-timer-button" className="fas fa-times" onClick={this.handleRemoveTimer}></i>
+          <i 
+            id="remove-timer-button" 
+            className="fas fa-times" 
+            onClick={this.handleRemoveTimer}
+          />
           <div className="timer-name-wrapper">
             <label className="timer-name-label" id={'label-' + this.state.id} htmlFor={"timer-" + this.state.id}>
               timer name
@@ -387,6 +442,7 @@ class Timer extends Component {
           </div>  
           <div className="invalid-timer-input">please enter a timer length greater than zero seconds</div>    
         </div>
+        </>
       );
     } 
   };
