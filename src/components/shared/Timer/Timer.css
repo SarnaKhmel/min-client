@@ -32,7 +32,6 @@
     pointer-events: none;
     background-color: white;
     z-index: 1;
-    /* display: none; */
 }
 
 .timer-buttons {
@@ -102,6 +101,7 @@
     border: none;
     margin: 3px;
     padding: 3px;
+    outline: none;
 }
 
 #remove-timer-button {
