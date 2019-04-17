@@ -220,9 +220,13 @@ class Timer extends Component {
     const hoursPlaceholder = document.getElementById("timer-hours-placeholder-" + this.state.id);
     const minutesPlaceholder = document.getElementById("timer-minutes-placeholder-" + this.state.id);
     const secondsPlaceholder = document.getElementById("timer-seconds-placeholder-" + this.state.id);
-    hoursPlaceholder.style.display = "block";
-    minutesPlaceholder.style.display = "block";
-    secondsPlaceholder.style.display = "block";
+    const breakMinutesPlaceholder = document.getElementById("break-minutes-placeholder-" + this.state.id);
+    const longBreakMinutesPlaceholder = document.getElementById("longBreak-minutes-placeholder-" + this.state.id);
+    if (hoursPlaceholder) hoursPlaceholder.style.display = "block";
+    if (minutesPlaceholder) minutesPlaceholder.style.display = "block";
+    if (secondsPlaceholder) secondsPlaceholder.style.display = "block";
+    if (breakMinutesPlaceholder) breakMinutesPlaceholder.style.display = "block";
+    if (longBreakMinutesPlaceholder) longBreakMinutesPlaceholder.style.display = "block";
   };
 
   // Handles click event for reset button by clearing the timer interval, setting the timer display and all inputs to zero and setting the state.timerRunning value to false to prevent the alarm from triggering
