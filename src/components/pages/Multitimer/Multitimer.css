@@ -16,9 +16,9 @@
 .add-timer-button {
     border-radius: 5px;
     background-color: cornflowerblue;
-    padding: 5px 10px;
+    padding: 5px 15px;
     color: white;
     cursor: pointer;
-    max-width: 100px;
+    max-width: 110px;
     text-align: center;
 }
