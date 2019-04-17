@@ -15,6 +15,26 @@
     overflow: visible;
 }
 
+.timer-input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timer-input-placeholder {
+    position: absolute;
+    top: 33%;
+    font-size: 40px;
+    font-family: 'Geo', sans-serif;
+    font-weight: 400;
+    color: black;
+    pointer-events: none;
+    background-color: white;
+    z-index: 1;
+    /* display: none; */
+}
+
 .timer-buttons {
     display: flex;
     justify-content: space-around;

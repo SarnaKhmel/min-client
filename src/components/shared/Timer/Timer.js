@@ -21,9 +21,9 @@ class Timer extends Component {
     longBreakMinutes: "00",
     intervalNum: null,
     timerRunning: false,
-    timerHours: "00",
-    timerMinutes: "00",
-    timerSeconds: "00",
+    timerHours: "",
+    timerMinutes: "",
+    timerSeconds: "",
     isPomodoro: false,
     breakMinutes: "00",
     isBreak: false,
@@ -285,6 +285,38 @@ class Timer extends Component {
     }, callback)
   };
 
+  // Gets the placeholder div by using the reformatted target div's id to find it
+  findPlaceholderFromInput = (target) => {
+    const idArray = target.id.split("-");
+    const placeholderIdPrefix = idArray.slice(0, 2).join('-');
+    const placeholderIdNum = idArray.slice(3).join("-");
+    const placeholderId = placeholderIdPrefix + "-placeholder-" + placeholderIdNum;
+    return document.getElementById(placeholderId);
+  };
+
+  // Reformats the first two words of the div's id to be in the proper format for a field in state
+  getStateFieldNameFromId = (id) => {
+    const fieldNameArray = id.split("-").slice(0, 2);
+    const fieldNameWordTwoArray = fieldNameArray[1].split("");
+    fieldNameWordTwoArray[0] = fieldNameWordTwoArray[0].toUpperCase();
+    fieldNameArray[1] = fieldNameWordTwoArray.join("");
+    return fieldNameArray.join("");
+  }
+
+  // Hides the timer input placeholder div on focus
+  handleInputFocus = ({target}) => {
+    const placeholder = this.findPlaceholderFromInput(target);
+    placeholder.style.display = "none";
+  };
+
+  // Conditionally hides or shows the input placeholder div on blur dependent on the value of state[fieldName]
+  handleInputBlur = ({target}) => {
+    const fieldName = this.getStateFieldNameFromId(target.id);
+    const placeholder = this.findPlaceholderFromInput(target);
+    if (this.state[fieldName] === "") placeholder.style.display = "block";
+    else placeholder.style.display = "none";
+  }
+
   // Conditionally renders the amount of seconds remaining on either the pom timer or break timer dependent on state.isBreak for the pomodoro timer
   conditionallyRenderCurrentTimeOrBreakTime = () => {
     if (this.state.isBreak && this.state.isLongBreak) {
@@ -340,7 +372,8 @@ class Timer extends Component {
             <input 
               name="name" 
               className="timer-name" 
-              type="text" id={"timer-" + this.state.id} 
+              type="text" 
+              id={"timer-" + this.state.id} 
               value={this.state.name} 
               maxLength="15"
               onChange={this.handleInputChange.bind(this, null)} 
@@ -422,18 +455,74 @@ class Timer extends Component {
           <div className="timer-counter">{calculateAndRenderTimer(this.state.currentTime, this.state.intervalNum)}</div>
           <div className="timer-buttons-and-inputs">
             <div className="length-input-wrapper">
-              <label className="length-input-label">
-                hours:
-                <input maxLength="2" className="length-input" type="text" value={this.state.timerHours} onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} name="timerHours" />
-              </label>
-              <label className="length-input-label">
-                minutes:
-                <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} name="timerMinutes" />
-              </label>
-              <label className="length-input-label">
-                seconds:
-                <input maxLength="2" className="length-input" type="text" value={this.state.timerSeconds} onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} name="timerSeconds" />
-              </label>
+              <div className="timer-input-wrapper">
+                <label className="length-input-label" htmlFor="timerHours">
+                  hours:
+                </label>
+                <div 
+                  className="timer-input-placeholder" 
+                  id={"timer-hours-placeholder-" + this.state.id}
+                >
+                  00
+                </div>
+                <input 
+                  maxLength="2" 
+                  className="length-input"
+                  id={"timer-hours-input-" + this.state.id}
+                  type="text" 
+                  value={this.state.timerHours} 
+                  onFocus={this.handleInputFocus}
+                  onBlur={this.handleInputBlur}
+                  onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
+                  name="timerHours" 
+                />
+              </div>
+              
+              <div className="timer-input-wrapper">
+                <label className="length-input-label" htmlFor="timerMinutes">
+                  minutes:
+                </label>
+                <div 
+                  className="timer-input-placeholder" 
+                  id={"timer-minutes-placeholder-" + this.state.id}
+                >
+                  00
+                </div>
+                <input 
+                  maxLength="2" 
+                  className="length-input"
+                  id={"timer-minutes-input-" + this.state.id}
+                  type="text" 
+                  value={this.state.timerMinutes}
+                  onFocus={this.handleInputFocus}
+                  onBlur={this.handleInputBlur}
+                  onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
+                  name="timerMinutes" 
+                />
+              </div>
+              
+              <div className="timer-input-wrapper">
+                <label className="length-input-label" htmlFor="timerSeconds">
+                  seconds:
+                </label>
+                <div 
+                  className="timer-input-placeholder" 
+                  id={"timer-seconds-placeholder-" + this.state.id}
+                >
+                  00
+                </div>
+                <input 
+                  maxLength="2" 
+                  className="length-input"
+                  id={"timer-seconds-input-" + this.state.id}
+                  type="text" 
+                  value={this.state.timerSeconds} 
+                  onFocus={this.handleInputFocus}
+                  onBlur={this.handleInputBlur}
+                  onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
+                  name="timerSeconds" />
+              </div>
+               
             </div>
             <div className="timer-buttons">
                 <div className="timer-button start" onClick={this.handleStartClick}>start</div>
