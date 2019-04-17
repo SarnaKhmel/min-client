@@ -18,14 +18,14 @@ class Timer extends Component {
     breakTime: 0,
     longBreakLength: 0,
     longBreakTime: 0,
-    longBreakMinutes: "00",
+    longBreakMinutes: "",
     intervalNum: null,
     timerRunning: false,
     timerHours: "",
     timerMinutes: "",
     timerSeconds: "",
     isPomodoro: false,
-    breakMinutes: "00",
+    breakMinutes: "",
     isBreak: false,
     isLongBreak: false,
     pomCount: 0,
@@ -406,13 +406,23 @@ class Timer extends Component {
                   >
                     minutes:
                   </label>
+                  <div 
+                    className="timer-input-placeholder" 
+                    id={"timer-minutes-placeholder-" + this.state.id}
+                  >
+                    00
+                  </div>
                     <input 
                       maxLength="2" 
                       className="length-input" 
-                      type="text" 
-                      value={this.state.timerMinutes} 
+                      type="text"
+                      id={"timer-minutes-input-" + this.state.id} 
+                      value={this.state.timerMinutes}
+                      onFocus={this.handleInputFocus}
+                      onBlur={this.handleInputBlur}
                       onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("currentTime"))} 
-                      name="timerMinutes" 
+                      name="timerMinutes"
+                      autoComplete="off"
                   />
                 </div>
               </div>
@@ -420,32 +430,56 @@ class Timer extends Component {
             <div className="break-inputs">
               <h3>short break</h3>
               <div className="length-input-wrapper">
-                <label className="length-input-label">
-                  minutes:
+                <div className="timer-input-wrapper">
+                  <label className="length-input-label">
+                    minutes:
+                  </label>
+                  <div 
+                    className="timer-input-placeholder" 
+                    id={"break-minutes-placeholder-" + this.state.id}
+                  >
+                    00
+                  </div>
                   <input 
                     maxLength="2" 
                     className="length-input" 
-                    type="text" 
-                    value={this.state.breakMinutes} 
+                    type="text"
+                    id={"break-minutes-input-" + this.state.id}
+                    value={this.state.breakMinutes}
+                    onFocus={this.handleInputFocus}
+                    onBlur={this.handleInputBlur} 
                     onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("breakTime"))} 
-                    name="breakMinutes" 
+                    name="breakMinutes"
+                    autoComplete="off" 
                   />
-                </label>
+                </div>
               </div>
             </div> 
             <div className="break-inputs">
               <h3>long break</h3>
               <div className="length-input-wrapper">
-                <label className="length-input-label">
-                  minutes:
+                <div className="timer-input-wrapper">
+                  <label className="length-input-label">
+                    minutes:
+                  </label>
+                  <div 
+                    className="timer-input-placeholder" 
+                    id={"longBreak-minutes-placeholder-" + this.state.id}
+                  >
+                    00
+                  </div>
                   <input 
                     maxLength="2" 
                     className="length-input" 
-                    type="text" 
-                    value={this.state.longBreakMinutes} 
-                    onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("longBreakTime"))} name="longBreakMinutes" 
+                    type="text"
+                    id={"longBreak-minutes-input-" + this.state.id} 
+                    value={this.state.longBreakMinutes}
+                    onFocus={this.handleInputFocus}
+                    onBlur={this.handleInputBlur}
+                    onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("longBreakTime"))} name="longBreakMinutes"
+                    autoComplete="off" 
                     />
-                </label>
+                </div>
               </div>
             </div> 
           </div> 
