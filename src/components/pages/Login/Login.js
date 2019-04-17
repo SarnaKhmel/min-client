@@ -17,7 +17,7 @@ const Login = () => {
         };
 
         const response = await signIn(data);
-        if (response.response.data === "Invalid email or password.") {
+        if ( response.response && response.response.status === 400) {
             const invalidFeedback = document.getElementById('password-invalid-feedback');
             invalidFeedback.textContent = response.response.data;
             return;
