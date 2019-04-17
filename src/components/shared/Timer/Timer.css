@@ -212,7 +212,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 130px;
+    /* width: 130px; */
 }
 
 .pom-inputs {
@@ -228,7 +228,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 115px;
+    width: 120px;
 }
 
 .timer.pom .break-inputs h2 {
