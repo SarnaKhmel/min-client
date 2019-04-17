@@ -11,10 +11,14 @@ const Welcome = () => {
             </div>   
             <div id="welcome-options">
                 <div className="welcome-option">
-                    <button><Link to={'/multitimer'}>multi-timer</Link></button>
+                    <Link to={'/multitimer'}>
+                        <button className="welcome-button">multi-timer</button>
+                    </Link>
                 </div>
                 <div className="welcome-option">
-                    <button id="pom-button"><Link to={'/pomodoro'}>pomodoro</Link></button>
+                    <Link to={'/pomodoro'}>
+                    <button className="welcome-button">pomodoro</button>
+                    </Link>
                 </div>
             </div>  
         </div>
