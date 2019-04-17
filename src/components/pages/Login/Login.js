@@ -17,6 +17,11 @@ const Login = () => {
         };
 
         const response = await signIn(data);
+        if (response.response.data === "Invalid email or password.") {
+            const invalidFeedback = document.getElementById('password-invalid-feedback');
+            invalidFeedback.textContent = response.response.data;
+            return;
+        }
         setCurrentUser(response.data);
     };
     
@@ -53,7 +58,7 @@ const Login = () => {
                         required={true}
                         onChange={({target}) => setPassword(target.value)} 
                         />
-                    <div className="invalid-feedback"></div>
+                    <div id="password-invalid-feedback" className="invalid-feedback"></div>
                 </div>
                 <button className={"submit-button"} type="submit">login</button>
             </Form>

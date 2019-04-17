@@ -13,7 +13,7 @@ const Register = () => {
     // Sends a POST request to /api/v1/users and sets the response to be the current user by using the context method setCurrentUser
     const register = async () => {
         const response = await signUp(formData);
-        if (response.response.data === "A user with this email already exists.") {
+        if (response.response && response.response.data === "A user with this email already exists.") {
             const invalidFeedback = document.getElementById('email-invalid-feedback');
             invalidFeedback.textContent = response.response.data;
             return;
