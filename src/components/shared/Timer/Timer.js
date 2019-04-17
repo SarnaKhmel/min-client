@@ -215,28 +215,41 @@ class Timer extends Component {
     })
   };
 
+  // Switches all placeholder displays to visible, to be used in handleResetClick
+  resetAllPlaceholders = () => {
+    const hoursPlaceholder = document.getElementById("timer-hours-placeholder-" + this.state.id);
+    const minutesPlaceholder = document.getElementById("timer-minutes-placeholder-" + this.state.id);
+    const secondsPlaceholder = document.getElementById("timer-seconds-placeholder-" + this.state.id);
+    hoursPlaceholder.style.display = "block";
+    minutesPlaceholder.style.display = "block";
+    secondsPlaceholder.style.display = "block";
+  };
+
   // Handles click event for reset button by clearing the timer interval, setting the timer display and all inputs to zero and setting the state.timerRunning value to false to prevent the alarm from triggering
-  handleResetClick = () => {
+  handleResetClick = async () => {
     const timer = document.getElementById(this.state.id);
     timer.lastChild.style.display = "none";
 
     clearInterval(this.state.intervalNum);
 
-    this.setState({
+    await this.setState({
       currentTime: 0,
       breakTime: 0,
       pomLength: 0,
       breakLength: 0,
       longBreakLength: 0, 
-      timerHours: "00",
-      timerMinutes: "00",
-      timerSeconds: "00",
-      breakMinutes: "00",
-      longBreakMinutes: "00",
+      timerHours: "",
+      timerMinutes: "",
+      timerSeconds: "",
+      breakMinutes: "",
+      longBreakMinutes: "",
       timerRunning: false,
       isBreak: false,
       isLongBreak: false
     });
+
+    this.resetAllPlaceholders();
+    
   };
 
   // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
@@ -386,10 +399,22 @@ class Timer extends Component {
             <div className="pom-inputs">
               <h3>timer</h3>
               <div className="length-input-wrapper">
-                <label className="length-input-label">
-                  minutes:
-                  <input maxLength="2" className="length-input" type="text" value={this.state.timerMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("currentTime"))} name="timerMinutes" />
-                </label>
+                <div className="timer-input-wrapper">
+                  <label 
+                    className="length-input-label"
+                    htmlFor="timerMinutes"  
+                  >
+                    minutes:
+                  </label>
+                    <input 
+                      maxLength="2" 
+                      className="length-input" 
+                      type="text" 
+                      value={this.state.timerMinutes} 
+                      onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("currentTime"))} 
+                      name="timerMinutes" 
+                  />
+                </div>
               </div>
             </div>
             <div className="break-inputs">
@@ -397,7 +422,14 @@ class Timer extends Component {
               <div className="length-input-wrapper">
                 <label className="length-input-label">
                   minutes:
-                  <input maxLength="2" className="length-input" type="text" value={this.state.breakMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("breakTime"))} name="breakMinutes" />
+                  <input 
+                    maxLength="2" 
+                    className="length-input" 
+                    type="text" 
+                    value={this.state.breakMinutes} 
+                    onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("breakTime"))} 
+                    name="breakMinutes" 
+                  />
                 </label>
               </div>
             </div> 
@@ -406,7 +438,13 @@ class Timer extends Component {
               <div className="length-input-wrapper">
                 <label className="length-input-label">
                   minutes:
-                  <input maxLength="2" className="length-input" type="text" value={this.state.longBreakMinutes} onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("longBreakTime"))} name="longBreakMinutes" />
+                  <input 
+                    maxLength="2" 
+                    className="length-input" 
+                    type="text" 
+                    value={this.state.longBreakMinutes} 
+                    onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("longBreakTime"))} name="longBreakMinutes" 
+                    />
                 </label>
               </div>
             </div> 
@@ -474,7 +512,8 @@ class Timer extends Component {
                   onFocus={this.handleInputFocus}
                   onBlur={this.handleInputBlur}
                   onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
-                  name="timerHours" 
+                  name="timerHours"
+                  autoComplete="off"
                 />
               </div>
               
@@ -497,7 +536,8 @@ class Timer extends Component {
                   onFocus={this.handleInputFocus}
                   onBlur={this.handleInputBlur}
                   onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
-                  name="timerMinutes" 
+                  name="timerMinutes"
+                  autoComplete="off"
                 />
               </div>
               
@@ -520,7 +560,9 @@ class Timer extends Component {
                   onFocus={this.handleInputFocus}
                   onBlur={this.handleInputBlur}
                   onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
-                  name="timerSeconds" />
+                  name="timerSeconds"
+                  autoComplete="off" 
+                />
               </div>
                
             </div>
