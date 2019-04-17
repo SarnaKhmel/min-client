@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
+    "autoprefixer": "^9.5.1",
     "axios": "^0.18.0",
     "dotenv": "^7.0.0",
     "rc-time-picker": "^3.6.2",
