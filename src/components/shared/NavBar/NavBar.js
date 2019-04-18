@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../../shared/Auth';
 import './NavBar.css';
+import MenuDrawer from '../MenuDrawer/MenuDrawer';
 
 const NavBar = (props) => {
     const {user, setCurrentUser} = useContext(AuthContext);
@@ -51,11 +52,14 @@ const NavBar = (props) => {
                 </div>   
             </div>
             <div className="nav-box" id="nav-logo"><Link to={'/home'}><h1>min</h1></Link></div>
-            <div className="nav-box">
+            <div id="nav-right" className="nav-box">
                 <div id="nav-box-right">
                     <div className="nav-box-right-buttons">
                         {renderLoginLogout()}
                     </div>
+                </div>
+                <div id="nav-box-right-mobile">
+                        <MenuDrawer />
                 </div>
             </div>
         </div>

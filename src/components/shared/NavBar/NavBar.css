@@ -65,13 +65,28 @@
     color: black;
 }
 
+#nav-box-right-mobile {
+    display: none;
+    position: relative;
+}
+
 @media only screen and (max-width: 800px) {
+
+    #nav-right {
+        justify-content: flex-end;
+    }
+
     #nav-box-left {
         display: none;
     }
 
     #nav-box-right {
         display: none;
+    }
+
+    #nav-box-right-mobile {
+        display: flex;
+        justify-content: flex-end;
     }
     
 }
