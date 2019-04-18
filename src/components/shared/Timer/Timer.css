@@ -250,4 +250,10 @@
         left: 90%;
         top: 10px; 
     }
+
+    .timer-counter {
+        width: 210px;
+        height: 60px;
+        font-size: 57px;
+    }
 }

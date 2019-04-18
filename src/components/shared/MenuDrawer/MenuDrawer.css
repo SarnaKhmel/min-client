@@ -4,3 +4,20 @@
     align-items: center;
     margin-right: 30px;
 }
+
+.fas.fa-stopwatch {
+    color: rgb(218, 60, 60);
+}
+
+.far.fa-clock {
+    color: rgb(118, 187, 123);
+}
+
+.far.fa-user {
+    color: rgba(61, 181, 255, 0.749);
+}
+
+.fas.fa-user-plus {
+    color: rgba(61, 181, 255, 0.749);
+    overflow: visible;
+}
