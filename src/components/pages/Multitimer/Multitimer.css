@@ -21,3 +21,11 @@
     max-width: 110px;
     text-align: center;
 }
+
+@media only screen and (max-width: 800px) {
+    .timers-container {
+        grid-template-columns: 100%;
+        width: 100%;
+        margin: auto;
+    } 
+}

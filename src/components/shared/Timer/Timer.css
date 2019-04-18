@@ -10,7 +10,7 @@
     height: 280px;
     border-radius: 5px;
     padding: 15px 10px;
-    margin: 10px;
+    margin: auto;
     box-shadow: 0px 10px 15px rgb(230, 221, 221);
     overflow: visible;
 }
@@ -237,4 +237,17 @@
 
 .timer.pom .invalid-timer-input {
     top: 65px;
+}
+
+@media only screen and (max-width: 800px) {
+    .timer {
+        margin: 20px auto;
+        height: 255px;
+        width: 300px;
+    }
+
+    #remove-timer-button {
+        left: 90%;
+        top: 10px; 
+    }
 }

@@ -400,6 +400,7 @@ class Timer extends Component {
           </div>
           <div className="timer-counter">{this.conditionallyRenderCurrentTimeOrBreakTime()}</div>
           <div className="pom-input-container">
+          
             <div className="pom-inputs">
               <h3>timer</h3>
               <div className="length-input-wrapper">
@@ -431,6 +432,7 @@ class Timer extends Component {
                 </div>
               </div>
             </div>
+
             <div className="break-inputs">
               <h3>short break</h3>
               <div className="length-input-wrapper">
@@ -459,6 +461,7 @@ class Timer extends Component {
                 </div>
               </div>
             </div> 
+
             <div className="break-inputs">
               <h3>long break</h3>
               <div className="length-input-wrapper">
