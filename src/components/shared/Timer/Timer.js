@@ -369,6 +369,7 @@ class Timer extends Component {
     this.setState({ alertOpen: false });
   };
 
+  // Automatically shortens timer number inputs to a max length of two characters
   handleNumberInput = ({target}) => {
     target.value = target.value.slice(0, 2);
   }
