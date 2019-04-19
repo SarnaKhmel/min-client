@@ -39,6 +39,9 @@ const Auth = ({children}) => {
     }
 
     const context = {user, setCurrentUser};
+
+    document.body.style.zoom = 1.0;
+
     return (
         <AuthContext.Provider value={context}>
             {children(context.user)}
