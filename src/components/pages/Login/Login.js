@@ -37,7 +37,7 @@ const Login = () => {
                     id={"email"}
                     type={"email"}
                     className={"form-control"}
-                    placeholder={"Your email..."}
+                    placeholder={"your email..."}
                     onChange={({target}) => setEmail(target.value)} 
                     required={true}
                     />
@@ -52,7 +52,7 @@ const Login = () => {
                         id={"password"}
                         name={"password"}
                         type={"password"}
-                        placeholder={"Your password..."}
+                        placeholder={"your password..."}
                         minLength={5}
                         maxLength={255}
                         required={true}

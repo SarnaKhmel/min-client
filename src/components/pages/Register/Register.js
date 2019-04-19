@@ -23,7 +23,7 @@ const Register = () => {
 
     return (
         <div id="register-page">
-            <h2>create a new min account</h2>
+            <h2>register</h2>
             <Form id="register-form" submit={register}>
                 <div className={"form-group"}>
                     <label htmlFor={"name"}>
@@ -32,7 +32,7 @@ const Register = () => {
                     <input 
                         type={"text"}
                         className={"form-control"}
-                        placeholder={"Your full name..."}
+                        placeholder={"your full name..."}
                         name={"name"}
                         minLength={5}
                         maxLength={50}
@@ -49,7 +49,7 @@ const Register = () => {
                     <input 
                         type={"email"}
                         className={"form-control"}
-                        placeholder={"Your email..."}
+                        placeholder={"your email..."}
                         name={"email"}
                         maxLength={255}
                         onChange={updateField}
@@ -66,7 +66,7 @@ const Register = () => {
                         required={true}
                         type={"password"}
                         className={"form-control"}
-                        placeholder={"Your password..."}
+                        placeholder={"your password..."}
                         minLength={5}
                         maxLength={255}
                         name={"password"}
@@ -81,7 +81,7 @@ const Register = () => {
                         required={true}
                         type={"password"}
                         className={"form-control"}
-                        placeholder={"Verify password..."}
+                        placeholder={"verify password..."}
                         minLength={5}
                         maxLength={255}
                         name={"password2"}
