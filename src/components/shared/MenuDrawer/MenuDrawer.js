@@ -24,12 +24,15 @@ const styles = {
 
 const MenuDrawer = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {user} = useContext(AuthContext);
+  const {user, setCurrentUser} = useContext(AuthContext);
 
   const toggleDrawer = (boolean) => () => {
     setIsOpen(boolean);
   };
 
+  const handleLogout = async () => {
+    await setCurrentUser(null);
+  };
   
   const { classes } = props;
 
@@ -37,20 +40,22 @@ const MenuDrawer = (props) => {
     <div className={classes.list}>
       <List>
         {['multitimer', 'pomodoro'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <Icon className='far fa-clock' /> : <Icon  className='stopwatch fas fa-stopwatch' />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+          <Link to={"/" + text}>
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <Icon className='far fa-clock' /> : <Icon  className='stopwatch fas fa-stopwatch' />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
       <List>
-        {['login', 'register'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon >{index % 2 === 0 ? <Icon className='far fa-user' /> : <Icon className='fas fa-user-plus' />}</ListItemIcon>
-            <Link to={"/register"}><ListItemText primary={text} /></Link>
-          </ListItem>
-        ))}
+        
+        <ListItem onClick={handleLogout} button key={'logout'}>
+          <ListItemIcon ><Icon className='fas fa-sign-out-alt' /></ListItemIcon>
+          <ListItemText primary={'logout'} />
+        </ListItem>
+       
       </List>
     </div>
   );
@@ -58,20 +63,13 @@ const MenuDrawer = (props) => {
   const loggedOutList = (
     <div className={classes.list}>
       <List>
-        {['multitimer', 'pomodoro'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <Icon className='far fa-clock' /> : <Icon  className='stopwatch fas fa-stopwatch' />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
         {['login', 'register'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon >{index % 2 === 0 ? <Icon className='far fa-user' /> : <Icon className='fas fa-user-plus' />}</ListItemIcon>
-            <Link to={"/register"}><ListItemText primary={text} /></Link>
-          </ListItem>
+          <Link to={"/" + text}>
+            <ListItem button key={text}>
+              <ListItemIcon >{index % 2 === 0 ? <Icon className='far fa-user' /> : <Icon className='fas fa-user-plus' />}</ListItemIcon>
+                <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>

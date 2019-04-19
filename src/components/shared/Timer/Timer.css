@@ -246,6 +246,24 @@
         width: 300px;
     }
 
+    .timer.pom {
+        margin: 10px auto;
+        height: 280px;
+        width: 300px;
+    }
+
+    .pom-inputs {
+        width: 100px;
+    }
+
+    .break-inputs {
+        width: 100px;
+    }
+
+    .timer.pom h3 {
+        font-size: 18px;
+    }
+
     #remove-timer-button {
         left: 90%;
         top: 10px; 
