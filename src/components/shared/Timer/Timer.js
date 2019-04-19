@@ -369,6 +369,10 @@ class Timer extends Component {
     this.setState({ alertOpen: false });
   };
 
+  handleNumberInput = ({target}) => {
+    target.value = target.value.slice(0, 2);
+  }
+
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
     if (this.state.isPomodoro) {
@@ -420,7 +424,8 @@ class Timer extends Component {
                     <input 
                       maxLength="2" 
                       className="length-input" 
-                      type="text"
+                      type="number"
+                      onInput={this.handleNumberInput}
                       id={"timer-minutes-input-" + this.state.id} 
                       value={this.state.timerMinutes}
                       onFocus={this.handleInputFocus}
@@ -428,6 +433,7 @@ class Timer extends Component {
                       onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("currentTime"))} 
                       name="timerMinutes"
                       autoComplete="off"
+                      pattern="\d*"
                   />
                 </div>
               </div>
@@ -447,16 +453,18 @@ class Timer extends Component {
                     00
                   </div>
                   <input 
-                    maxLength="2" 
+                    maxLength="2"
+                    onInput={this.handleNumberInput} 
                     className="length-input" 
-                    type="text"
+                    type="number"
                     id={"break-minutes-input-" + this.state.id}
                     value={this.state.breakMinutes}
                     onFocus={this.handleInputFocus}
                     onBlur={this.handleInputBlur} 
                     onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("breakTime"))} 
                     name="breakMinutes"
-                    autoComplete="off" 
+                    autoComplete="off"
+                    pattern="\d*"
                   />
                 </div>
               </div>
@@ -476,15 +484,17 @@ class Timer extends Component {
                     00
                   </div>
                   <input 
-                    maxLength="2" 
+                    maxLength="2"
+                    onInput={this.handleNumberInput}
                     className="length-input" 
-                    type="text"
+                    type="number"
                     id={"longBreak-minutes-input-" + this.state.id} 
                     value={this.state.longBreakMinutes}
                     onFocus={this.handleInputFocus}
                     onBlur={this.handleInputBlur}
                     onChange={this.handleInputChange.bind(this, () => this.setStateFromMinuteInput("longBreakTime"))} name="longBreakMinutes"
-                    autoComplete="off" 
+                    autoComplete="off"
+                    pattern="\d*"
                     />
                 </div>
               </div>
@@ -545,16 +555,18 @@ class Timer extends Component {
                   00
                 </div>
                 <input 
-                  maxLength="2" 
+                  maxLength="2"
+                  onInput={this.handleNumberInput}
                   className="length-input"
                   id={"timer-hours-input-" + this.state.id}
-                  type="text" 
+                  type="number" 
                   value={this.state.timerHours} 
                   onFocus={this.handleInputFocus}
                   onBlur={this.handleInputBlur}
                   onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
                   name="timerHours"
                   autoComplete="off"
+                  pattern="\d*"
                 />
               </div>
               
@@ -569,16 +581,18 @@ class Timer extends Component {
                   00
                 </div>
                 <input 
-                  maxLength="2" 
+                  maxLength="2"
+                  onInput={this.handleNumberInput} 
                   className="length-input"
                   id={"timer-minutes-input-" + this.state.id}
-                  type="text" 
+                  type="number" 
                   value={this.state.timerMinutes}
                   onFocus={this.handleInputFocus}
                   onBlur={this.handleInputBlur}
                   onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
                   name="timerMinutes"
                   autoComplete="off"
+                  pattern="\d*"
                 />
               </div>
               
@@ -593,16 +607,18 @@ class Timer extends Component {
                   00
                 </div>
                 <input 
-                  maxLength="2" 
+                  maxLength="2"
+                  onInput={this.handleNumberInput}
                   className="length-input"
                   id={"timer-seconds-input-" + this.state.id}
-                  type="text" 
+                  type="number"
                   value={this.state.timerSeconds} 
                   onFocus={this.handleInputFocus}
                   onBlur={this.handleInputBlur}
                   onChange={this.handleInputChange.bind(this, this.setCurrentTimeFromInput)} 
                   name="timerSeconds"
-                  autoComplete="off" 
+                  autoComplete="off"
+                  pattern="\d*"
                 />
               </div>
                
