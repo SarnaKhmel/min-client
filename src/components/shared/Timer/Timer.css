@@ -253,7 +253,7 @@
     }
 
     .pom-inputs {
-        width: 100px;
+        width: 90px;
     }
 
     .break-inputs {
@@ -261,7 +261,7 @@
     }
 
     .timer.pom h3 {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     #remove-timer-button {
