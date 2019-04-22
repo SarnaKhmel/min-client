@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './Timer.css';
 import * as actions from '../../../redux/actions';
 import uuid from 'uuid';
 import AlertDialog from '../AlertDialog/AlertDialog';
+import {postTimer} from '../../../services/timers';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
@@ -36,6 +37,38 @@ class Timer extends Component {
 
   componentDidMount() {
     this.isPomodoro();
+  }
+
+  postTimer = async () => {
+    
+    const state = this.state;
+
+    const requestObj = {
+      userId: this.props.userId,
+      id: state.id,
+      name: state.name,
+      pomLength: state.pomLength, 
+      currentTime: state.currentTime, 
+      breakLength: state.breakLength, 
+      breakTime: state.breakTime,
+      breakMinutes: state.breakMinutes,
+      longBreakLength: state.longBreakLength, 
+      longBreakTime: state.longBreakTime,
+      longBreakMinutes: state.longBreakMinutes,
+      intervalNum: state.intervalNum,
+      timerRunning: state.timerRunning,
+      timerHours: state.timerHours,
+      timerMinutes: state.timerMinutes,
+      timerSeconds: state.timerSeconds,
+      isPomodoro: state.isPomodoro,
+      isBreak: state.isBreak,
+      isLongBreak: state.isLongBreak,
+      pomCount: state.pomCount
+    };
+
+    const response = await postTimer(requestObj);
+
+    console.log(response.data);
   }
 
   // Determines if the current timer instance is a pomodoro, and sets state.isPomodoro accordingly. This triggers the conditional rendering of either a timer component or a modified pomodoro timer component
@@ -521,6 +554,7 @@ class Timer extends Component {
           handleAlertClose={this.handleAlertClose}
           isBreak={true}
         />
+        <div onClick={this.postTimer}>post timer</div>
         <div id={this.state.id} className="timer">
           <i 
             id="remove-timer-button" 

@@ -8,10 +8,10 @@ import Multitimer from './pages/Multitimer/Multitimer';
 import Pomodoro from './pages/Pomodoro/Pomodoro';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-const routes = authToken => {
+const routes = currentUser => {
     
     // Routes viewable without login
-    if (!authToken) {
+    if (!currentUser) {
         return (
             <>
                 <NavBar/>
