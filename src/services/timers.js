@@ -44,18 +44,27 @@ export const postTimer = async ({
     });
 };
 
-export const signUp = async ({name, email, password}) => {
+export const putTimer = async (timerId, timerObj) => {
     return await apiRequest({
-        path: "/users",
-        method: "POST",
-        data: {name, email, password}
+        path: "/timers/" + timerId,
+        method: "PUT",
+        data: { 
+            name: timerObj.name, 
+            isPomodoro: timerObj.isPomodoro, 
+            currentTime: timerObj.currentTime, 
+            intervalNum: timerObj.intervalNum,
+            timerHours: timerObj.timerHours,
+            timerMinutes: timerObj.timerMinutes,
+            timerSeconds: timerObj.timerSeconds,
+            breakTime: timerObj.breakTime,
+            breakLength: timerObj.breakLength,
+            breakMinutes: timerObj.breakMinutes,
+            longBreakTime: timerObj.longBreakTime,
+            longBreakLength: timerObj.longBreakLength,
+            longBreakMinutes: timerObj.longBreakMinutes,
+            isBreak: timerObj.isBreak,
+            isLongBreak: timerObj.isLongBreak,
+            pomCount: timerObj.pomCount
+        }
     });
-};
-
-export const signOut = async () => {
-    await apiRequest({
-        path: "/auth/logout",
-        method: "DELETE"
-    });
-    return null;
 };
