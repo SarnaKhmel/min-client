@@ -1,28 +1,30 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import uuid from 'uuid';
 import {connect} from 'react-redux';
 import * as actions from '../../../redux/actions';
 import './Multitimer.css';
 import Timer from '../../shared/Timer/Timer';
 import {AuthContext} from '../../shared/Auth';
-import {postTimer} from '../../../services/timers';
+import {postTimer, getMultiTimers} from '../../../services/timers';
 
 const Multitimer = (props) => {
 
   const {user} = useContext(AuthContext);
+  const [timers, setTimers] = useState([]);
 
   useEffect(() => {
     handleLoadTimers();
 }, []);
 
-  const handleLoadTimers = () => {
-    if (user.new) {
-      postTwoNewTimers();
-    }
+  const handleLoadTimers = async () => {
+    // if (user.new) {
+    //   await postTwoNewTimers();
+    // }
+    const response = await getMultiTimers(user._id);
+    await setTimers(response.data);
   };
 
   const postTwoNewTimers = async () => {
-
     const requestObj = {
       userId: user._id,
       name: "",
@@ -45,27 +47,29 @@ const Multitimer = (props) => {
     console.log("TIMER TWO", response2.data);
   }
  
-  const handleAddTimer = () => {
-    props.addTimer({
-      id: uuid(), 
+  const handleAddTimer = async () => {
+    await postTimer({ 
+      userId: user._id,
       currentTime: 0, 
       intervalNum: null,
       timerRunning: false,
       timerHours: "00",
       timerMinutes: "00",
-      timerSeconds: "00"
+      timerSeconds: "00",
+      isPomodoro: false
     });
+    handleLoadTimers();
   };
     
-  const renderTimersFromReduxStore = () => {
-  return props.timers.map(timer => <Timer userId={user._id} data={timer} key={timer.id} id={timer.id}/>);
+  const renderTimersFromState = () => {
+  return timers.map(timer => <Timer userId={user._id} data={timer} key={uuid()} id={timer._id} reload={handleLoadTimers}/>);
   };
 
   return (
       <div id="multi-wrapper">
           <div className="add-timer-button" onClick={handleAddTimer}>add a timer</div>
           <div className="timers-container">
-          {renderTimersFromReduxStore()}
+            {renderTimersFromState()}
           </div> 
       </div>
   );

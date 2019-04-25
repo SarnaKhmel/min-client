@@ -1,5 +1,19 @@
 import apiRequest from './api';
 
+export const getMultiTimers = async (userId) => {
+    return await apiRequest({
+        path: "/users/" + userId + "/multitimers",
+        method: 'GET'
+    });
+};
+
+export const getPomodoro = async (userId) => {
+    return await apiRequest({
+        path: "/users/" + userId + "/pomodoro",
+        method: 'GET'
+    });
+}
+
 export const postTimer = async ({
         userId, 
         name, 
@@ -66,5 +80,12 @@ export const putTimer = async (timerId, timerObj) => {
             isLongBreak: timerObj.isLongBreak,
             pomCount: timerObj.pomCount
         }
+    });
+};
+
+export const deleteTimer = async (timerId) => {
+    return await apiRequest({
+        path: "/timers/" + timerId,
+        method: "DELETE"
     });
 };

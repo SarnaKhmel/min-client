@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react';
 import PropTypes from 'prop-types';
 import './MenuDrawer.css';
 import { withStyles } from '@material-ui/core/styles';
+import uuid from 'uuid';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -40,7 +41,7 @@ const MenuDrawer = (props) => {
     <div className={classes.list}>
       <List>
         {['multitimer', 'pomodoro'].map((text, index) => (
-          <Link to={"/" + text}>
+          <Link to={"/" + text} key={uuid()}>
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <Icon className='far fa-clock' /> : <Icon  className='stopwatch fas fa-stopwatch' />}</ListItemIcon>
               <ListItemText primary={text} />
@@ -61,10 +62,10 @@ const MenuDrawer = (props) => {
   );
 
   const loggedOutList = (
-    <div className={classes.list}>
+    <div className={classes.list} key={uuid()}>
       <List>
         {['login', 'register'].map((text, index) => (
-          <Link to={"/" + text}>
+          <Link to={"/" + text} key={uuid()}>
             <ListItem button key={text}>
               <ListItemIcon >{index % 2 === 0 ? <Icon className='far fa-user' /> : <Icon className='fas fa-user-plus' />}</ListItemIcon>
                 <ListItemText primary={text} />

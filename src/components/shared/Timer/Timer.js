@@ -4,7 +4,7 @@ import './Timer.css';
 import * as actions from '../../../redux/actions';
 import uuid from 'uuid';
 import AlertDialog from '../AlertDialog/AlertDialog';
-import {postTimer} from '../../../services/timers';
+import {postTimer, deleteTimer} from '../../../services/timers';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
@@ -36,54 +36,34 @@ class Timer extends Component {
   }
 
   componentDidMount() {
-    this.isPomodoro();
+    this.handleTimerLoad();
   }
 
-  postTimer = async () => {
-    
-    const state = this.state;
+  handleTimerLoad = () => {
 
-    const requestObj = {
-      userId: this.props.userId,
-      id: state.id,
-      name: state.name,
-      pomLength: state.pomLength, 
-      currentTime: state.currentTime, 
-      breakLength: state.breakLength, 
-      breakTime: state.breakTime,
-      breakMinutes: state.breakMinutes,
-      longBreakLength: state.longBreakLength, 
-      longBreakTime: state.longBreakTime,
-      longBreakMinutes: state.longBreakMinutes,
-      intervalNum: state.intervalNum,
-      timerRunning: state.timerRunning,
-      timerHours: state.timerHours,
-      timerMinutes: state.timerMinutes,
-      timerSeconds: state.timerSeconds,
-      isPomodoro: state.isPomodoro,
-      isBreak: state.isBreak,
-      isLongBreak: state.isLongBreak,
-      pomCount: state.pomCount
-    };
+    const timerProps = this.props.data;
 
-    const response = await postTimer(requestObj);
-
-    console.log(response.data);
-  }
-
-  // Determines if the current timer instance is a pomodoro, and sets state.isPomodoro accordingly. This triggers the conditional rendering of either a timer component or a modified pomodoro timer component
-  isPomodoro = () => {
-    if (this.props.isPomodoro) {
-      this.setState({
-        isPomodoro: true,
-        id: uuid()
-      })
-    } else {
-      this.setState({
-        isPomodoro: false,
-        id: this.props.id
-      })
-    }
+    this.setState({
+      name: timerProps.name,
+      id: timerProps._id,
+      pomLength: timerProps.pomLength,
+      currentTime: timerProps.currentTime,
+      breakLength: timerProps.breakLength,
+      breakTime: timerProps.breakTime,
+      longBreakLength: timerProps.longBreakLength,
+      longBreakTime: timerProps.longBreakTime,
+      longBreakMinutes: timerProps.longBreakMinutes,
+      intervalNum: timerProps.intervalNum,
+      timerRunning: timerProps.timerRunning,
+      timerHours: timerProps.timerHours,
+      timerMinutes: timerProps.timerMinutes,
+      timerSeconds: timerProps.timerSeconds,
+      isPomodoro: timerProps.isPomodoro,
+      breakMinutes: timerProps.breakMinutes,
+      isBreak: timerProps.isBreak,
+      isLongBreak: timerProps.isLongBreak,
+      pomCount: timerProps.pomCount
+    })
   };
 
   renderPomClassBasedOnIsBreak = () => {
@@ -208,7 +188,7 @@ class Timer extends Component {
   // Validates the regular timer length input to ensure that it is greater than zero seconds, or validates all pomodoro inputs to ensure that each one is greater than zero seconds
   validateTimerInput = () => {
 
-    const timer = document.getElementById(this.state.id);
+    const timer = document.getElementById(this.props.data._id);
 
     if (this.state.isPomodoro) {
       if (this.state.pomLength === 0 || this.state.breakLength === 0 || this.state.longBreakLength === 0) {
@@ -380,9 +360,10 @@ class Timer extends Component {
   };
 
   // Gets timerId from parent div and removes the timer from the redux store
-  handleRemoveTimer = ({target}) => {
+  handleRemoveTimer = async ({target}) => {
     const timerId = target.parentElement.id;
-    this.props.removeTimer(timerId);
+    await deleteTimer(timerId);
+    this.props.reload();
   };
   
   // Hides the "timer name" label when user clicks on the timerName input field
@@ -554,7 +535,7 @@ class Timer extends Component {
           handleAlertClose={this.handleAlertClose}
           isBreak={true}
         />
-        <div id={this.state.id} className="timer">
+        <div id={this.props.data._id} className="timer">
           <i 
             id="remove-timer-button" 
             className="fas fa-times" 
