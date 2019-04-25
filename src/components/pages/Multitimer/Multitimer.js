@@ -14,12 +14,9 @@ const Multitimer = (props) => {
 
   useEffect(() => {
     handleLoadTimers();
-}, []);
+  }, []);
 
   const handleLoadTimers = async () => {
-    // if (user.new) {
-    //   await postTwoNewTimers();
-    // }
     const response = await getMultiTimers(user._id);
     await setTimers(response.data);
   };

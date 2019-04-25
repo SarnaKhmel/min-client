@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './Timer.css';
 import * as actions from '../../../redux/actions';
-import uuid from 'uuid';
 import AlertDialog from '../AlertDialog/AlertDialog';
-import {postTimer, deleteTimer} from '../../../services/timers';
+import {deleteTimer} from '../../../services/timers';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
@@ -35,8 +34,8 @@ class Timer extends Component {
     alertContent: ""
   }
 
-  componentDidMount() {
-    this.handleTimerLoad();
+  async componentDidMount() {
+    await this.handleTimerLoad();
   }
 
   handleTimerLoad = () => {
