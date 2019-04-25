@@ -94,15 +94,21 @@ class Timer extends Component {
   // Hides all placeholders who's values in state are not empty
   hidePlaceholders = () => {
     const hoursPlaceholder = document.getElementById("timer-hours-placeholder-" + this.state.id);
-    const minutesPlaceholder = document.getElementById("timer-minutes-placeholder-" + this.state.id);
-    const secondsPlaceholder = document.getElementById("timer-seconds-placeholder-" + this.state.id);
-    const breakMinutesPlaceholder = document.getElementById("break-minutes-placeholder-" + this.state.id);
-    const longBreakMinutesPlaceholder = document.getElementById("longBreak-minutes-placeholder-" + this.state.id);
     if (hoursPlaceholder && this.state.timerHours) hoursPlaceholder.style.display = "none";
+
+    const minutesPlaceholder = document.getElementById("timer-minutes-placeholder-" + this.state.id);
     if (minutesPlaceholder && this.state.timerMinutes) minutesPlaceholder.style.display = "none";
+
+    const secondsPlaceholder = document.getElementById("timer-seconds-placeholder-" + this.state.id);
     if (secondsPlaceholder && this.state.timerSeconds) secondsPlaceholder.style.display = "none";
+    const breakMinutesPlaceholder = document.getElementById("break-minutes-placeholder-" + this.state.id);
     if (breakMinutesPlaceholder && this.state.breakMinutes) breakMinutesPlaceholder.style.display = "none";
+
+    const longBreakMinutesPlaceholder = document.getElementById("longBreak-minutes-placeholder-" + this.state.id);
     if (longBreakMinutesPlaceholder && this.state.longBreakMinutes) longBreakMinutesPlaceholder.style.display = "none";
+
+    const label = document.getElementById('label-' + this.state.id);
+    if (label && this.state.name) label.style.display = "none";
   };
 
   // Renders the Pomodoro timer's class conditionally based on state.isBreak, thus changing the appearance of the timer
