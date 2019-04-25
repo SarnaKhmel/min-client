@@ -53,7 +53,7 @@ npm start
 
 ## Meta
 
-Sandy Edwards – [@sedwardscode](https://twitter.com/sedwardscode) – sedwardscode@gmail.com
+Sandy Edwards – [https://sandyedwards.io](https://sandyedwards.io) – sedwardscode@gmail.com
 
 [https://github.com/slowbeam](https://github.com/slowbeam)
 
