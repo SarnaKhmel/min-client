@@ -554,7 +554,6 @@ class Timer extends Component {
           handleAlertClose={this.handleAlertClose}
           isBreak={true}
         />
-        <div onClick={this.postTimer}>post timer</div>
         <div id={this.state.id} className="timer">
           <i 
             id="remove-timer-button" 
