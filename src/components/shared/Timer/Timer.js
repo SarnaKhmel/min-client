@@ -36,7 +36,6 @@ class Timer extends Component {
 
   async componentDidMount() {
     await this.handleTimerLoad();
-    console.log(this.state);
   }
 
   async componentDidUpdate() {
