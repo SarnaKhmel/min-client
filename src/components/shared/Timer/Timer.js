@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import './Timer.css';
 import * as actions from '../../../redux/actions';
 import AlertDialog from '../AlertDialog/AlertDialog';
-import {deleteTimer} from '../../../services/timers';
+import {putTimer, deleteTimer} from '../../../services/timers';
 
 import calculateAndRenderTimer from '../../../modules/timerScreen';
 
@@ -36,35 +36,77 @@ class Timer extends Component {
 
   async componentDidMount() {
     await this.handleTimerLoad();
+    console.log(this.state);
   }
 
-  handleTimerLoad = () => {
+  async componentDidUpdate() {
+    await putTimer(this.props.data._id, this.filterStateForTimerPost());
+  }
 
-    const timerProps = this.props.data;
+  // Removes unnecessary keys from state to prepare the timer object for POST to DB
+  filterStateForTimerPost = () => {
+    const rawStateCopy = Object.assign({}, this.state);
 
-    this.setState({
-      name: timerProps.name,
-      id: timerProps._id,
-      pomLength: timerProps.pomLength,
-      currentTime: timerProps.currentTime,
-      breakLength: timerProps.breakLength,
-      breakTime: timerProps.breakTime,
-      longBreakLength: timerProps.longBreakLength,
-      longBreakTime: timerProps.longBreakTime,
-      longBreakMinutes: timerProps.longBreakMinutes,
-      intervalNum: timerProps.intervalNum,
-      timerRunning: timerProps.timerRunning,
-      timerHours: timerProps.timerHours,
-      timerMinutes: timerProps.timerMinutes,
-      timerSeconds: timerProps.timerSeconds,
-      isPomodoro: timerProps.isPomodoro,
-      breakMinutes: timerProps.breakMinutes,
-      isBreak: timerProps.isBreak,
-      isLongBreak: timerProps.isLongBreak,
-      pomCount: timerProps.pomCount
-    })
+    const notAllowed = ['alertOpen', 'alertTitle', 'alertContent'];
+
+    const filtered = Object.keys(rawStateCopy)
+              .filter(key => !notAllowed.includes(key))
+              .reduce((obj, key) => {
+                obj[key] = rawStateCopy[key];
+                return obj;
+              }, {});
+    
+    filtered.userId = this.props.userId;
+
+    return filtered;
   };
 
+  // Loads the timer by setting all props.data values to state
+  handleTimerLoad = async () => {
+    const timerProps = this.props.data;
+
+    const timerObj = {
+      name: timerProps.name,
+      id: timerProps._id,
+      pomLength: timerProps.pomLength || 0,
+      currentTime: timerProps.currentTime || 0,
+      breakLength: timerProps.breakLength || 0,
+      breakTime: timerProps.breakTime || 0,
+      longBreakLength: timerProps.longBreakLength || 0,
+      longBreakTime: timerProps.longBreakTime || 0,
+      longBreakMinutes: timerProps.longBreakMinutes || "",
+      intervalNum: timerProps.intervalNum || null,
+      timerRunning: timerProps.timerRunning || false,
+      timerHours: timerProps.timerHours || "",
+      timerMinutes: timerProps.timerMinutes || "",
+      timerSeconds: timerProps.timerSeconds || "",
+      isPomodoro: timerProps.isPomodoro || false,
+      breakMinutes: timerProps.breakMinutes || "",
+      isBreak: timerProps.isBreak || false,
+      isLongBreak: timerProps.isLongBreak || false,
+      pomCount: timerProps.pomCount || 0
+    }
+
+    await this.setState(timerObj);
+    this.hidePlaceholders();
+    this.setPomLengthFromInput();
+  };
+
+  // Hides all placeholders who's values in state are not empty
+  hidePlaceholders = () => {
+    const hoursPlaceholder = document.getElementById("timer-hours-placeholder-" + this.state.id);
+    const minutesPlaceholder = document.getElementById("timer-minutes-placeholder-" + this.state.id);
+    const secondsPlaceholder = document.getElementById("timer-seconds-placeholder-" + this.state.id);
+    const breakMinutesPlaceholder = document.getElementById("break-minutes-placeholder-" + this.state.id);
+    const longBreakMinutesPlaceholder = document.getElementById("longBreak-minutes-placeholder-" + this.state.id);
+    if (hoursPlaceholder && this.state.timerHours) hoursPlaceholder.style.display = "none";
+    if (minutesPlaceholder && this.state.timerMinutes) minutesPlaceholder.style.display = "none";
+    if (secondsPlaceholder && this.state.timerSeconds) secondsPlaceholder.style.display = "none";
+    if (breakMinutesPlaceholder && this.state.breakMinutes) breakMinutesPlaceholder.style.display = "none";
+    if (longBreakMinutesPlaceholder && this.state.longBreakMinutes) longBreakMinutesPlaceholder.style.display = "none";
+  };
+
+  // Renders the Pomodoro timer's class conditionally based on state.isBreak, thus changing the appearance of the timer
   renderPomClassBasedOnIsBreak = () => {
     return this.state.isBreak ? "timer pom break" : "timer pom";
   };
@@ -198,7 +240,7 @@ class Timer extends Component {
         return true;
       }
     } else {
-      if (this.state.pomLength === 0 && this.state.breakLength === 0){
+      if (this.state.pomLength === 0){
         timer.lastChild.style.display = "block";
         return false;
       } else {
@@ -276,6 +318,14 @@ class Timer extends Component {
       pomLength: timerLength
     });
   };
+
+  // Sets pom length from the input values loaded from DB
+  setPomLengthFromInput = () => {
+    const timerLength = this.calculateTimeIntegerFromInputLength();
+    this.setState({
+      pomLength: timerLength
+    });
+  }
 
   // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
   setStateFromMinuteInput = (statePortion) => {

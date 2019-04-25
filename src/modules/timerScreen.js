@@ -41,6 +41,9 @@ const calculateAndRenderTimer = (currentTime, intervalNum) => {
       else if (hours < 10 && hourMinutes < 10) {
         return "0" + hours + ":0" + hourMinutes + ":" + hourSeconds;
       }
+      else if (hours < 10 && hourSeconds < 10) {
+        return "0" + hours + ":" + hourMinutes + ":" + "0" + hourSeconds;
+      }
       else if (hours < 10) {
         return "0" + hours + ":" + hourMinutes + ":" + hourSeconds;
       }

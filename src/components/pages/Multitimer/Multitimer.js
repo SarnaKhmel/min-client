@@ -20,29 +20,6 @@ const Multitimer = (props) => {
     const response = await getMultiTimers(user._id);
     await setTimers(response.data);
   };
-
-  const postTwoNewTimers = async () => {
-    const requestObj = {
-      userId: user._id,
-      name: "",
-      isPomodoro: false,
-      currentTime: 0, 
-      intervalNum: null,
-      timerRunning: false,
-      timerHours: "",
-      timerMinutes: "",
-      timerSeconds: "",
-      
-    };
-
-    const response = await postTimer(requestObj);
-
-    console.log("TIMER ONE", response.data);
-
-    const response2 = await postTimer(requestObj);
-
-    console.log("TIMER TWO", response2.data);
-  }
  
   const handleAddTimer = async () => {
     await postTimer({ 
@@ -59,7 +36,12 @@ const Multitimer = (props) => {
   };
     
   const renderTimersFromState = () => {
-  return timers.map(timer => <Timer userId={user._id} data={timer} key={uuid()} id={timer._id} reload={handleLoadTimers}/>);
+    if (!timers) {
+      return "loading..."
+    }
+
+    return timers.map(timer => <Timer userId={user._id} data={timer} key={uuid()} id={timer._id} reload={handleLoadTimers}/>);
+  
   };
 
   return (
