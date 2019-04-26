@@ -18,7 +18,7 @@ class AlertDialog extends React.Component {
   };
 
   generateAlertTitleClassFromProps = () => {
-      return this.props.isBreak ? "alert-dialog-title-break" : "alert-dialog-title";
+      return this.props.isShortBreak ? "alert-dialog-title-break" : "alert-dialog-title";
   } 
 
   render() {

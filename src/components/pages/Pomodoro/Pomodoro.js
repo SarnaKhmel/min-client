@@ -19,23 +19,23 @@ const Pomodoro = () => {
             const newPomodoro = await postTimer({
                 userId: user._id,
                 name: "",
-                pomLength: 0,
+                timerLength: 0,
                 currentTime: 0,
-                breakLength: 0,
-                breakTime: 0,
+                shortBreakLength: 0,
+                shortBreakTime: 0,
                 longBreakLength: 0,
                 longBreakTime: 0,
-                longBreakMinutes: "",
-                intervalNum: null,
+                longBreakMinuteInput: "",
+                intervalNumber: null,
                 timerRunning: false,
-                timerHours: "",
-                timerMinutes: "",
-                timerSeconds: "",
+                hourInput: "",
+                minuteInput: "",
+                secondInput: "",
                 isPomodoro: true,
-                breakMinutes: "",
-                isBreak: false,
+                shortBreakMinuteInput: "",
+                isShortBreak: false,
                 isLongBreak: false,
-                pomCount: 0
+                pomodoroCounter: 0
                 });
                 await setPomodoro(newPomodoro);
                 return;

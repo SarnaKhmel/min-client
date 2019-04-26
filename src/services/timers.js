@@ -19,19 +19,19 @@ export const postTimer = async ({
         name, 
         isPomodoro, 
         currentTime, 
-        intervalNum,
-        timerHours,
-        timerMinutes,
-        timerSeconds,
-        breakTime,
-        breakLength,
-        breakMinutes,
+        intervalNumber,
+        hourInput,
+        minuteInput,
+        secondInput,
+        shortBreakTime,
+        shortBreakLength,
+        shortBreakMinuteInput,
         longBreakTime,
         longBreakLength,
-        longBreakMinutes,
-        isBreak,
+        longBreakMinuteInput,
+        isShortBreak,
         isLongBreak,
-        pomCount
+        pomodoroCounter
     }) => {
     return await apiRequest({
         path: "/timers",
@@ -41,24 +41,24 @@ export const postTimer = async ({
             name, 
             isPomodoro, 
             currentTime, 
-            intervalNum,
-            timerHours,
-            timerMinutes,
-            timerSeconds,
-            breakTime,
-            breakLength,
-            breakMinutes,
+            intervalNumber,
+            hourInput,
+            minuteInput,
+            secondInput,
+            shortBreakTime,
+            shortBreakLength,
+            shortBreakMinuteInput,
             longBreakTime,
             longBreakLength,
-            longBreakMinutes,
-            isBreak,
+            longBreakMinuteInput,
+            isShortBreak,
             isLongBreak,
-            pomCount
+            pomodoroCounter
         }
     });
 };
 
-export const putTimer = async (timerId, timerObj) => {
+export const updateTimer = async (timerId, timerObj) => {
     return await apiRequest({
         path: "/timers/" + timerId,
         method: "PUT",
@@ -66,19 +66,19 @@ export const putTimer = async (timerId, timerObj) => {
             name: timerObj.name, 
             isPomodoro: timerObj.isPomodoro, 
             currentTime: timerObj.currentTime, 
-            intervalNum: timerObj.intervalNum,
-            timerHours: timerObj.timerHours,
-            timerMinutes: timerObj.timerMinutes,
-            timerSeconds: timerObj.timerSeconds,
-            breakTime: timerObj.breakTime,
-            breakLength: timerObj.breakLength,
-            breakMinutes: timerObj.breakMinutes,
+            intervalNumber: timerObj.intervalNumber,
+            hourInput: timerObj.hourInput,
+            minuteInput: timerObj.minuteInput,
+            secondInput: timerObj.secondInput,
+            shortBreakTime: timerObj.shortBreakTime,
+            shortBreakLength: timerObj.shortBreakLength,
+            shortBreakMinuteInput: timerObj.shortBreakMinuteInput,
             longBreakTime: timerObj.longBreakTime,
             longBreakLength: timerObj.longBreakLength,
-            longBreakMinutes: timerObj.longBreakMinutes,
-            isBreak: timerObj.isBreak,
+            longBreakMinuteInput: timerObj.longBreakMinuteInput,
+            isShortBreak: timerObj.isShortBreak,
             isLongBreak: timerObj.isLongBreak,
-            pomCount: timerObj.pomCount
+            pomodoroCounter: timerObj.pomodoroCounter
         }
     });
 };

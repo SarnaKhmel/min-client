@@ -1,5 +1,5 @@
 // Takes timer component's state.currentTime and translates it into the proper format for the timer screen
-const calculateAndRenderTimer = (currentTime, intervalNum) => {
+const calculateAndRenderTimer = (currentTime, intervalNumber) => {
     
     const minutes = Math.floor(currentTime / 60);
     const seconds = currentTime - (minutes * 60);
@@ -65,7 +65,7 @@ const calculateAndRenderTimer = (currentTime, intervalNum) => {
 
     }
     else { 
-      clearInterval(intervalNum);
+      clearInterval(intervalNumber);
       return "24:00:00"
     }
   };

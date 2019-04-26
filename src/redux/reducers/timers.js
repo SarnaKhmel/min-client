@@ -5,20 +5,20 @@ const defaultState = {
         {
             id: uuid(), 
             currentTime: 0, 
-            intervalNum: null,
+            intervalNumber: null,
             timerRunning: false,
-            timerHours: "00",
-            timerMinutes: "00",
-            timerSeconds: "00"
+            hourInput: "00",
+            minuteInput: "00",
+            secondInput: "00"
         },
         {
             id: uuid(), 
             currentTime: 0, 
-            intervalNum: null,
+            intervalNumber: null,
             timerRunning: false,
-            timerHours: "00",
-            timerMinutes: "00",
-            timerSeconds: "00"
+            hourInput: "00",
+            minuteInput: "00",
+            secondInput: "00"
         }
     ]
 };
