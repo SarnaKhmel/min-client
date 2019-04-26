@@ -101,7 +101,7 @@ class Timer extends Component {
     const timerID = this.props.data._id;
     const currentTimerObject = this.filterStateForTimerPost();
     await updateTimer(timerID, currentTimerObject);
-  }
+  };
 
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
   handleStartClick = () => {
@@ -282,19 +282,19 @@ class Timer extends Component {
     const placeholder = this.findPlaceholderFromInput(target);
     if (this.state[fieldName] === "") placeholder.style.display = "block";
     else placeholder.style.display = "none";
-  }
+  };
   
   // Hides the "timer name" label when user clicks on the timerName input field
   handleNameFocus = () => {
     const label = document.getElementById('label-' + this.state.id);
     label.style.display = "none";
-  }
+  };
 
   // Shows the "timer name" label when user focus leaves the timerName input field, if state.name is blank
   handleNameUnfocus = () => {
     const label = document.getElementById('label-' + this.state.id);
     if (this.state.name === "") label.style.display = "block";
-  }
+  };
 
   // Closes the timer alertDialog window
   handleAlertClose = () => {
@@ -317,7 +317,7 @@ class Timer extends Component {
     fieldNameWordTwoArray[0] = fieldNameWordTwoArray[0].toUpperCase();
     fieldNameArray[1] = fieldNameWordTwoArray.join("");
     return fieldNameArray.join("");
-  }
+  };
 
   // Hides all input placeholder divs who's corresponding values in state are not empty
   hidePlaceholders = () => {
