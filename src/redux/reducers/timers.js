@@ -7,18 +7,18 @@ const defaultState = {
             currentTime: 0, 
             intervalNumber: null,
             timerRunning: false,
-            hourInput: "00",
-            minuteInput: "00",
-            secondInput: "00"
+            hours: "00",
+            minutes: "00",
+            seconds: "00"
         },
         {
             id: uuid(), 
             currentTime: 0, 
             intervalNumber: null,
             timerRunning: false,
-            hourInput: "00",
-            minuteInput: "00",
-            secondInput: "00"
+            hours: "00",
+            minutes: "00",
+            seconds: "00"
         }
     ]
 };

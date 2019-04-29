@@ -13,10 +13,10 @@ const Multitimer = (props) => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
-    handleLoadTimers();
+    getTimersFromDB();
   }, []);
 
-  const handleLoadTimers = async () => {
+  const getTimersFromDB = async () => {
     const response = await getMultiTimers(user._id);
     await setTimers(response.data);
   };
@@ -27,12 +27,12 @@ const Multitimer = (props) => {
       currentTime: 0, 
       intervalNumber: null,
       timerRunning: false,
-      hourInput: "00",
-      minuteInput: "00",
-      secondInput: "00",
+      hours: "",
+      minutes: "",
+      seconds: "",
       isPomodoro: false
     });
-    handleLoadTimers();
+    getTimersFromDB();
   };
     
   const renderTimersFromState = () => {
@@ -40,7 +40,7 @@ const Multitimer = (props) => {
       return "loading..."
     }
 
-    return timers.map(timer => <Timer userId={user._id} data={timer} key={uuid()} id={timer._id} reload={handleLoadTimers}/>);
+    return timers.map(timer => <Timer userId={user._id} data={timer} key={uuid()} id={timer._id} reload={getTimersFromDB}/>);
   
   };
 
