@@ -29,7 +29,7 @@ export const postTimer = async ({
         longBreakTime,
         longBreakLength,
         longBreakMinutes,
-        isShortBreak,
+        isBreak,
         isLongBreak,
         pomodoroCounter
     }) => {
@@ -51,7 +51,7 @@ export const postTimer = async ({
             longBreakTime,
             longBreakLength,
             longBreakMinutes,
-            isShortBreak,
+            isBreak,
             isLongBreak,
             pomodoroCounter
         }
@@ -76,7 +76,7 @@ export const updateTimer = async (timerId, timerObj) => {
             longBreakTime: timerObj.longBreakTime,
             longBreakLength: timerObj.longBreakLength,
             longBreakMinutes: timerObj.longBreakMinutes,
-            isShortBreak: timerObj.isShortBreak,
+            isBreak: timerObj.isBreak,
             isLongBreak: timerObj.isLongBreak,
             pomodoroCounter: timerObj.pomodoroCounter
         }

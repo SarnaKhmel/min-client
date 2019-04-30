@@ -10,7 +10,7 @@ class Timer extends Component {
     id: this.props.data._id,
     name: "",
     isPomodoro: false,
-    isShortBreak: false,
+    isBreak: false,
     isLongBreak: false,
     timerRunning: false,
     intervalNumber: null,
@@ -43,7 +43,11 @@ class Timer extends Component {
 
    // Sets state.timerLength from the input values loaded from DB
    setTimerLengthFromInput = () => {
-    const timerLength = this.calculateTimeIntegerFromSumOfInputs();
+    const timerLength = this.calculateTimeIntegerFromSumOfInputs(
+      this.state.hours,
+      this.state.minutes,
+      this.state.seconds
+    );
     this.setState({
       timerLength: timerLength
     });
@@ -93,15 +97,161 @@ class Timer extends Component {
     await updateTimer(timerID, currentTimerObject);
   };
 
+   // Callback function for MultiTimer
+   multiTimerCallBack = (currentTime, timerRunning) => {
+    if (currentTime && timerRunning) {
+      return this.setState({
+        currentTime: this.state.currentTime - 1
+      });  
+    }
+    
+    const alarm = new Audio(require('./audio/chime.wav'));
+    alarm.play();
+    this.setState({
+      alertOpen: true,
+      alertTitle: "time's up!",
+      alertContent: `your ${this.state.name} timer has finished`
+    })
+    this.handleStopClick();
+  }
+
+  // Callback function for when Pomodoro timer is running, not in a break
+  pomodoroTimerHandler = (currentTime, timerRunning) => {
+    if (currentTime && timerRunning) {
+      return this.setState({
+        currentTime: this.state.currentTime - 1
+      });
+    }
+
+    const alarm = new Audio(require('./audio/chime.wav'));
+    alarm.play();
+    this.setState({
+      isBreak: true,
+      shortBreakTime: this.state.shortBreakLength,
+      longBreakTime: this.state.longBreakLength,
+      pomodoroCounter: this.state.pomodoroCounter + 1,
+      alertOpen: true,
+      alertTitle: "short break time!",
+      alertContent: `time for a ${this.convertSecondsToMinutes(this.state.shortBreakLength)} minute break`
+    });   
+  }
+
+  // Callback function for when Pomodoro has reached a short break
+  pomodoroShortBreakHandler = (shortBreakTime, timerRunning) => {
+    if (shortBreakTime && timerRunning) {
+      return this.setState({
+        shortBreakTime: shortBreakTime - 1
+      })
+    }
+    
+    const alarm = new Audio(require('./audio/chime.wav'));
+    alarm.play();
+    this.setState({
+      isBreak: false,
+      currentTime: this.state.timerLength,
+      alertOpen: true,
+      alertTitle: "break's over!",
+      alertContent: "time to get back to work"
+    });
+  }
+
+  // Callback function for when Pomodoro has reached a long break
+  pomodoroLongBreakHandler = async (longBreakLength, longBreakTime, timerRunning) => {
+    await this.setState({
+      isLongBreak: true
+    });
+
+    if (longBreakLength === longBreakTime) {
+      this.setState({
+        alertOpen: true,
+        alertTitle: "long break time!",
+        alertContent: `time for a ${this.convertSecondsToMinutes(longBreakLength)} minute break`
+      });
+    }
+
+    if (longBreakTime && timerRunning) {
+      return this.setState({
+        longBreakTime: longBreakTime - 1
+      });
+    }
+    
+    const alarm = new Audio(require('./audio/chime.wav'));
+    alarm.play();
+    this.setState({
+      isBreak: false,
+      isLongBreak: false,
+      currentTime: this.state.timerLength,
+      alertOpen: true,
+      alertTitle: "break's over!",
+      alertContent: "time to get back to work"
+    });
+  };
+
+  // Callback function for Pomodoro
+  pomodoroCallback = (currentTime, isBreak, shortBreakTime, longBreakTime, longBreakLength, timerRunning, pomodoroCounter) => {
+    if (!isBreak) {
+      return this.pomodoroTimerHandler(currentTime, timerRunning);
+    }
+
+    const isNowLongBreak = pomodoroCounter % 4 === 0;
+    if (!isNowLongBreak) {
+      return this.pomodoroShortBreakHandler(shortBreakTime, timerRunning);
+    } 
+
+    this.pomodoroLongBreakHandler(longBreakLength, longBreakTime, timerRunning);
+  };
+
+  // Callback function for the timer setInterval started by handleStartClick
+  // Handles all scenarios for Multitimer or Pomodoro function
+  timerCallback = async (
+    currentTime, 
+    isBreak, 
+    shortBreakTime, 
+    longBreakTime, 
+    longBreakLength, 
+    timerRunning, 
+    pomodoroCounter
+    ) => {
+
+      if (!this.state.isPomodoro) {
+        return this.multiTimerCallBack(currentTime, timerRunning);
+      }
+
+      this.pomodoroCallback(
+        currentTime, 
+        isBreak, 
+        shortBreakTime, 
+        longBreakTime, 
+        longBreakLength, 
+        timerRunning,
+        pomodoroCounter
+      );       
+  };
+
   // Handles click event for start button by beginning a setInterval call and setting the interval number to state and setting state.timerRunning to true
-  handleStartClick = () => {
+  handleStartClick = async () => {
     const valid = this.validateTimerInput();
     if (!valid) return;
-    const timer = setInterval(this.timerCallback, 1000);
-    this.setState({
-      intervalNumber: timer,
+
+    await this.setState({
       timerRunning: true
-    })  
+    });
+
+    const timer = setInterval(
+      () => this.timerCallback(
+        this.state.currentTime, 
+        this.state.isBreak, 
+        this.state.shortBreakTime, 
+        this.state.longBreakTime, 
+        this.state.longBreakLength, 
+        this.state.timerRunning,
+        this.state.pomodoroCounter
+      ), 
+      1000
+    );
+    this.setState({
+      intervalNumber: timer
+    });  
   };
 
   // Handles click event for stop button by clearing the timer interval and setting state.timerRunning to false
@@ -161,27 +311,82 @@ class Timer extends Component {
   };
 
   // Calculates the number of seconds equivalent to the total of the inputted hours, minutes and seconds
-  calculateTimeIntegerFromSumOfInputs = () => {
-    let hoursToSeconds = parseInt(this.state.hours) * 3600;
-    let minutesToSeconds = parseInt(this.state.minutes) * 60;
-    let seconds = parseInt(this.state.seconds);
+  calculateTimeIntegerFromSumOfInputs = (hours = "", minutes = "", seconds = "") => {
+    let hoursToSeconds = parseInt(hours) * 3600;
+    let minutesToSeconds = parseInt(minutes) * 60;
+    let secondsToSeconds = parseInt(seconds);
 
-    if (this.state.hours === "") {
+    if (hours === "") {
       hoursToSeconds = 0;
     }
-    if (this.state.minutes === "") {
+    if (minutes === "") {
       minutesToSeconds = 0;
     }
-    if (this.state.seconds === "") {
-      seconds = 0;
+    if (seconds === "") {
+      secondsToSeconds = 0;
     }
-    return hoursToSeconds + minutesToSeconds + seconds;
+    return hoursToSeconds + minutesToSeconds + secondsToSeconds;
   };
 
-  // Calculates the number of seconds equivalent to an inputted amount of minutes, used only in Pomodoro timer
-  calculateTimeIntegerFromMinutes = (inputMinutes) => {
-    if (!inputMinutes || inputMinutes === "") return 0;
-    return parseInt(inputMinutes) * 60;
+   // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
+   setStateFromMinutes = (statePortion) => {
+    let time; 
+    switch (statePortion) {
+      case "currentTime":
+        time = this.calculateTimeIntegerFromSumOfInputs(
+          "",
+          this.state.minutes,
+          ""
+        );
+
+        this.setState({
+          timerLength: time,
+          currentTime: time
+        });
+        break;
+
+      case "shortBreakTime":
+        time = this.calculateTimeIntegerFromSumOfInputs(
+          "", 
+          this.state.shortBreakMinutes,
+          ""
+        );
+
+        this.setState({
+          shortBreakLength: time,
+          shortBreakTime: time
+        });
+        break;
+
+      case "longBreakTime":
+        time = this.calculateTimeIntegerFromSumOfInputs(
+          "",
+          this.state.longBreakMinutes,
+          ""
+        );
+
+        this.setState({
+          longBreakLength: time,
+          longBreakTime: time
+        });
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
+  setCurrentTimeFromInput = () => {
+    const timerLength = this.calculateTimeIntegerFromSumOfInputs(
+      this.state.hours,
+      this.state.minutes,
+      this.state.seconds
+    );
+    this.setState({
+      currentTime: timerLength,
+      timerLength: timerLength
+    });
   };
 
   // Sets the state for timer hours, minutes and seconds based on the user's input
@@ -191,60 +396,21 @@ class Timer extends Component {
     }, callback)
   };
 
-  // Callback for handleInputChange that sets the given portion of state equal to the provided minutes value calculated in seconds format
-  setStateFromMinutes = (statePortion) => {
-    let time; 
-    switch (statePortion) {
-      case "currentTime":
-        time = this.calculateTimeIntegerFromMinutes(this.state.minutes);
-        this.setState({
-          timerLength: time,
-          currentTime: time
-        });
-        break;
-      case "shortBreakTime":
-        time = this.calculateTimeIntegerFromMinutes(this.state.shortBreakMinutes);
-        this.setState({
-          shortBreakLength: time,
-          shortBreakTime: time
-        });
-        break;
-      case "longBreakTime":
-        time = this.calculateTimeIntegerFromMinutes(this.state.longBreakMinutes);
-        this.setState({
-          longBreakLength: time,
-          longBreakTime: time
-        });
-        break;
-      default:
-        return;
-    }
-  };
-
-  // Callback for handleInputChange that sets state.currentTime to match the inputted timer length
-  setCurrentTimeFromInput = () => {
-    const timerLength = this.calculateTimeIntegerFromSumOfInputs();
-    this.setState({
-      currentTime: timerLength,
-      timerLength: timerLength
-    });
-  };
-
-  // Conditionally renders the amount of seconds remaining on the timer screen dependent on state.isShortBreak and state.isLongBreak. Used only in Pomodoro timer
-  renderPomodoroBreakTime = () => {
-    if (this.state.isShortBreak && this.state.isLongBreak) {
+  // Conditionally renders the amount of seconds remaining on the Pomodoro screen dependent on state.isBreak and state.isLongBreak
+  renderPomodoroScreen = () => {
+    if (this.state.isBreak && this.state.isLongBreak) {
       return calculateAndRenderTimer(this.state.longBreakTime, this.state.intervalNumber);
     }
-    else if (this.state.isShortBreak) {
+    else if (this.state.isBreak) {
       return calculateAndRenderTimer(this.state.shortBreakTime, this.state.intervalNumber);
     } else {
       return calculateAndRenderTimer(this.state.currentTime, this.state.intervalNumber);
     }
   };
 
-  // Renders the Pomodoro timer's class conditionally based on state.isShortBreak, thus changing the appearance of the timer
+  // Renders the Pomodoro timer's class conditionally based on state.isBreak, thus changing the appearance of the timer
   renderPomodoroClass = () => {
-    return this.state.isShortBreak ? "timer pom break" : "timer pom";
+    return this.state.isBreak ? "timer pom break" : "timer pom";
   };
 
   // Hides the timer input placeholder div on focus
@@ -298,92 +464,6 @@ class Timer extends Component {
     return Math.round(input / 60);
   };
 
-  // This method runs each time the timer interval is completed to either decrease state.currentTime by one and allow the timer to count down, or trigger the alarm if state.timerRunning is true and the timer has reached 0
-  timerCallback = async () => {
-    if(this.state.isPomodoro) {
-      if (this.state.isShortBreak) {
-        if (this.state.pomodoroCounter % 4 === 0) {
-          await this.setState({
-            isLongBreak: true
-          });
-          if (this.state.longBreakLength === this.state.longBreakTime) {
-            this.setState({
-              alertOpen: true,
-              alertTitle: "long break time!",
-              alertContent: `time for a ${this.convertSecondsToMinutes(this.state.longBreakLength)} minute break`
-            });
-          }
-          if (this.state.longBreakTime === 0 && this.state.timerRunning === true) {
-            const alarm = new Audio(require('./audio/chime.wav'));
-            alarm.play();
-            this.setState({
-              isShortBreak: false,
-              isLongBreak: false,
-              currentTime: this.state.timerLength,
-              alertOpen: true,
-              alertTitle: "break's over!",
-              alertContent: "time to get back to work"
-            });
-          }  else {
-            this.setState({
-              longBreakTime: this.state.longBreakTime - 1
-            })
-          }
-        } else {
-          if (this.state.shortBreakTime === 0 && this.state.timerRunning === true) {
-            const alarm = new Audio(require('./audio/chime.wav'));
-            alarm.play();
-            this.setState({
-              isShortBreak: false,
-              currentTime: this.state.timerLength,
-              alertOpen: true,
-              alertTitle: "break's over!",
-              alertContent: "time to get back to work"
-            });
-          }  else {
-            this.setState({
-              shortBreakTime: this.state.shortBreakTime - 1
-            })
-          }
-        }   
-      }
-      else {
-        if (this.state.currentTime === 0 && this.state.timerRunning === true) {
-          const alarm = new Audio(require('./audio/chime.wav'));
-          alarm.play();
-          this.setState({
-            isShortBreak: true,
-            shortBreakTime: this.state.shortBreakLength,
-            longBreakTime: this.state.longBreakLength,
-            pomodoroCounter: this.state.pomodoroCounter + 1,
-            alertOpen: true,
-            alertTitle: "short break time!",
-            alertContent: `time for a ${this.convertSecondsToMinutes(this.state.shortBreakLength)} minute break`
-          });
-        }  else {
-          this.setState({
-            currentTime: this.state.currentTime - 1
-          })
-        }
-      }
-    } else {
-      if (this.state.currentTime === 0 && this.state.timerRunning === true) {
-        const alarm = new Audio(require('./audio/chime.wav'));
-        alarm.play();
-        this.setState({
-          alertOpen: true,
-          alertTitle: "time's up!",
-          alertContent: `your ${this.state.name} timer has finished`
-        })
-        this.handleStopClick();
-      }  else {
-        this.setState({
-          currentTime: this.state.currentTime - 1
-        })
-      }
-    }       
-  };
-
   // Conditionally renders a normal timer or pomodoro dependent on state.isPomodoro
   render() {
     if (this.state.isPomodoro) {
@@ -394,7 +474,7 @@ class Timer extends Component {
           title={this.state.alertTitle} 
           content={this.state.alertContent} 
           handleAlertClose={this.handleAlertClose}
-          isShortBreak={this.state.isShortBreak}
+          isBreak={this.state.isBreak}
         />
         <div id={this.state.id} className={this.renderPomodoroClass()}>
           <div className="timer-name-wrapper">
@@ -413,7 +493,7 @@ class Timer extends Component {
               onBlur={this.handleInputBlur}
             />
           </div>
-          <div className="timer-counter">{this.renderPomodoroBreakTime()}</div>
+          <div className="timer-counter">{this.renderPomodoroScreen()}</div>
           <div className="pom-input-container">
           
             <div className="pom-inputs">
@@ -529,7 +609,7 @@ class Timer extends Component {
           title={this.state.alertTitle} 
           content={this.state.alertContent} 
           handleAlertClose={this.handleAlertClose}
-          isShortBreak={true}
+          isBreak={true}
         />
         <div id={this.props.data._id} className="timer">
           <i 

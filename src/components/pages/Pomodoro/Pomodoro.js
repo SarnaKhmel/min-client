@@ -33,7 +33,7 @@ const Pomodoro = () => {
                 seconds: "",
                 isPomodoro: true,
                 shortBreakMinutes: "",
-                isShortBreak: false,
+                isBreak: false,
                 isLongBreak: false,
                 pomodoroCounter: 0
                 });
