@@ -51,7 +51,7 @@ class Timer extends Component {
     this.setState({
       timerLength: timerLength
     });
-  }
+  };
 
   // Loads the timer by setting all truthy props.data values to state
   storeTimerPropsInState = async () => {
@@ -113,7 +113,7 @@ class Timer extends Component {
       alertContent: `your ${this.state.name} timer has finished`
     })
     this.handleStopClick();
-  }
+  };
 
   // Callback function for when Pomodoro timer is running, not in a break
   pomodoroTimerHandler = (currentTime, timerRunning) => {
@@ -134,7 +134,7 @@ class Timer extends Component {
       alertTitle: "short break time!",
       alertContent: `time for a ${this.convertSecondsToMinutes(this.state.shortBreakLength)} minute break`
     });   
-  }
+  };
 
   // Callback function for when Pomodoro has reached a short break
   pomodoroShortBreakHandler = (shortBreakTime, timerRunning) => {
@@ -153,7 +153,7 @@ class Timer extends Component {
       alertTitle: "break's over!",
       alertContent: "time to get back to work"
     });
-  }
+  };
 
   // Callback function for when Pomodoro has reached a long break
   pomodoroLongBreakHandler = async (longBreakLength, longBreakTime, timerRunning) => {
@@ -338,33 +338,28 @@ class Timer extends Component {
           this.state.minutes,
           ""
         );
-
         this.setState({
           timerLength: time,
           currentTime: time
         });
         break;
-
       case "shortBreakTime":
         time = this.calculateTimeIntegerFromSumOfInputs(
           "", 
           this.state.shortBreakMinutes,
           ""
         );
-
         this.setState({
           shortBreakLength: time,
           shortBreakTime: time
         });
         break;
-
       case "longBreakTime":
         time = this.calculateTimeIntegerFromSumOfInputs(
           "",
           this.state.longBreakMinutes,
           ""
         );
-
         this.setState({
           longBreakLength: time,
           longBreakTime: time
